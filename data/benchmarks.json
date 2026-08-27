@@ -1,0 +1,1269 @@
+{
+  "_readme": "Base de referencia de performance usada para calcular custo-beneficio (score/preco). Os scores de CPU e GPU sao figuras aproximadas de indices publicos amplamente divulgados (PassMark CPU Mark e PassMark G3D / indice relativo de GPU), compiladas e calibradas manualmente -- nao um scrape ao vivo desses sites (eles carregam a tabela via JS e nao expoem uma API publica estavel). Recomenda-se revisar/atualizar esses numeros periodicamente em cpubenchmark.net e videocardbenchmark.net. As chaves (model_key) sao casadas com o campo specs.model_key extraido pelo scraper a partir do nome do produto. Cada entrada de 'chipsets' (e o fallback 'socket_max_ram_mhz') tambem traz max_ram_mhz: a velocidade de RAM tipica/recomendada para aquela plataforma (JEDEC oficial + margem de XMP/EXPO comum), usada em js/builder.js para nao escolher uma RAM mais rapida do que a plataforma aproveita (ou mais lenta do que ela suporta bem) na hora de montar uma build.",
+  "generated_reference_date": "2026-08",
+  "cpu": {
+    "i3-10100f": {
+      "score": 8400,
+      "socket": "LGA1200",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i3-10100": {
+      "score": 8700,
+      "socket": "LGA1200",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i5-10400f": {
+      "score": 12300,
+      "socket": "LGA1200",
+      "cores": 6,
+      "brand": "Intel"
+    },
+    "i5-10400": {
+      "score": 12550,
+      "socket": "LGA1200",
+      "cores": 6,
+      "brand": "Intel"
+    },
+    "i5-10600kf": {
+      "score": 14350,
+      "socket": "LGA1200",
+      "cores": 6,
+      "brand": "Intel"
+    },
+    "i7-10700f": {
+      "score": 17600,
+      "socket": "LGA1200",
+      "cores": 8,
+      "brand": "Intel"
+    },
+    "i7-10700k": {
+      "score": 18300,
+      "socket": "LGA1200",
+      "cores": 8,
+      "brand": "Intel"
+    },
+    "i9-10900k": {
+      "score": 20900,
+      "socket": "LGA1200",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i3-12100": {
+      "score": 12950,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i3-12100f": {
+      "score": 12850,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i5-12400": {
+      "score": 18810,
+      "socket": "LGA1700",
+      "cores": 6,
+      "brand": "Intel"
+    },
+    "i5-12400f": {
+      "score": 18600,
+      "socket": "LGA1700",
+      "cores": 6,
+      "brand": "Intel"
+    },
+    "i5-12600k": {
+      "score": 22400,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i5-12600kf": {
+      "score": 22300,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i7-12700": {
+      "score": 25650,
+      "socket": "LGA1700",
+      "cores": 12,
+      "brand": "Intel"
+    },
+    "i7-12700f": {
+      "score": 25500,
+      "socket": "LGA1700",
+      "cores": 12,
+      "brand": "Intel"
+    },
+    "i7-12700k": {
+      "score": 27800,
+      "socket": "LGA1700",
+      "cores": 12,
+      "brand": "Intel"
+    },
+    "i9-12900k": {
+      "score": 33500,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i9-12900ks": {
+      "score": 34800,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i3-13100": {
+      "score": 15300,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i3-13100f": {
+      "score": 15200,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i5-13400": {
+      "score": 22900,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i5-13400f": {
+      "score": 22750,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i5-13500": {
+      "score": 25400,
+      "socket": "LGA1700",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "i5-13600k": {
+      "score": 30200,
+      "socket": "LGA1700",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "i5-13600kf": {
+      "score": 30050,
+      "socket": "LGA1700",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "i7-13700": {
+      "score": 33800,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i7-13700f": {
+      "score": 33650,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i7-13700k": {
+      "score": 40700,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i7-13700kf": {
+      "score": 40550,
+      "socket": "LGA1700",
+      "cores": 16,
+      "brand": "Intel"
+    },
+    "i9-13900k": {
+      "score": 47100,
+      "socket": "LGA1700",
+      "cores": 24,
+      "brand": "Intel"
+    },
+    "i9-13900kf": {
+      "score": 46950,
+      "socket": "LGA1700",
+      "cores": 24,
+      "brand": "Intel"
+    },
+    "i3-14100": {
+      "score": 15600,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i3-14100f": {
+      "score": 15500,
+      "socket": "LGA1700",
+      "cores": 4,
+      "brand": "Intel"
+    },
+    "i5-14400": {
+      "score": 23200,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i5-14400f": {
+      "score": 23050,
+      "socket": "LGA1700",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "i5-14600k": {
+      "score": 32200,
+      "socket": "LGA1700",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "i5-14600kf": {
+      "score": 32050,
+      "socket": "LGA1700",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "i7-14700": {
+      "score": 36600,
+      "socket": "LGA1700",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "i7-14700f": {
+      "score": 36450,
+      "socket": "LGA1700",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "i7-14700k": {
+      "score": 42600,
+      "socket": "LGA1700",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "i7-14700kf": {
+      "score": 42450,
+      "socket": "LGA1700",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "i9-14900k": {
+      "score": 49200,
+      "socket": "LGA1700",
+      "cores": 24,
+      "brand": "Intel"
+    },
+    "i9-14900kf": {
+      "score": 49050,
+      "socket": "LGA1700",
+      "cores": 24,
+      "brand": "Intel"
+    },
+    "ultra 5 225f": {
+      "score": 24500,
+      "socket": "LGA1851",
+      "cores": 10,
+      "brand": "Intel"
+    },
+    "ultra 5 245k": {
+      "score": 33200,
+      "socket": "LGA1851",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "ultra 5 245kf": {
+      "score": 33050,
+      "socket": "LGA1851",
+      "cores": 14,
+      "brand": "Intel"
+    },
+    "ultra 7 265k": {
+      "score": 41800,
+      "socket": "LGA1851",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "ultra 7 265kf": {
+      "score": 41650,
+      "socket": "LGA1851",
+      "cores": 20,
+      "brand": "Intel"
+    },
+    "ultra 9 285k": {
+      "score": 48500,
+      "socket": "LGA1851",
+      "cores": 24,
+      "brand": "Intel"
+    },
+    "ryzen 5 3500": {
+      "score": 10900,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 3600": {
+      "score": 17350,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 7 3700x": {
+      "score": 20400,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 5 5500": {
+      "score": 17200,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 5600": {
+      "score": 22600,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 5600x": {
+      "score": 23200,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 5600g": {
+      "score": 18900,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 5600gt": {
+      "score": 19500,
+      "socket": "AM4",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 7 5700g": {
+      "score": 24300,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 5700x": {
+      "score": 28900,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 5700x3d": {
+      "score": 27800,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 5800x": {
+      "score": 29800,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 5800x3d": {
+      "score": 28600,
+      "socket": "AM4",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 9 5900x": {
+      "score": 37900,
+      "socket": "AM4",
+      "cores": 12,
+      "brand": "AMD"
+    },
+    "ryzen 9 5950x": {
+      "score": 46400,
+      "socket": "AM4",
+      "cores": 16,
+      "brand": "AMD"
+    },
+    "ryzen 5 7500f": {
+      "score": 27300,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 7600": {
+      "score": 28800,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 7600x": {
+      "score": 29600,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 8500g": {
+      "score": 21100,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 5 8600g": {
+      "score": 24700,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 7 7700": {
+      "score": 33800,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 7700x": {
+      "score": 35400,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 7800x3d": {
+      "score": 32400,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 8700g": {
+      "score": 30900,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 9 7900": {
+      "score": 42600,
+      "socket": "AM5",
+      "cores": 12,
+      "brand": "AMD"
+    },
+    "ryzen 9 7900x": {
+      "score": 45800,
+      "socket": "AM5",
+      "cores": 12,
+      "brand": "AMD"
+    },
+    "ryzen 9 7900x3d": {
+      "score": 41200,
+      "socket": "AM5",
+      "cores": 12,
+      "brand": "AMD"
+    },
+    "ryzen 9 7950x": {
+      "score": 58900,
+      "socket": "AM5",
+      "cores": 16,
+      "brand": "AMD"
+    },
+    "ryzen 9 7950x3d": {
+      "score": 54600,
+      "socket": "AM5",
+      "cores": 16,
+      "brand": "AMD"
+    },
+    "ryzen 5 9600x": {
+      "score": 31200,
+      "socket": "AM5",
+      "cores": 6,
+      "brand": "AMD"
+    },
+    "ryzen 7 9700x": {
+      "score": 37900,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 7 9800x3d": {
+      "score": 36800,
+      "socket": "AM5",
+      "cores": 8,
+      "brand": "AMD"
+    },
+    "ryzen 9 9900x": {
+      "score": 47600,
+      "socket": "AM5",
+      "cores": 12,
+      "brand": "AMD"
+    },
+    "ryzen 9 9950x": {
+      "score": 61500,
+      "socket": "AM5",
+      "cores": 16,
+      "brand": "AMD"
+    },
+    "ryzen 9 9950x3d": {
+      "score": 58200,
+      "socket": "AM5",
+      "cores": 16,
+      "brand": "AMD"
+    }
+  },
+  "gpu": {
+    "gt 610": {
+      "score": 380,
+      "vram_default": 1,
+      "brand": "NVIDIA",
+      "tdp_w": 30
+    },
+    "gt 730": {
+      "score": 950,
+      "vram_default": 2,
+      "brand": "NVIDIA",
+      "tdp_w": 50
+    },
+    "gt 740": {
+      "score": 1250,
+      "vram_default": 2,
+      "brand": "NVIDIA",
+      "tdp_w": 65
+    },
+    "gtx 1050": {
+      "score": 5200,
+      "vram_default": 2,
+      "brand": "NVIDIA",
+      "tdp_w": 75
+    },
+    "gtx 1050 ti": {
+      "score": 5900,
+      "vram_default": 4,
+      "brand": "NVIDIA",
+      "tdp_w": 75
+    },
+    "gtx 1060": {
+      "score": 8900,
+      "vram_default": 6,
+      "brand": "NVIDIA",
+      "tdp_w": 120
+    },
+    "gtx 1650": {
+      "score": 8100,
+      "vram_default": 4,
+      "brand": "NVIDIA",
+      "tdp_w": 75
+    },
+    "gtx 1650 super": {
+      "score": 10200,
+      "vram_default": 4,
+      "brand": "NVIDIA",
+      "tdp_w": 100
+    },
+    "gtx 1660": {
+      "score": 11400,
+      "vram_default": 6,
+      "brand": "NVIDIA",
+      "tdp_w": 120
+    },
+    "gtx 1660 super": {
+      "score": 12200,
+      "vram_default": 6,
+      "brand": "NVIDIA",
+      "tdp_w": 125
+    },
+    "gtx 1660 ti": {
+      "score": 12500,
+      "vram_default": 6,
+      "brand": "NVIDIA",
+      "tdp_w": 120
+    },
+    "rtx 2060": {
+      "score": 13600,
+      "vram_default": 6,
+      "brand": "NVIDIA",
+      "tdp_w": 160
+    },
+    "rtx 2060 super": {
+      "score": 14900,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 175
+    },
+    "rtx 2070": {
+      "score": 15700,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 175
+    },
+    "rtx 2070 super": {
+      "score": 17200,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 215
+    },
+    "rtx 2080": {
+      "score": 17900,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 215
+    },
+    "rtx 2080 super": {
+      "score": 18700,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 250
+    },
+    "rtx 2080 ti": {
+      "score": 21400,
+      "vram_default": 11,
+      "brand": "NVIDIA",
+      "tdp_w": 250
+    },
+    "rtx 3050": {
+      "score": 12700,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 130
+    },
+    "rtx 3060": {
+      "score": 16710,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 170
+    },
+    "rtx 3060 ti": {
+      "score": 19900,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 200
+    },
+    "rtx 3070": {
+      "score": 22400,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 220
+    },
+    "rtx 3070 ti": {
+      "score": 23300,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 290
+    },
+    "rtx 3080": {
+      "score": 26800,
+      "vram_default": 10,
+      "brand": "NVIDIA",
+      "tdp_w": 320
+    },
+    "rtx 3080 ti": {
+      "score": 28100,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 350
+    },
+    "rtx 3090": {
+      "score": 28900,
+      "vram_default": 24,
+      "brand": "NVIDIA",
+      "tdp_w": 350
+    },
+    "rtx 3090 ti": {
+      "score": 29800,
+      "vram_default": 24,
+      "brand": "NVIDIA",
+      "tdp_w": 450
+    },
+    "rtx 4060": {
+      "score": 19489,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 115
+    },
+    "rtx 4060 ti": {
+      "score": 21900,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 160
+    },
+    "rtx 4070": {
+      "score": 26900,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 200
+    },
+    "rtx 4070 super": {
+      "score": 29600,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 220
+    },
+    "rtx 4070 ti": {
+      "score": 30800,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 285
+    },
+    "rtx 4070 ti super": {
+      "score": 32900,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 285
+    },
+    "rtx 4080": {
+      "score": 35700,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 320
+    },
+    "rtx 4080 super": {
+      "score": 36800,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 320
+    },
+    "rtx 4090": {
+      "score": 43700,
+      "vram_default": 24,
+      "brand": "NVIDIA",
+      "tdp_w": 450
+    },
+    "rtx 5060": {
+      "score": 23800,
+      "vram_default": 8,
+      "brand": "NVIDIA",
+      "tdp_w": 145
+    },
+    "rtx 5060 ti": {
+      "score": 27200,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 180
+    },
+    "rtx 5070": {
+      "score": 32500,
+      "vram_default": 12,
+      "brand": "NVIDIA",
+      "tdp_w": 220
+    },
+    "rtx 5070 ti": {
+      "score": 38400,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 300
+    },
+    "rtx 5080": {
+      "score": 42600,
+      "vram_default": 16,
+      "brand": "NVIDIA",
+      "tdp_w": 360
+    },
+    "rtx 5090": {
+      "score": 52800,
+      "vram_default": 32,
+      "brand": "NVIDIA",
+      "tdp_w": 575
+    },
+    "rx 560": {
+      "score": 5200,
+      "vram_default": 4,
+      "brand": "AMD",
+      "tdp_w": 80
+    },
+    "rx 570": {
+      "score": 8600,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 150
+    },
+    "rx 580": {
+      "score": 9300,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 185
+    },
+    "rx 590": {
+      "score": 9900,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 175
+    },
+    "rx 5500 xt": {
+      "score": 9700,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 130
+    },
+    "rx 5600 xt": {
+      "score": 11800,
+      "vram_default": 6,
+      "brand": "AMD",
+      "tdp_w": 150
+    },
+    "rx 5700": {
+      "score": 13700,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 180
+    },
+    "rx 5700 xt": {
+      "score": 15300,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 225
+    },
+    "rx 6600": {
+      "score": 15052,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 132
+    },
+    "rx 6600 xt": {
+      "score": 17400,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 160
+    },
+    "rx 6650 xt": {
+      "score": 17900,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 180
+    },
+    "rx 6700 xt": {
+      "score": 20400,
+      "vram_default": 12,
+      "brand": "AMD",
+      "tdp_w": 230
+    },
+    "rx 6750 xt": {
+      "score": 21200,
+      "vram_default": 12,
+      "brand": "AMD",
+      "tdp_w": 250
+    },
+    "rx 6800": {
+      "score": 23400,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 250
+    },
+    "rx 6800 xt": {
+      "score": 25700,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 300
+    },
+    "rx 6900 xt": {
+      "score": 26800,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 300
+    },
+    "rx 6950 xt": {
+      "score": 27600,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 335
+    },
+    "rx 7600": {
+      "score": 18200,
+      "vram_default": 8,
+      "brand": "AMD",
+      "tdp_w": 165
+    },
+    "rx 7600 xt": {
+      "score": 19600,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 190
+    },
+    "rx 7700 xt": {
+      "score": 24800,
+      "vram_default": 12,
+      "brand": "AMD",
+      "tdp_w": 245
+    },
+    "rx 7800 xt": {
+      "score": 27900,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 263
+    },
+    "rx 7900 gre": {
+      "score": 30200,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 260
+    },
+    "rx 7900 xt": {
+      "score": 33600,
+      "vram_default": 20,
+      "brand": "AMD",
+      "tdp_w": 315
+    },
+    "rx 7900 xtx": {
+      "score": 37100,
+      "vram_default": 24,
+      "brand": "AMD",
+      "tdp_w": 355
+    },
+    "rx 9060 xt": {
+      "score": 26400,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 182
+    },
+    "rx 9070": {
+      "score": 34800,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 220
+    },
+    "rx 9070 xt": {
+      "score": 39200,
+      "vram_default": 16,
+      "brand": "AMD",
+      "tdp_w": 304
+    }
+  },
+  "chipsets": {
+    "A320": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 2933
+    },
+    "A520": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 3200
+    },
+    "B350": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2933
+    },
+    "B450": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 3200
+    },
+    "B550": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3600
+    },
+    "X370": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3200
+    },
+    "X470": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3400
+    },
+    "X570": {
+      "socket": "AM4",
+      "ram": "DDR4",
+      "tier": 4,
+      "max_ram_mhz": 3800
+    },
+    "A620": {
+      "socket": "AM5",
+      "ram": "DDR5",
+      "tier": 1,
+      "max_ram_mhz": 5200
+    },
+    "B650": {
+      "socket": "AM5",
+      "ram": "DDR5",
+      "tier": 3,
+      "max_ram_mhz": 6000
+    },
+    "B650E": {
+      "socket": "AM5",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 6000
+    },
+    "X670": {
+      "socket": "AM5",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 6000
+    },
+    "X670E": {
+      "socket": "AM5",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 6000
+    },
+    "H310": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 2400
+    },
+    "H410": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 2666
+    },
+    "H470": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2933
+    },
+    "B360": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2666
+    },
+    "B460": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2933
+    },
+    "H510": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 3200
+    },
+    "B560": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 3200
+    },
+    "Z390": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 4,
+      "max_ram_mhz": 2666
+    },
+    "Z490": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 4,
+      "max_ram_mhz": 3600
+    },
+    "Z590": {
+      "socket": "LGA1200",
+      "ram": "DDR4",
+      "tier": 4,
+      "max_ram_mhz": 3600
+    },
+    "H610": {
+      "socket": "LGA1700",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 3200
+    },
+    "B660": {
+      "socket": "LGA1700",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 3200
+    },
+    "H670": {
+      "socket": "LGA1700",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 3200
+    },
+    "B760": {
+      "socket": "LGA1700",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3200
+    },
+    "Z690": {
+      "socket": "LGA1700",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 5600
+    },
+    "Z790": {
+      "socket": "LGA1700",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 5600
+    },
+    "H770": {
+      "socket": "LGA1700",
+      "ram": "DDR5",
+      "tier": 3,
+      "max_ram_mhz": 5600
+    },
+    "Z890": {
+      "socket": "LGA1851",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 6400
+    },
+    "H810": {
+      "socket": "LGA1851",
+      "ram": "DDR5",
+      "tier": 1,
+      "max_ram_mhz": 5600
+    },
+    "B860": {
+      "socket": "LGA1851",
+      "ram": "DDR5",
+      "tier": 3,
+      "max_ram_mhz": 6400
+    },
+    "W880": {
+      "socket": "LGA1851",
+      "ram": "DDR5",
+      "tier": 4,
+      "max_ram_mhz": 6400
+    },
+    "H61": {
+      "socket": "LGA1155",
+      "ram": "DDR3",
+      "tier": 1,
+      "max_ram_mhz": 1333
+    },
+    "H81": {
+      "socket": "LGA1150",
+      "ram": "DDR3",
+      "tier": 1,
+      "max_ram_mhz": 1600
+    },
+    "B75": {
+      "socket": "LGA1155",
+      "ram": "DDR3",
+      "tier": 2,
+      "max_ram_mhz": 1600
+    },
+    "B85": {
+      "socket": "LGA1150",
+      "ram": "DDR3",
+      "tier": 2,
+      "max_ram_mhz": 1866
+    },
+    "H97": {
+      "socket": "LGA1150",
+      "ram": "DDR3",
+      "tier": 2,
+      "max_ram_mhz": 1866
+    },
+    "Z87": {
+      "socket": "LGA1150",
+      "ram": "DDR3",
+      "tier": 3,
+      "max_ram_mhz": 2133
+    },
+    "Z97": {
+      "socket": "LGA1150",
+      "ram": "DDR3",
+      "tier": 3,
+      "max_ram_mhz": 2133
+    },
+    "H110": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 1,
+      "max_ram_mhz": 2133
+    },
+    "B150": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2133
+    },
+    "H170": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2400
+    },
+    "Z170": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3000
+    },
+    "B250": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 2,
+      "max_ram_mhz": 2400
+    },
+    "Z270": {
+      "socket": "LGA1151",
+      "ram": "DDR4",
+      "tier": 3,
+      "max_ram_mhz": 3400
+    }
+  },
+  "ram_scoring": {
+    "_readme": "A velocidade anunciada (MT/s, comumente rotulada como 'MHz') ja e comparavel entre geracoes DDR2/3/4/5 -- largura de banda = MT/s x 8 bytes, independente da geracao -- por isso entra direto na formula em js/scoring.js. O que NAO e comparavel entre geracoes e o numero cru de CAS Latency (CL): convertemos para latencia real em nanossegundos (ns = CL x 2000 / MT/s) e comparamos contra reference_latency_ns. Kits mais rapidos que a referencia pontuam mais; mais lentos, menos; sem CL informado no anuncio, o multiplicador fica neutro (1.0). min/max_latency_multiplier existem para nao deixar um CL extraido errado do nome do produto distorcer o score.",
+    "reference_latency_ns": 10,
+    "min_latency_multiplier": 0.6,
+    "max_latency_multiplier": 1.4
+  },
+  "psu_efficiency_multiplier": {
+    "none": 1.0,
+    "80+ white": 1.05,
+    "80+ bronze": 1.12,
+    "80+ silver": 1.16,
+    "80+ gold": 1.22,
+    "80+ platinum": 1.28,
+    "80+ titanium": 1.33
+  },
+  "storage_interface_multiplier": {
+    "hdd": 0.35,
+    "sata_ssd": 1.6,
+    "nvme": 3.0,
+    "nvme_gen4": 4.2
+  },
+  "socket_default_ram": {
+    "AM4": "DDR4",
+    "AM5": "DDR5",
+    "AM3": "DDR3",
+    "FM2": "DDR3",
+    "LGA1150": "DDR3",
+    "LGA1151": "DDR4",
+    "LGA1155": "DDR3",
+    "LGA1156": "DDR3",
+    "LGA1200": "DDR4",
+    "LGA1700": "DDR4",
+    "LGA1851": "DDR5",
+    "LGA2011": "DDR3",
+    "LGA2066": "DDR4",
+    "LGA775": "DDR2"
+  },
+  "socket_max_ram_mhz": {
+    "AM4": 3200,
+    "AM5": 5600,
+    "AM3": 1600,
+    "FM2": 1866,
+    "LGA1150": 1866,
+    "LGA1151": 2666,
+    "LGA1155": 1600,
+    "LGA1156": 1333,
+    "LGA1200": 2933,
+    "LGA1700": 3200,
+    "LGA1851": 5600,
+    "LGA2011": 1866,
+    "LGA2066": 2666,
+    "LGA775": 800
+  }
+}
