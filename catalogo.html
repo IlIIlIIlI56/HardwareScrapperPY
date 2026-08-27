@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base de Dados — Builds de Custo-Beneficio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <h1><span class="mark">&#127807;</span>Base de Dados</h1>
+        <nav class="site-nav">
+          <a href="index.html">Builds</a>
+          <a href="catalogo.html" class="active">Base de dados</a>
+        </nav>
+      </div>
+      <p class="subtitle">
+        Todos os produtos raspados de cada categoria. Itens pendentes nao entraram no calculo de builds por falta de
+        especificacoes reconheciveis -- revise e decida adiciona-los a base ou mante-los ignorados.
+      </p>
+      <p class="data-meta" id="data-meta">carregando metadados...</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Backup das decisoes</h2>
+      <p class="panel-hint">
+        Itens adicionados/ignorados e entradas de benchmark ficam so no navegador (veja o rodape).
+        Baixe um backup para nao perder ao limpar dados do site, trocar de navegador ou levar para
+        outra maquina -- e importe um backup depois para restaurar ou mesclar.
+      </p>
+      <div class="toolbar">
+        <button id="export-btn" class="btn btn-primary">Baixar backup (.json)</button>
+        <label class="btn btn-ghost file-btn">
+          Importar backup
+          <input type="file" id="import-input" accept="application/json" hidden />
+        </label>
+      </div>
+      <p class="decision-note" id="backup-status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Filtros</h2>
+      <div class="toolbar">
+        <div class="chip-group" id="category-filter"></div>
+      </div>
+      <div class="toolbar">
+        <div class="chip-group" id="status-filter"></div>
+        <input type="search" id="search-input" class="search-input" placeholder="Buscar por nome..." />
+      </div>
+      <p class="catalog-summary" id="catalog-summary">carregando...</p>
+    </section>
+
+    <section class="panel">
+      <div id="catalog-list" class="catalog-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Entradas de benchmark adicionadas manualmente</h2>
+      <p class="panel-hint">
+        Modelos de CPU/GPU ou chipsets de placa-mae cadastrados pela revisao acima. Valem para
+        qualquer produto raspado com essa mesma model_key/chipset, nao so o item revisado.
+      </p>
+      <div id="custom-benchmarks-list" class="catalog-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Decisoes de revisao ficam salvas no localStorage deste navegador -- nao alteram <code>data/products.json</code>. Limpar os dados do site reseta as decisoes.</p>
+  </footer>
+
+  <script src="js/format.js"></script>
+  <script src="js/matcher.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/overrides.js"></script>
+  <script src="js/catalog.js"></script>
+</body>
+</html>
