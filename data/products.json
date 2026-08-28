@@ -1,15 +1,15 @@
 {
-  "scraped_at": "2026-08-27T16:18:18.417289+00:00",
+  "scraped_at": "2026-08-28T12:19:02.544524+00:00",
   "source": "https://www.comprasparaguai.com.br/informatica/",
   "counts_by_category": {
     "cpu": 101,
-    "motherboard": 351,
+    "motherboard": 352,
     "ram": 325,
-    "gpu": 182,
+    "gpu": 181,
     "psu": 129,
-    "storage": 393
+    "storage": 395
   },
-  "total_products": 1481,
+  "total_products": 1483,
   "products": [
     {
       "category": "cpu",
@@ -43,6 +43,21 @@
     },
     {
       "category": "cpu",
+      "name": "Processador AMD Ryzen 7 5700G 3.8GHz AM4 20MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700g-38ghz-am4-20mb_35714/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_5700g_38ghz_am4_20mb_135905_200x200.jpg",
+      "price_usd": 182.0,
+      "price_brl": 953.68,
+      "offers": 10,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "model_key": "ryzen 7 5700g"
+      }
+    },
+    {
+      "category": "cpu",
       "name": "Processador Intel Core i3-10100F 3.6GHz LGA 1200 6MB",
       "description": "O Processador Intel Core i3 10ª geração oferece melhorias notáveis ​​de...",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i3-10100f-36ghz-lga-1200-6mb_31709/",
@@ -54,21 +69,6 @@
         "brand": "Intel",
         "socket": "LGA1200",
         "model_key": "i3-10100F"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 7 5700G 3.8GHz AM4 20MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700g-38ghz-am4-20mb_35714/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_5700g_38ghz_am4_20mb_135905_200x200.jpg",
-      "price_usd": 182.0,
-      "price_brl": 953.68,
-      "offers": 9,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "model_key": "ryzen 7 5700g"
       }
     },
     {
@@ -103,6 +103,21 @@
     },
     {
       "category": "cpu",
+      "name": "Processador AMD Ryzen 7 9800X3D 4.7GHz AM5 104MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-9800x3d-47ghz-am5-104mb_58347/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_7_9800x3d_47ghz_am5_104mb_183710_200x200.jpg",
+      "price_usd": 485.0,
+      "price_brl": 2541.4,
+      "offers": 9,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "model_key": "ryzen 7 9800x3d"
+      }
+    },
+    {
+      "category": "cpu",
       "name": "Processador Intel Core i7-12700 2.1GHz LGA 1700 25MB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i7-12700-21ghz-lga-1700-25mb_39558/",
@@ -129,6 +144,21 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "model_key": "i3-12100"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador AMD Ryzen 7 7700X 4.5GHz AM5 40MB",
+      "description": "O Ryzen 7 7700X conta com 8 núcleos incríveis para quem quer jogar. Os ...",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-7700x-45ghz-am5-40mb_43878/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_7700x_45ghz_am5_40mb_153203_200x200.jpg",
+      "price_usd": 299.0,
+      "price_brl": 1566.76,
+      "offers": 8,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "model_key": "ryzen 7 7700x"
       }
     },
     {
@@ -208,21 +238,6 @@
     },
     {
       "category": "cpu",
-      "name": "Processador AMD Ryzen 7 9800X3D 4.7GHz AM5 104MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-9800x3d-47ghz-am5-104mb_58347/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_7_9800x3d_47ghz_am5_104mb_183710_200x200.jpg",
-      "price_usd": 485.0,
-      "price_brl": 2541.4,
-      "offers": 8,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "model_key": "ryzen 7 9800x3d"
-      }
-    },
-    {
-      "category": "cpu",
       "name": "Processador Intel Core i5-12400F 2.5GHz LGA 1700 18MB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i5-12400f-25ghz-lga-1700-18mb_39091/",
@@ -249,21 +264,6 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "model_key": "i7-12700F"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 7 5700X 3.4GHz AM4 36MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700x-34ghz-am4-36mb_40426/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_5700x_34ghz_am4_36mb_145637_200x200.jpg",
-      "price_usd": 203.0,
-      "price_brl": 1063.72,
-      "offers": 7,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "model_key": "ryzen 7 5700x"
       }
     },
     {
@@ -298,21 +298,6 @@
     },
     {
       "category": "cpu",
-      "name": "Processador AMD Ryzen 7 7700X 4.5GHz AM5 40MB",
-      "description": "O Ryzen 7 7700X conta com 8 núcleos incríveis para quem quer jogar. Os ...",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-7700x-45ghz-am5-40mb_43878/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_7700x_45ghz_am5_40mb_153203_200x200.jpg",
-      "price_usd": 299.0,
-      "price_brl": 1566.76,
-      "offers": 7,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "model_key": "ryzen 7 7700x"
-      }
-    },
-    {
-      "category": "cpu",
       "name": "Processador AMD Ryzen 5 7600X 4.7GHz AM5 38MB",
       "description": "O Ryzen 5 7600X conta com 6 núcleos incríveis para quem quer jogar. Os ...",
       "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-7600x-47ghz-am5-38mb_43879/",
@@ -332,8 +317,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i5-14400-25ghz-lga-1700-20mb_50679/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i5_14400_25ghz_lga_1700_20mb_168949_200x200.png",
-      "price_usd": 258.0,
-      "price_brl": 1351.92,
+      "price_usd": 245.0,
+      "price_brl": 1283.8,
       "offers": 7,
       "specs": {
         "brand": "Intel",
@@ -354,21 +339,6 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "model_key": "i5-14400F"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 7 5700 3.7GHz AM4 20MB",
-      "description": "O Ryzen 7 5700 conta com 8 núcleos incríveis para quem quer apenas joga...",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700-37ghz-am4-20mb_51177/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_7_5700_37ghz_am4_20mb_170110_200x200.png",
-      "price_usd": 146.0,
-      "price_brl": 765.04,
-      "offers": 7,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "model_key": "ryzen 7 5700"
       }
     },
     {
@@ -403,6 +373,21 @@
     },
     {
       "category": "cpu",
+      "name": "Processador Intel Core i5-12600KF 3.7GHz LGA 1700 20MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i5-12600kf-37ghz-lga-1700-20mb_39089/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i5_12600kf_37ghz_lga_1700_20mb_142886_200x200.jpg",
+      "price_usd": 10.5,
+      "price_brl": 55.02,
+      "offers": 7,
+      "specs": {
+        "brand": "Intel",
+        "socket": "LGA1700",
+        "model_key": "i5-12600KF"
+      }
+    },
+    {
+      "category": "cpu",
       "name": "Processador Intel Core i3-10105F 3.7GHz LGA 1200 6MB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i3-10105f-37ghz-lga-1200-6mb_33842/",
@@ -414,6 +399,21 @@
         "brand": "Intel",
         "socket": "LGA1200",
         "model_key": "i3-10105F"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador AMD Ryzen 7 5700X 3.4GHz AM4 36MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700x-34ghz-am4-36mb_40426/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_r7_5700x_34ghz_am4_36mb_145637_200x200.jpg",
+      "price_usd": 203.0,
+      "price_brl": 1063.72,
+      "offers": 6,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "model_key": "ryzen 7 5700x"
       }
     },
     {
@@ -463,6 +463,21 @@
     },
     {
       "category": "cpu",
+      "name": "Processador Intel Core i7-14700 2.1GHz LGA 1700 33MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i7-14700-21ghz-lga-1700-33mb_50678/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i7_14700_21ghz_lga_1700_33mb_168948_200x200.png",
+      "price_usd": 408.0,
+      "price_brl": 2137.92,
+      "offers": 6,
+      "specs": {
+        "brand": "Intel",
+        "socket": "LGA1700",
+        "model_key": "i7-14700"
+      }
+    },
+    {
+      "category": "cpu",
       "name": "Processador Intel Core i3-14100 3.5GHz LGA 1700 12MB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/processador-intel-core-i3-14100-35ghz-lga-1700-12mb_50681/",
@@ -489,6 +504,21 @@
         "brand": "AMD",
         "socket": "AM5",
         "model_key": "ryzen 5 8500g"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador AMD Ryzen 7 5700 3.7GHz AM4 20MB",
+      "description": "O Ryzen 7 5700 conta com 8 núcleos incríveis para quem quer apenas joga...",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-7-5700-37ghz-am4-20mb_51177/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_7_5700_37ghz_am4_20mb_170110_200x200.png",
+      "price_usd": 146.0,
+      "price_brl": 765.04,
+      "offers": 6,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "model_key": "ryzen 7 5700"
       }
     },
     {
@@ -579,21 +609,6 @@
         "brand": "AMD",
         "socket": "AM5",
         "model_key": "ryzen 5 7600x3d"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador Intel Core i5-12600KF 3.7GHz LGA 1700 20MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i5-12600kf-37ghz-lga-1700-20mb_39089/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i5_12600kf_37ghz_lga_1700_20mb_142886_200x200.jpg",
-      "price_usd": 10.5,
-      "price_brl": 55.02,
-      "offers": 6,
-      "specs": {
-        "brand": "Intel",
-        "socket": "LGA1700",
-        "model_key": "i5-12600KF"
       }
     },
     {
@@ -703,17 +718,17 @@
     },
     {
       "category": "cpu",
-      "name": "Processador Intel Core i7-14700 2.1GHz LGA 1700 33MB",
+      "name": "Processador Intel Core i7-14700F 2.1GHz LGA 1700 33MB",
       "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i7-14700-21ghz-lga-1700-33mb_50678/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i7_14700_21ghz_lga_1700_33mb_168948_200x200.png",
-      "price_usd": 408.0,
-      "price_brl": 2137.92,
+      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i7-14700f-21ghz-lga-1700-33mb_50677/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i7_14700f_21ghz_lga_1700_33mb_168947_200x200.png",
+      "price_usd": 385.0,
+      "price_brl": 2017.4,
       "offers": 5,
       "specs": {
         "brand": "Intel",
         "socket": "LGA1700",
-        "model_key": "i7-14700"
+        "model_key": "i7-14700F"
       }
     },
     {
@@ -744,6 +759,36 @@
         "brand": "AMD",
         "socket": "AM5",
         "model_key": "ryzen 7 8700g"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador AMD Ryzen 9 5900XT 3.3GHz AM4 72MB",
+      "description": "Descubra a potência ilimitada por meio do processador AMD Ryzen 9 5900X...",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-9-5900xt-33ghz-am4-72mb_55839/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_9_5900xt_33ghz_am4_72mb_179154_200x200.jpg",
+      "price_usd": 334.0,
+      "price_brl": 1750.16,
+      "offers": 5,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "model_key": "ryzen 9 5900xt"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador AMD Ryzen 5 9600X 3.9GHz AM5 38MB",
+      "description": "Leve seu PC para o próximo nível por meio do processador AMD Ryzen 5 96...",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-9600x-39ghz-am5-38mb_55842/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_5_9600x_39ghz_am5_38mb_179157_200x200.jpg",
+      "price_usd": 204.0,
+      "price_brl": 1068.96,
+      "offers": 5,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "model_key": "ryzen 5 9600x"
       }
     },
     {
@@ -928,21 +973,6 @@
     },
     {
       "category": "cpu",
-      "name": "Processador Intel Core i7-14700F 2.1GHz LGA 1700 33MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/processador-intel-core-i7-14700f-21ghz-lga-1700-33mb_50677/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_i7_14700f_21ghz_lga_1700_33mb_168947_200x200.png",
-      "price_usd": 385.0,
-      "price_brl": 2017.4,
-      "offers": 4,
-      "specs": {
-        "brand": "Intel",
-        "socket": "LGA1700",
-        "model_key": "i7-14700F"
-      }
-    },
-    {
-      "category": "cpu",
       "name": "Processador AMD Ryzen 5 5600GT 3.6GHz AM4 19MB",
       "description": "O Ryzen 5 5600GT conta com 6 núcleos incríveis para quem quer apenas jo...",
       "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-5600gt-36ghz-am4-19mb_51178/",
@@ -954,51 +984,6 @@
         "brand": "AMD",
         "socket": "AM4",
         "model_key": "ryzen 5 5600gt"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 9 5900XT 3.3GHz AM4 72MB",
-      "description": "Descubra a potência ilimitada por meio do processador AMD Ryzen 9 5900X...",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-9-5900xt-33ghz-am4-72mb_55839/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_9_5900xt_33ghz_am4_72mb_179154_200x200.jpg",
-      "price_usd": 334.0,
-      "price_brl": 1750.16,
-      "offers": 4,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "model_key": "ryzen 9 5900xt"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 5 9600X 3.9GHz AM5 38MB",
-      "description": "Leve seu PC para o próximo nível por meio do processador AMD Ryzen 5 96...",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-9600x-39ghz-am5-38mb_55842/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_5_9600x_39ghz_am5_38mb_179157_200x200.jpg",
-      "price_usd": 204.0,
-      "price_brl": 1068.96,
-      "offers": 4,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "model_key": "ryzen 5 9600x"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador Intel Core Ultra 7 265 2.4GHz LGA 1851 30MB",
-      "description": "O Intel Core Ultra 7 265 é perfeito para aqueles procurando rendimento ...",
-      "url": "https://www.comprasparaguai.com.br/processador-intel-core-ultra-7-265-24ghz-lga-1851-30mb_59119/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_ultra_7_265_24ghz_lga_1851_30mb_185228_d099e5d5-d70e-42aa-a5ff-35a2c615c5d8.webp",
-      "price_usd": 365.0,
-      "price_brl": 1912.6,
-      "offers": 4,
-      "specs": {
-        "brand": "Intel",
-        "socket": "LGA1851",
-        "model_key": "ultra 7 265"
       }
     },
     {
@@ -1123,6 +1108,36 @@
     },
     {
       "category": "cpu",
+      "name": "Processador AMD Ryzen 5 5600T 3.5GHz AM4 35MB",
+      "description": "Eleve sua experiência de computação através do processador AMD Ryzen 5 ...",
+      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-5600t-35ghz-am4-35mb_57481/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_5_5600t_35ghz_am4_35mb_182167_200x200.jpg",
+      "price_usd": 156.0,
+      "price_brl": 817.44,
+      "offers": 3,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "model_key": "ryzen 5 5600t"
+      }
+    },
+    {
+      "category": "cpu",
+      "name": "Processador Intel Core Ultra 7 265 2.4GHz LGA 1851 30MB",
+      "description": "O Intel Core Ultra 7 265 é perfeito para aqueles procurando rendimento ...",
+      "url": "https://www.comprasparaguai.com.br/processador-intel-core-ultra-7-265-24ghz-lga-1851-30mb_59119/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_intel_core_ultra_7_265_24ghz_lga_1851_30mb_185228_d099e5d5-d70e-42aa-a5ff-35a2c615c5d8.webp",
+      "price_usd": 365.0,
+      "price_brl": 1912.6,
+      "offers": 3,
+      "specs": {
+        "brand": "Intel",
+        "socket": "LGA1851",
+        "model_key": "ultra 7 265"
+      }
+    },
+    {
+      "category": "cpu",
       "name": "Processador AMD Ryzen R5-3400G 3.7GHz AM4 6MB",
       "description": "Um processador é essencial para o funcionamento de seu computador e inf...",
       "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-r5-3400g-37ghz-am4-6mb_25081/",
@@ -1194,21 +1209,6 @@
         "brand": "Intel",
         "socket": "LGA1151",
         "model_key": "i5-9400"
-      }
-    },
-    {
-      "category": "cpu",
-      "name": "Processador AMD Ryzen 5 5600T 3.5GHz AM4 35MB",
-      "description": "Eleve sua experiência de computação através do processador AMD Ryzen 5 ...",
-      "url": "https://www.comprasparaguai.com.br/processador-amd-ryzen-5-5600t-35ghz-am4-35mb_57481/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/processador_amd_ryzen_5_5600t_35ghz_am4_35mb_182167_200x200.jpg",
-      "price_usd": 156.0,
-      "price_brl": 817.44,
-      "offers": 2,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "model_key": "ryzen 5 5600t"
       }
     },
     {
@@ -1534,7 +1534,7 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_keepdata_a520_kdgnv_amd_soquete_am4_183226_200x200.jpg",
       "price_usd": 39.8,
       "price_brl": 208.55,
-      "offers": 6,
+      "offers": 4,
       "specs": {
         "brand": "AMD",
         "socket": "AM4",
@@ -1592,22 +1592,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe MSI A520M-A Pro AMD Soquete AM4",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-a520m-a-pro-amd-soquete-am4_33696/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_a520m_a_pro_amd_soquete_am4_130438_200x200.png",
-      "price_usd": 48.0,
-      "price_brl": 251.52,
-      "offers": 8,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "chipset": "A520",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Asus Prime H610M-K D4 Intel Soquete LGA 1700",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-asus-prime-h610m-k-d4-intel-soquete-lga-1700_41613/",
@@ -1651,6 +1635,22 @@
         "brand": "AMD",
         "socket": "AM5",
         "chipset": null,
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe MSI A520M-A Pro AMD Soquete AM4",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-a520m-a-pro-amd-soquete-am4_33696/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_a520m_a_pro_amd_soquete_am4_130438_200x200.png",
+      "price_usd": 48.0,
+      "price_brl": 251.52,
+      "offers": 7,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "A520",
         "form_factor": null
       }
     },
@@ -1784,22 +1784,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Gigabyte A520M DS3H V2 AMD Soquete AM4",
-      "description": "As placas-mãe da série GIGABYTE UD usam o design de MOSFETs PWM + Low R...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-a520m-ds3h-v2-amd-soquete-am4_47918/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_a520m_ds3h_v2_amd_soquete_am4_163018_200x200.jpg",
-      "price_usd": 60.0,
-      "price_brl": 314.4,
-      "offers": 6,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "chipset": "A520",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Gigabyte A620M H AMD Soquete AM5",
       "description": "As placas-mãe da série GIGABYTE UD usam um design PWM digital de 5+2+2 ...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-a620m-h-amd-soquete-am5_50074/",
@@ -1848,22 +1832,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Gigabyte B760M E Intel Soquete LGA 1700",
-      "description": "As placas-mãe GIGABYTE B760 estão prontas para funcionar com dispositiv...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b760m-e-intel-soquete-lga-1700_53582/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_b760m_e_intel_soquete_lga_1700_175073_200x200.jpg",
-      "price_usd": 85.0,
-      "price_brl": 445.4,
-      "offers": 6,
-      "specs": {
-        "brand": "Intel",
-        "socket": "LGA1700",
-        "chipset": "B760",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Asus TUF Gaming B760M-Plus Wi-Fi II Intel Soquete LGA 1700",
       "description": "A TUF GAMING B760M-PLUS WI-FI II reúne todos os elementos essenciais do...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-asus-tuf-gaming-b760m-plus-wi-fi-ii-intel-soquete-lga-1700_54945/",
@@ -1875,6 +1843,22 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "chipset": "B760",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Gigabyte B650M D3HP AMD Soquete AM5",
+      "description": "Libere todo o potencial de seu PC a partir da placa-mãe Gigabyte B650M ...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b650m-d3hp-amd-soquete-am5_58773/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_b650m_d3hp_amd_soquete_am5_184519_2bd3fb85-3949-45f7-bc57-90e11e3e302a.webp",
+      "price_usd": 99.0,
+      "price_brl": 518.76,
+      "offers": 6,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": "B650",
         "form_factor": null
       }
     },
@@ -2136,6 +2120,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe Gigabyte A520M DS3H V2 AMD Soquete AM4",
+      "description": "As placas-mãe da série GIGABYTE UD usam o design de MOSFETs PWM + Low R...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-a520m-ds3h-v2-amd-soquete-am4_47918/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_a520m_ds3h_v2_amd_soquete_am4_163018_200x200.jpg",
+      "price_usd": 60.0,
+      "price_brl": 314.4,
+      "offers": 5,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "A520",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe Keepdata H61-KDGNV Intel Soquete LGA 1155",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-keepdata-h61-kdgnv-intel-soquete-lga-1155_48861/",
@@ -2206,6 +2206,22 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_pro_b760m_e_ddr4_intel_soquete_lga_1700_174306_200x200.jpg",
       "price_usd": 78.0,
       "price_brl": 408.72,
+      "offers": 5,
+      "specs": {
+        "brand": "Intel",
+        "socket": "LGA1700",
+        "chipset": "B760",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Gigabyte B760M E Intel Soquete LGA 1700",
+      "description": "As placas-mãe GIGABYTE B760 estão prontas para funcionar com dispositiv...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b760m-e-intel-soquete-lga-1700_53582/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_b760m_e_intel_soquete_lga_1700_175073_200x200.jpg",
+      "price_usd": 85.0,
+      "price_brl": 445.4,
       "offers": 5,
       "specs": {
         "brand": "Intel",
@@ -2291,22 +2307,6 @@
         "brand": "Intel",
         "socket": "LGA2011",
         "chipset": null,
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
-      "name": "Placa Mãe Gigabyte B650M D3HP AMD Soquete AM5",
-      "description": "Libere todo o potencial de seu PC a partir da placa-mãe Gigabyte B650M ...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b650m-d3hp-amd-soquete-am5_58773/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_b650m_d3hp_amd_soquete_am5_184519_2bd3fb85-3949-45f7-bc57-90e11e3e302a.webp",
-      "price_usd": 99.0,
-      "price_brl": 518.76,
-      "offers": 5,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": "B650",
         "form_factor": null
       }
     },
@@ -2424,22 +2424,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Gigabyte A520M DS3H AC AMD Soquete AM4",
-      "description": "A Gigabyte A520M DS3H AC é muito mais do que apenas uma placa-mãe; ela ...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-a520m-ds3h-ac-amd-soquete-am4_61569/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_a520m_ds3h_ac_amd_soquete_am4_189108_ec1c475d-912c-44f7-9e14-56014441ec2b.webp",
-      "price_usd": 68.5,
-      "price_brl": 358.94,
-      "offers": 5,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "chipset": "A520",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Biostar H610MHC 2.0 Intel Soquete LGA 1700",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-biostar-h610mhc-20-intel-soquete-lga-1700_62117/",
@@ -2552,22 +2536,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe MSI Pro A620AM-B Evo AMD Soquete AM5",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-pro-a620am-b-evo-amd-soquete-am5_68040/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_pro_a620am_b_evo_amd_soquete_am5_198980_2cb3d891-cab3-4648-adbd-c2fa72eaeb49.avif",
-      "price_usd": 62.0,
-      "price_brl": 324.88,
-      "offers": 5,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": "A620",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Asus B760M-AYW Wi-Fi II Intel Soquete LGA 1700",
       "description": "A Placa-Mãe Asus B760M-AYW Wi-Fi II foi projetada para oferecer desempe...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-asus-b760m-ayw-wi-fi-ii-intel-soquete-lga-1700_68956/",
@@ -2627,6 +2595,22 @@
         "brand": "AMD",
         "socket": "AM5",
         "chipset": null,
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Asrock B550M-P AMD Soquete AM4",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asrock-b550m-p-amd-soquete-am4_70067/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asrock_b550m_p_amd_soquete_am4_202271_63af6241-7889-47b0-82f5-9e60a556e9ca.avif",
+      "price_usd": 88.0,
+      "price_brl": 461.12,
+      "offers": 5,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "B550",
         "form_factor": null
       }
     },
@@ -2904,6 +2888,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe Asus Rog Strix X870E-E Gaming Wi-Fi AMD Soquete AM5",
+      "description": "A placa mãe ASUS ROG Strix X870E-E Gaming Wi-Fi é projetada para libera...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-rog-strix-x870e-e-gaming-wi-fi-amd-soquete-am5_57443/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_rog_strix_x870e_e_gaming_wi_fi_amd_soquete_am5_182042_200x200.jpg",
+      "price_usd": 512.0,
+      "price_brl": 2682.88,
+      "offers": 4,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": null,
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe MSI Pro B760M-P Intel Soquete LGA 1700",
       "description": "Leve seu sistema para o próximo nível usando a placa-mãe MSI Pro B760M-...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-msi-pro-b760m-p-intel-soquete-lga-1700_57456/",
@@ -3032,22 +3032,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Asus Prime H810M-A Intel Soquete LGA 1851",
-      "description": "Impulsiona a sua vivência com o ASUS PRIME H810M-A, combinando estabili...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-prime-h810m-a-intel-soquete-lga-1851_60721/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_prime_h810m_a_intel_soquete_lga_1851_187748_7392b042-5a67-43f1-a9c2-f36610a6a734.webp",
-      "price_usd": 107.0,
-      "price_brl": 560.68,
-      "offers": 4,
-      "specs": {
-        "brand": "Intel",
-        "socket": "LGA1851",
-        "chipset": "H810",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Gigabyte B850 Aorus Elite Wi-Fi 7 AMD Soquete AM5",
       "description": "Mergulhe na era da computação avançada através da placa-mãe Gigabyte B8...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b850-aorus-elite-wi-fi-7-amd-soquete-am5_61239/",
@@ -3107,6 +3091,22 @@
         "brand": "AMD",
         "socket": "AM5",
         "chipset": "B650",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Gigabyte A520M DS3H AC AMD Soquete AM4",
+      "description": "A Gigabyte A520M DS3H AC é muito mais do que apenas uma placa-mãe; ela ...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-a520m-ds3h-ac-amd-soquete-am4_61569/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_a520m_ds3h_ac_amd_soquete_am4_189108_ec1c475d-912c-44f7-9e14-56014441ec2b.webp",
+      "price_usd": 68.5,
+      "price_brl": 358.94,
+      "offers": 4,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "A520",
         "form_factor": null
       }
     },
@@ -3480,6 +3480,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe MSI Pro A620AM-B Evo AMD Soquete AM5",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-pro-a620am-b-evo-amd-soquete-am5_68040/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_pro_a620am_b_evo_amd_soquete_am5_198980_2cb3d891-cab3-4648-adbd-c2fa72eaeb49.avif",
+      "price_usd": 62.0,
+      "price_brl": 324.88,
+      "offers": 4,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": "A620",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe Gigabyte X870E Eagle X3D Wi-Fi 7 AMD Soquete AM5",
       "description": "A Gigabyte X870E Eagle X3D Wi-Fi 7 é uma placa-mãe de última geração de...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-x870e-eagle-x3d-wi-fi-7-amd-soquete-am5_68420/",
@@ -3592,22 +3608,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Asrock B550M-P AMD Soquete AM4",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asrock-b550m-p-amd-soquete-am4_70067/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asrock_b550m_p_amd_soquete_am4_202271_63af6241-7889-47b0-82f5-9e60a556e9ca.avif",
-      "price_usd": 88.0,
-      "price_brl": 461.12,
-      "offers": 4,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "chipset": "B550",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Asrock B760M PG Riptide Wi-Fi Intel Soquete LGA 1700",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-asrock-b760m-pg-riptide-wi-fi-intel-soquete-lga-1700_70071/",
@@ -3619,22 +3619,6 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "chipset": "B760",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
-      "name": "Placa Mãe Asus Rog Strix B650-A Gaming Wi-Fi AMD Soquete AM5",
-      "description": "A ROG Strix B650-A Gaming Wi-Fi vem equipada com desempenho potente e c...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-rog-strix-b650-a-gaming-wi-fi-amd-soquete-am5_45330/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_rog_strix_b650_a_gaming_wi_fi_amd_soquete_am5_156632_200x200.jpg",
-      "price_usd": 218.0,
-      "price_brl": 1142.32,
-      "offers": 4,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": "B650",
         "form_factor": null
       }
     },
@@ -3678,22 +3662,6 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_b550m_a_pro_amd_soquete_am4_137994_200x200.png",
       "price_usd": 66.5,
       "price_brl": 348.46,
-      "offers": 3,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM4",
-        "chipset": "B550",
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
-      "name": "Placa Mãe MSI B550M Pro-VDH AMD Soquete AM4",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-b550m-pro-vdh-amd-soquete-am4_37230/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_b550m_pro_vdh_amd_soquete_am4_139285_200x200.jpg",
-      "price_usd": 76.0,
-      "price_brl": 398.24,
       "offers": 3,
       "specs": {
         "brand": "AMD",
@@ -4024,38 +3992,6 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Asus TUF Gaming X870-Plus Wi-Fi AMD Soquete AM5",
-      "description": "A Placa Mãe Asus TUF Gaming X870-PLUS Wi-Fi é a escolha definitiva para...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-tuf-gaming-x870-plus-wi-fi-amd-soquete-am5_57442/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_tuf_gaming_x870_plus_wi_fi_amd_soquete_am5_182038_200x200.jpg",
-      "price_usd": 288.0,
-      "price_brl": 1509.12,
-      "offers": 3,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": null,
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
-      "name": "Placa Mãe Asus Rog Strix X870E-E Gaming Wi-Fi AMD Soquete AM5",
-      "description": "A placa mãe ASUS ROG Strix X870E-E Gaming Wi-Fi é projetada para libera...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-rog-strix-x870e-e-gaming-wi-fi-amd-soquete-am5_57443/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_rog_strix_x870e_e_gaming_wi_fi_amd_soquete_am5_182042_200x200.jpg",
-      "price_usd": 512.0,
-      "price_brl": 2682.88,
-      "offers": 3,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": null,
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
       "name": "Placa Mãe Gigabyte X870 Gaming X Wi-Fi 7 AMD Soquete AM5",
       "description": "Transforme sua experiência em jogos e sua produtividade com a placa-mãe...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-x870-gaming-x-wi-fi-7-amd-soquete-am5_57446/",
@@ -4083,6 +4019,22 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "chipset": "H610",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Asus Prime X870-P Wi-Fi AMD Soquete AM5",
+      "description": "A ASUS Prime X870-P Wi-Fi foi projetada para levar sua experiência de c...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-prime-x870-p-wi-fi-amd-soquete-am5_57462/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_prime_x870_p_wi_fi_amd_soquete_am5_182102_200x200.jpg",
+      "price_usd": 202.0,
+      "price_brl": 1058.48,
+      "offers": 3,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": null,
         "form_factor": null
       }
     },
@@ -4131,6 +4083,22 @@
         "brand": "Intel",
         "socket": "LGA1700",
         "chipset": "B760",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe Asus Prime H810M-A Intel Soquete LGA 1851",
+      "description": "Impulsiona a sua vivência com o ASUS PRIME H810M-A, combinando estabili...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-prime-h810m-a-intel-soquete-lga-1851_60721/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_prime_h810m_a_intel_soquete_lga_1851_187748_7392b042-5a67-43f1-a9c2-f36610a6a734.webp",
+      "price_usd": 107.0,
+      "price_brl": 560.68,
+      "offers": 3,
+      "specs": {
+        "brand": "Intel",
+        "socket": "LGA1851",
+        "chipset": "H810",
         "form_factor": null
       }
     },
@@ -4408,6 +4376,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe Asus Rog Strix B650-A Gaming Wi-Fi AMD Soquete AM5",
+      "description": "A ROG Strix B650-A Gaming Wi-Fi vem equipada com desempenho potente e c...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-rog-strix-b650-a-gaming-wi-fi-amd-soquete-am5_45330/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_rog_strix_b650_a_gaming_wi_fi_amd_soquete_am5_156632_200x200.jpg",
+      "price_usd": 218.0,
+      "price_brl": 1142.32,
+      "offers": 3,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": "B650",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe Biostar H81MHV3 Intel Soquete LGA 1150",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-biostar-h81mhv3-intel-soquete-lga-1150_21430/",
@@ -4451,6 +4435,22 @@
         "brand": "AMD",
         "socket": "AM4",
         "chipset": "B450",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
+      "name": "Placa Mãe MSI B550M Pro-VDH AMD Soquete AM4",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-b550m-pro-vdh-amd-soquete-am4_37230/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_b550m_pro_vdh_amd_soquete_am4_139285_200x200.jpg",
+      "price_usd": 76.0,
+      "price_brl": 398.24,
+      "offers": 2,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "B550",
         "form_factor": null
       }
     },
@@ -4872,12 +4872,12 @@
     },
     {
       "category": "motherboard",
-      "name": "Placa Mãe Asus Prime X870-P Wi-Fi AMD Soquete AM5",
-      "description": "A ASUS Prime X870-P Wi-Fi foi projetada para levar sua experiência de c...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-prime-x870-p-wi-fi-amd-soquete-am5_57462/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_prime_x870_p_wi_fi_amd_soquete_am5_182102_200x200.jpg",
-      "price_usd": 202.0,
-      "price_brl": 1058.48,
+      "name": "Placa Mãe Asus TUF Gaming X870-Plus Wi-Fi AMD Soquete AM5",
+      "description": "A Placa Mãe Asus TUF Gaming X870-PLUS Wi-Fi é a escolha definitiva para...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-asus-tuf-gaming-x870-plus-wi-fi-amd-soquete-am5_57442/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_asus_tuf_gaming_x870_plus_wi_fi_amd_soquete_am5_182038_200x200.jpg",
+      "price_usd": 288.0,
+      "price_brl": 1509.12,
       "offers": 2,
       "specs": {
         "brand": "AMD",
@@ -6376,6 +6376,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe Gigabyte B650 Eagle AX AMD Soquete AM5",
+      "description": "A Gigabyte B650 Eagle AX é a escolha perfeita para quem quer maximizar ...",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-b650-eagle-ax-amd-soquete-am5_59355/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_b650_eagle_ax_amd_soquete_am5_185639_94069ad3-453e-4406-822a-db8084ba2ccb.webp",
+      "price_usd": 144.0,
+      "price_brl": 754.56,
+      "offers": 1,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM5",
+        "chipset": "B650",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe Gigabyte Z890M Aorus Elite Wi-Fi 7 Intel Soquete LGA 1851",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-mae-gigabyte-z890m-aorus-elite-wi-fi-7-intel-soquete-lga-1851_59358/",
@@ -6648,6 +6664,22 @@
     },
     {
       "category": "motherboard",
+      "name": "Placa Mãe Biostar B550MHP AMD Soquete AM4",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-mae-biostar-b550mhp-amd-soquete-am4_62118/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_biostar_b550mhp_amd_soquete_am4_190015_b59e169d-3c38-4da8-a483-39eb4ded127b.webp",
+      "price_usd": 46.0,
+      "price_brl": 241.04,
+      "offers": 1,
+      "specs": {
+        "brand": "AMD",
+        "socket": "AM4",
+        "chipset": "B550",
+        "form_factor": null
+      }
+    },
+    {
+      "category": "motherboard",
       "name": "Placa Mãe Asrock B850M Pro-A Wi-Fi AMD Soquete AM5",
       "description": "A Placa Mãe Asrock B850M Pro-A Wi-Fi é uma opção excepcional para os en...",
       "url": "https://www.comprasparaguai.com.br/placa-mae-asrock-b850m-pro-a-wi-fi-amd-soquete-am5_62753/",
@@ -6782,22 +6814,6 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_gigabyte_x870e_aorus_elite_wi_fi_7_ice_amd_soquete_am5_193467_6e749b62-0a78-4ae6-a17a-9fa9cce78344.webp",
       "price_usd": 362.0,
       "price_brl": 1896.88,
-      "offers": 1,
-      "specs": {
-        "brand": "AMD",
-        "socket": "AM5",
-        "chipset": null,
-        "form_factor": null
-      }
-    },
-    {
-      "category": "motherboard",
-      "name": "Placa Mãe MSI Meg X870E Godlike AMD Soquete AM5",
-      "description": "Quando se trata de criar um sistema imbatível, cada detalhe conta, e a ...",
-      "url": "https://www.comprasparaguai.com.br/placa-mae-msi-meg-x870e-godlike-amd-soquete-am5_64338/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_mae_msi_meg_x870e_godlike_amd_soquete_am5_193657_21807512-4303-4fdb-a1b3-bfc6b1319800.webp",
-      "price_usd": 1099.0,
-      "price_brl": 5758.76,
       "offers": 1,
       "specs": {
         "brand": "AMD",
@@ -7263,23 +7279,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Keepdata DDR3L 8GB 1600MHz Notebook KD16LS11/8G",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr3l-8gb-1600mhz-notebook-kd16ls118g_31815/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr3l_8gb_1600mhz_notebook_kd16ls118g_154020_200x200.png",
-      "price_usd": 23.9,
-      "price_brl": 125.24,
-      "offers": 10,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 1600,
-        "ddr_gen": "DDR3",
-        "cas_latency": null,
-        "form_factor": "SODIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Kingston Fury Beast DDR4 16GB 3200MHz",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr4-16gb-3200mhz_35454/",
@@ -7331,19 +7330,19 @@
     },
     {
       "category": "ram",
-      "name": "Memória Keepdata DDR4 8GB 2400MHz KD24N17/8G",
-      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
-      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-8gb-2400mhz-kd24n178g_31818/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_8gb_2400mhz_129664_200x200.jpg",
-      "price_usd": 42.9,
-      "price_brl": 224.8,
+      "name": "Memória Keepdata DDR3L 8GB 1600MHz Notebook KD16LS11/8G",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr3l-8gb-1600mhz-notebook-kd16ls118g_31815/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr3l_8gb_1600mhz_notebook_kd16ls118g_154020_200x200.png",
+      "price_usd": 23.9,
+      "price_brl": 125.24,
       "offers": 9,
       "specs": {
         "capacity_gb": 8,
-        "speed_mhz": 2400,
-        "ddr_gen": "DDR4",
+        "speed_mhz": 1600,
+        "ddr_gen": "DDR3",
         "cas_latency": null,
-        "form_factor": "DIMM"
+        "form_factor": "SODIMM"
       }
     },
     {
@@ -7535,23 +7534,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Keepdata DDR4 16GB 3200MHz KD32N22/16G",
-      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
-      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-16gb-3200mhz-kd32n2216g_34831/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_16gb_3200mhz_kd32n2216g_138192_200x200.jpg",
-      "price_usd": 89.9,
-      "price_brl": 471.08,
-      "offers": 8,
-      "specs": {
-        "capacity_gb": 16,
-        "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Keepdata DDR4 4GB 3200MHz Notebook KD32S22/4G",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-4gb-3200mhz-notebook-kd32s224g_37880/",
@@ -7658,8 +7640,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-rgb-ddr4-32gb-3200mhz_36459/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_hyperx_fury_beast_rgb_ddr4_32gb_3200mhz_137446_200x200.png",
-      "price_usd": 265.0,
-      "price_brl": 1388.6,
+      "price_usd": 267.0,
+      "price_brl": 1399.08,
       "offers": 8,
       "specs": {
         "capacity_gb": 32,
@@ -7705,6 +7687,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Keepdata DDR4 8GB 2400MHz KD24N17/8G",
+      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
+      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-8gb-2400mhz-kd24n178g_31818/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_8gb_2400mhz_129664_200x200.jpg",
+      "price_usd": 42.9,
+      "price_brl": 224.8,
+      "offers": 7,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 2400,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Keepdata DDR4 16GB 2666MHz Notebook KD26S19/16G",
       "description": "Adicione mais memória no seu Notebook e melhore a velocidade e desempen...",
       "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-16gb-2666mhz-notebook-kd26s1916g_31828/",
@@ -7718,6 +7717,23 @@
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Keepdata DDR4 16GB 3200MHz KD32N22/16G",
+      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
+      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-16gb-3200mhz-kd32n2216g_34831/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_16gb_3200mhz_kd32n2216g_138192_200x200.jpg",
+      "price_usd": 89.9,
+      "price_brl": 471.08,
+      "offers": 7,
+      "specs": {
+        "capacity_gb": 16,
+        "speed_mhz": 3200,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
       }
     },
     {
@@ -7960,6 +7976,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Crucial DDR4 16GB 3200MHz CT16G4DFRA32A",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-crucial-ddr4-16gb-3200mhz-ct16g4dfra32a_44131/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_crucial_ddr4_16gb_3200mhz_ct16g4dfra32a_153875_200x200.jpg",
+      "price_usd": 108.0,
+      "price_brl": 565.92,
+      "offers": 6,
+      "specs": {
+        "capacity_gb": 16,
+        "speed_mhz": 3200,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Kingston DDR4 8GB 3200MHz Notebook KVR32S22S8/8",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-ddr4-8gb-3200mhz-notebook-kvr32s22s88_45804/",
@@ -8015,8 +8048,8 @@
       "description": "A memória RAM KD48S40/8G da Keepdata é a escolha perfeita para quem des...",
       "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr5-8gb-4800mhz-notebook-kd48s408g_53894/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr5_8gb_4800mhz_notebook_kd48s408g_175595_200x200.jpg",
-      "price_usd": 119.9,
-      "price_brl": 628.28,
+      "price_usd": 129.9,
+      "price_brl": 680.68,
       "offers": 6,
       "specs": {
         "capacity_gb": 8,
@@ -8066,8 +8099,8 @@
       "description": "Liberte todo o potencial do seu computador através da Keepdata, um comp...",
       "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr5-8gb-5600mhz-kd56n468g_59543/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr5_8gb_5600mhz_kd56n468g_185942_50c016f4-97d3-41ab-9d59-3d103012d154.webp",
-      "price_usd": 119.9,
-      "price_brl": 628.28,
+      "price_usd": 129.9,
+      "price_brl": 680.68,
       "offers": 6,
       "specs": {
         "capacity_gb": 8,
@@ -8113,23 +8146,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Adata XPG Gammix D35 DDR4 16GB 3200MHz AX4U320016G16A-SBKD35",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-adata-xpg-gammix-d35-ddr4-16gb-3200mhz-ax4u320016g16a-sbkd35_54449/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_adata_xpg_gammix_d35_ddr4_16gb_3200mhz_ax4u320016g16a_sbkd35_176463_200x200.jpg",
-      "price_usd": 132.0,
-      "price_brl": 691.68,
-      "offers": 6,
-      "specs": {
-        "capacity_gb": 16,
-        "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Keepdata DDR5 8GB 5600MHz Notebook KD56S46/8G",
       "description": "A memória RAM da Keepdata foi projetada para elevar o desempenho do seu...",
       "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr5-8gb-5600mhz-notebook-kd56s468g_58339/",
@@ -8160,6 +8176,23 @@
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Keepdata DDR4 8GB 2666MHz KD26N19/8G",
+      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
+      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-8gb-2666mhz-kd26n198g_31826/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_8gb_2666mhz_123135_200x200.png",
+      "price_usd": 51.9,
+      "price_brl": 271.96,
+      "offers": 5,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 2666,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
       }
     },
     {
@@ -8211,23 +8244,6 @@
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "SODIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Crucial DDR4 16GB 3200MHz CT16G4DFRA32A",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-crucial-ddr4-16gb-3200mhz-ct16g4dfra32a_44131/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_crucial_ddr4_16gb_3200mhz_ct16g4dfra32a_153875_200x200.jpg",
-      "price_usd": 108.0,
-      "price_brl": 565.92,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 16,
-        "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
       }
     },
     {
@@ -8293,23 +8309,6 @@
       "specs": {
         "capacity_gb": 16,
         "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Mancer Dantalion DDR4 8GB 2666MHz MCR-DTLL-2666",
-      "description": "Os módulos de memória Mancer Dantalion L são projetados para jogos de a...",
-      "url": "https://www.comprasparaguai.com.br/memoria-mancer-dantalion-ddr4-8gb-2666mhz-mcr-dtll-2666_69597/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_mancer_dantalion_ddr4_8gb_2666mhz_mcr_dtll_2666_201561_8fccc050-fffd-48bc-a776-13d10749405d.avif",
-      "price_usd": 39.5,
-      "price_brl": 206.98,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 2666,
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "DIMM"
@@ -8385,16 +8384,16 @@
     },
     {
       "category": "ram",
-      "name": "Memória Keepdata DDR4 8GB 2666MHz KD26N19/8G",
-      "description": "Adicione mais memória no seu PC e melhore a velocidade e desempenho em ...",
-      "url": "https://www.comprasparaguai.com.br/memoria-keepdata-ddr4-8gb-2666mhz-kd26n198g_31826/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_keepdata_ddr4_8gb_2666mhz_123135_200x200.png",
-      "price_usd": 51.9,
-      "price_brl": 271.96,
-      "offers": 4,
+      "name": "Memória Adata XPG Gammix D35 DDR4 16GB 3200MHz AX4U320016G16A-SBKD35",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-adata-xpg-gammix-d35-ddr4-16gb-3200mhz-ax4u320016g16a-sbkd35_54449/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_adata_xpg_gammix_d35_ddr4_16gb_3200mhz_ax4u320016g16a_sbkd35_176463_200x200.jpg",
+      "price_usd": 132.0,
+      "price_brl": 691.68,
+      "offers": 5,
       "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 2666,
+        "capacity_gb": 16,
+        "speed_mhz": 3200,
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "DIMM"
@@ -8521,57 +8520,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Kingston Fury Beast DDR5 32GB 6000MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-32gb-6000mhz_46859/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_32gb_6000mhz_160331_200x200.jpg",
-      "price_usd": 530.0,
-      "price_brl": 2777.2,
-      "offers": 4,
-      "specs": {
-        "capacity_gb": 32,
-        "speed_mhz": 6000,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Macroway DDR4 8GB 2666MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-8gb-2666mhz_49397/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr4_8gb_2666mhz_166111_200x200.jpg",
-      "price_usd": 42.0,
-      "price_brl": 220.08,
-      "offers": 4,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 2666,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Macroway DDR3L 8GB 1600MHz Notebook",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr3l-8gb-1600mhz-notebook_49406/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr3_8gb_1600mhz_notebook_166120_200x200.jpg",
-      "price_usd": 14.75,
-      "price_brl": 77.29,
-      "offers": 4,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 1600,
-        "ddr_gen": "DDR3",
-        "cas_latency": null,
-        "form_factor": "SODIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Macroway DDR4 32GB 3200MHz Notebook",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-32gb-3200mhz-notebook_53905/",
@@ -8581,6 +8529,23 @@
       "offers": 4,
       "specs": {
         "capacity_gb": 32,
+        "speed_mhz": 3200,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Adata DDR4 16GB 3200MHz Notebook AD4S320016G22-SGN",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr4-16gb-3200mhz-notebook-ad4s320016g22-sgn_54450/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_adata_ddr4_16gb_3200mhz_notebook_ad4s320016g22_sgn_176464_200x200.jpg",
+      "price_usd": 108.0,
+      "price_brl": 565.92,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 16,
         "speed_mhz": 3200,
         "ddr_gen": "DDR4",
         "cas_latency": null,
@@ -8657,6 +8622,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Kingston DDR5 32GB 5600MHz Notebook KVR56S46BD8-32",
+      "description": "Aumente o desempenho de seu notebook por meio da memória KVR56S46BD8-32...",
+      "url": "https://www.comprasparaguai.com.br/memoria-kingston-ddr5-32gb-5600mhz-notebook-kvr56s46bd8-32_58880/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_ddr5_32gb_5600mhz_notebook_kvr56s46bd8_32_184732_43584d15-69c3-4717-b713-f92b5343ec5a.webp",
+      "price_usd": 485.0,
+      "price_brl": 2541.4,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 32,
+        "speed_mhz": 5600,
+        "ddr_gen": "DDR5",
+        "cas_latency": null,
+        "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Adata DDR5 8GB 5600MHz Notebook AD5S56008G-S",
       "description": "A RAM DDR5 da ADATA foi projetada para elevar o desempenho do seu noteb...",
       "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr5-8gb-5600mhz-notebook-ad5s56008g-s_58882/",
@@ -8708,17 +8690,17 @@
     },
     {
       "category": "ram",
-      "name": "Memória G.Skill Aegis DDR4 8GB 3200MHz F4-3200C16S-8GIS",
-      "description": "A Memória RAM G.Skill Aegis de 8GB oferece um desempenho rápido e estáv...",
-      "url": "https://www.comprasparaguai.com.br/memoria-gskill-aegis-ddr4-8gb-3200mhz-f4-3200c16s-8gis_69519/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_gskill_aegis_8_ddr4_8gb_3200mhz_f4_3200c16s_8gis_201457_7a02e036-99e9-4693-a869-88edf514a842.avif",
-      "price_usd": 57.5,
-      "price_brl": 301.3,
+      "name": "Memória FTX DDR5 32GB 5200MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-ftx-ddr5-32gb-5200mhz_62171/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_ftx_ddr5_32gb_5200mhz_190088_aaf57983-8550-490a-a80d-eed518b73fb2.webp",
+      "price_usd": 375.0,
+      "price_brl": 1965.0,
       "offers": 4,
       "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
+        "capacity_gb": 32,
+        "speed_mhz": 5200,
+        "ddr_gen": "DDR5",
         "cas_latency": null,
         "form_factor": "DIMM"
       }
@@ -8776,16 +8758,16 @@
     },
     {
       "category": "ram",
-      "name": "Memória Corsair Vengeance LPX DDR4 32GB (2x 16GB) 3200MHz CMK32GX4M2E3200C16",
-      "description": "As memórias da Corsair vão dar um belo upgrade no seu PC, adicione 32GB...",
-      "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-lpx-ddr4-32gb-2x-16gb-3200mhz-cmk32gx4m2e3200c16_35473/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_lpx_ddr4_32gb_2x_16gb_3200mhz_135276_200x200.jpg",
-      "price_usd": 258.0,
-      "price_brl": 1351.92,
+      "name": "Memória Mancer Dantalion DDR4 8GB 2666MHz MCR-DTLL-2666",
+      "description": "Os módulos de memória Mancer Dantalion L são projetados para jogos de a...",
+      "url": "https://www.comprasparaguai.com.br/memoria-mancer-dantalion-ddr4-8gb-2666mhz-mcr-dtll-2666_69597/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_mancer_dantalion_ddr4_8gb_2666mhz_mcr_dtll_2666_201561_8fccc050-fffd-48bc-a776-13d10749405d.avif",
+      "price_usd": 57.0,
+      "price_brl": 298.68,
       "offers": 4,
       "specs": {
-        "capacity_gb": 32,
-        "speed_mhz": 3200,
+        "capacity_gb": 8,
+        "speed_mhz": 2666,
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "DIMM"
@@ -8803,6 +8785,23 @@
       "specs": {
         "capacity_gb": 16,
         "speed_mhz": 5600,
+        "ddr_gen": "DDR5",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Kingston Fury Beast DDR5 8GB 6000MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-8gb-6000mhz_45395/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_8gb_6000mhz_156842_200x200.jpg",
+      "price_usd": 155.0,
+      "price_brl": 812.2,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 6000,
         "ddr_gen": "DDR5",
         "cas_latency": null,
         "form_factor": "DIMM"
@@ -8980,6 +8979,40 @@
     },
     {
       "category": "ram",
+      "name": "Memória Kingston Fury Beast DDR5 8GB 5600MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-8gb-5600mhz_45392/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_8gb_5600mhz_156833_200x200.jpg",
+      "price_usd": 154.6,
+      "price_brl": 810.1,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 5600,
+        "ddr_gen": "DDR5",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Kingston Fury Beast DDR5 32GB 6000MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-32gb-6000mhz_46859/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_32gb_6000mhz_160331_200x200.jpg",
+      "price_usd": 530.0,
+      "price_brl": 2777.2,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 32,
+        "speed_mhz": 6000,
+        "ddr_gen": "DDR5",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Kingston Fury Beast RGB DDR5 16GB 6000MHz",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-rgb-ddr5-16gb-6000mhz_46860/",
@@ -9048,6 +9081,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Macroway DDR4 8GB 2666MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-8gb-2666mhz_49397/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr4_8gb_2666mhz_166111_200x200.jpg",
+      "price_usd": 42.0,
+      "price_brl": 220.08,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 2666,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Macroway DDR4 16GB 2666MHz Notebook",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-16gb-2666mhz-notebook_49400/",
@@ -9059,6 +9109,23 @@
         "capacity_gb": 16,
         "speed_mhz": 2666,
         "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Macroway DDR3L 8GB 1600MHz Notebook",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr3l-8gb-1600mhz-notebook_49406/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr3_8gb_1600mhz_notebook_166120_200x200.jpg",
+      "price_usd": 14.75,
+      "price_brl": 77.29,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 1600,
+        "ddr_gen": "DDR3",
         "cas_latency": null,
         "form_factor": "SODIMM"
       }
@@ -9082,36 +9149,19 @@
     },
     {
       "category": "ram",
-      "name": "Memória Adata DDR4 16GB 3200MHz Notebook AD4S320016G22-SGN",
+      "name": "Memória FTX DDR4 8GB 3200MHz",
       "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr4-16gb-3200mhz-notebook-ad4s320016g22-sgn_54450/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_adata_ddr4_16gb_3200mhz_notebook_ad4s320016g22_sgn_176464_200x200.jpg",
-      "price_usd": 108.0,
-      "price_brl": 565.92,
+      "url": "https://www.comprasparaguai.com.br/memoria-ftx-ddr4-8gb-3200mhz_56761/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_ftx_ddr4_8gb_3200mhz_180917_200x200.png",
+      "price_usd": 45.0,
+      "price_brl": 235.8,
       "offers": 3,
       "specs": {
-        "capacity_gb": 16,
+        "capacity_gb": 8,
         "speed_mhz": 3200,
         "ddr_gen": "DDR4",
         "cas_latency": null,
-        "form_factor": "SODIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Kingston DDR5 32GB 5600MHz Notebook KVR56S46BD8-32",
-      "description": "Aumente o desempenho de seu notebook por meio da memória KVR56S46BD8-32...",
-      "url": "https://www.comprasparaguai.com.br/memoria-kingston-ddr5-32gb-5600mhz-notebook-kvr56s46bd8-32_58880/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_ddr5_32gb_5600mhz_notebook_kvr56s46bd8_32_184732_43584d15-69c3-4717-b713-f92b5343ec5a.webp",
-      "price_usd": 485.0,
-      "price_brl": 2541.4,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 32,
-        "speed_mhz": 5600,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "SODIMM"
+        "form_factor": "DIMM"
       }
     },
     {
@@ -9201,23 +9251,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória FTX DDR5 32GB 5200MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-ftx-ddr5-32gb-5200mhz_62171/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_ftx_ddr5_32gb_5200mhz_190088_aaf57983-8550-490a-a80d-eed518b73fb2.webp",
-      "price_usd": 375.0,
-      "price_brl": 1965.0,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 32,
-        "speed_mhz": 5200,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Kingston Fury Impact DDR5 16GB 6000MHz Notebook",
       "description": "A Memória Kingston é uma solução de alto desempenho projetada para lapt...",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-impact-ddr5-16gb-6000mhz-notebook_65085/",
@@ -9258,6 +9291,23 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_ddr4_8gb_3200mhz_kcp432ss88_198183_8c6b24da-b5c3-4264-9547-da9ee7ab0917.avif",
       "price_usd": 71.0,
       "price_brl": 372.04,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 3200,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória G.Skill Aegis DDR4 8GB 3200MHz F4-3200C16S-8GIS",
+      "description": "A Memória RAM G.Skill Aegis de 8GB oferece um desempenho rápido e estáv...",
+      "url": "https://www.comprasparaguai.com.br/memoria-gskill-aegis-ddr4-8gb-3200mhz-f4-3200c16s-8gis_69519/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_gskill_aegis_8_ddr4_8gb_3200mhz_f4_3200c16s_8gis_201457_7a02e036-99e9-4693-a869-88edf514a842.avif",
+      "price_usd": 57.5,
+      "price_brl": 301.3,
       "offers": 3,
       "specs": {
         "capacity_gb": 8,
@@ -9320,6 +9370,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Corsair Vengeance LPX DDR4 32GB (2x 16GB) 3200MHz CMK32GX4M2E3200C16",
+      "description": "As memórias da Corsair vão dar um belo upgrade no seu PC, adicione 32GB...",
+      "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-lpx-ddr4-32gb-2x-16gb-3200mhz-cmk32gx4m2e3200c16_35473/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_lpx_ddr4_32gb_2x_16gb_3200mhz_135276_200x200.jpg",
+      "price_usd": 265.0,
+      "price_brl": 1388.6,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 32,
+        "speed_mhz": 3200,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Corsair Vengeance RGB DDR5 32GB (2x 16GB) 5200MHz CMH32GX5M2B5200C40",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-rgb-ddr5-32gb-2x-16gb-5200mhz-cmh32gx5m2b5200c40_44130/",
@@ -9330,23 +9397,6 @@
       "specs": {
         "capacity_gb": 32,
         "speed_mhz": 5200,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Kingston Fury Beast DDR5 8GB 6000MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-8gb-6000mhz_45395/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_8gb_6000mhz_156842_200x200.jpg",
-      "price_usd": 156.25,
-      "price_brl": 818.75,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 6000,
         "ddr_gen": "DDR5",
         "cas_latency": null,
         "form_factor": "DIMM"
@@ -9660,23 +9710,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória UP Gamer UP1600 DDR3 8GB 1600MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-up-gamer-up1600-ddr3-8gb-1600mhz_36506/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_up_gamer_up1600_ddr3_8gb_1600mhz_168331_200x200.png",
-      "price_usd": 13.25,
-      "price_brl": 69.43,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 1600,
-        "ddr_gen": "DDR3",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Kingston DDR3L 8GB 1600MHz Notebook KVR16LS11/8",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-ddr3l-8gb-1600mhz-notebook-kvr16ls118_37009/",
@@ -9813,23 +9846,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Kingston Fury Beast DDR5 8GB 5600MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-beast-ddr5-8gb-5600mhz_45392/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_kingston_fury_beast_ddr5_8gb_5600mhz_156833_200x200.jpg",
-      "price_usd": 154.6,
-      "price_brl": 810.1,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 5600,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Kingston Fury Impact DDR5 16GB 4800MHz Notebook",
       "description": "Potência, velocidade e confiabilidade em uma única Memória RAM! Experim...",
       "url": "https://www.comprasparaguai.com.br/memoria-kingston-fury-impact-ddr5-16gb-4800mhz-notebook_46861/",
@@ -9877,23 +9893,6 @@
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "SODIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória Macroway DDR4 16GB 2666MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-16gb-2666mhz_49399/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr4_16gb_2666mhz_166113_200x200.jpg",
-      "price_usd": 81.0,
-      "price_brl": 424.44,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 16,
-        "speed_mhz": 2666,
-        "ddr_gen": "DDR4",
-        "cas_latency": null,
-        "form_factor": "DIMM"
       }
     },
     {
@@ -10011,23 +10010,6 @@
         "capacity_gb": 16,
         "speed_mhz": 5600,
         "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
-      "name": "Memória FTX DDR4 8GB 3200MHz",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/memoria-ftx-ddr4-8gb-3200mhz_56761/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_ftx_ddr4_8gb_3200mhz_180917_200x200.png",
-      "price_usd": 45.0,
-      "price_brl": 235.8,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 8,
-        "speed_mhz": 3200,
-        "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "DIMM"
       }
@@ -10521,6 +10503,23 @@
         "capacity_gb": 32,
         "speed_mhz": 3200,
         "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
+      "name": "Memória Corsair Vengeance DDR5 16GB 6000MHz CMK16GX5M1E6000Z36",
+      "description": "Maximize o desempenho do seu sistema com a memória Corsair Vengeance DD...",
+      "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-ddr5-16gb-6000mhz-cmk16gx5m1e6000z36_68214/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_ddr5_16gb_6000mhz_cmk16gx5m1e6000z36_199208_76388497-069d-4d67-b313-121c80eb9f3c.avif",
+      "price_usd": 254.9,
+      "price_brl": 1335.68,
+      "offers": 2,
+      "specs": {
+        "capacity_gb": 16,
+        "speed_mhz": 6000,
+        "ddr_gen": "DDR5",
         "cas_latency": null,
         "form_factor": "DIMM"
       }
@@ -11292,6 +11291,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória UP Gamer UP1600 DDR3 8GB 1600MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-up-gamer-up1600-ddr3-8gb-1600mhz_36506/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_up_gamer_up1600_ddr3_8gb_1600mhz_168331_200x200.png",
+      "price_usd": 13.25,
+      "price_brl": 69.43,
+      "offers": 1,
+      "specs": {
+        "capacity_gb": 8,
+        "speed_mhz": 1600,
+        "ddr_gen": "DDR3",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Corsair ValueSelect DDR4 8GB 2400MHz CMV8GX4M1A2400C16",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-corsair-valueselect-ddr4-8gb-2400mhz-cmv8gx4m1a2400c16_36519/",
@@ -11972,6 +11988,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Macroway DDR4 16GB 2666MHz",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-16gb-2666mhz_49399/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_macroway_ddr4_16gb_2666mhz_166113_200x200.jpg",
+      "price_usd": 81.0,
+      "price_brl": 424.44,
+      "offers": 1,
+      "specs": {
+        "capacity_gb": 16,
+        "speed_mhz": 2666,
+        "ddr_gen": "DDR4",
+        "cas_latency": null,
+        "form_factor": "DIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Macroway DDR4 4GB 2400MHz",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-macroway-ddr4-4gb-2400mhz_49401/",
@@ -12193,6 +12226,23 @@
     },
     {
       "category": "ram",
+      "name": "Memória Adata DDR5 32GB 5600MHz Notebook AD5S560032G-S",
+      "description": "Aumente o desempenho de seu notebook através da memória ADATA AD5S56003...",
+      "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr5-32gb-5600mhz-notebook-ad5s560032g-s_58877/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_adata_ddr5_32gb_5600mhz_notebook_ad5s560032g_s_184727_921f1c9e-828c-4dac-bcb4-ca7ed9e2f041.webp",
+      "price_usd": 419.0,
+      "price_brl": 2195.56,
+      "offers": 1,
+      "specs": {
+        "capacity_gb": 32,
+        "speed_mhz": 5600,
+        "ddr_gen": "DDR5",
+        "cas_latency": null,
+        "form_factor": "SODIMM"
+      }
+    },
+    {
+      "category": "ram",
       "name": "Memória Adata DDR4 32GB 3200MHz Notebook AD4S320032G22-SGN",
       "description": "O módulo DDR4 para notebooks da ADATA, oferece maior desempenho e produ...",
       "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr4-32gb-3200mhz-notebook-ad4s320032g22-sgn_58883/",
@@ -12329,23 +12379,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Corsair Vengeance DDR5 96GB (2x 48GB) 5200MHz CMK96GX5M2B5200C38",
-      "description": "Libere toda a potência e eficiência de seu PC usando a memória RAM Cors...",
-      "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-ddr5-96gb-2x-48gb-5200mhz-cmk96gx5m2b5200c38_61603/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_ddr5_96gb_2x_48gb_5200mhz_cmk96gx5m2b5200c38_189154_be0fa1d0-203e-4bb0-8123-168f5c4b25a3.webp",
-      "price_usd": 1339.9,
-      "price_brl": 7021.08,
-      "offers": 1,
-      "specs": {
-        "capacity_gb": 96,
-        "speed_mhz": 5200,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória Adata DDR5 16GB 4800MHz Notebook AD5S480016G-S",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-adata-ddr5-16gb-4800mhz-notebook-ad5s480016g-s_61604/",
@@ -12367,8 +12400,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-rgb-ddr5-32gb-5600mhz-cmh32gx5m1b5600z40_62010/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_rgb_ddr5_32gb_5600mhz_cmh32gx5m1b5600z40_189822_21761341-4fa3-404f-a5de-45341ad9e881.webp",
-      "price_usd": 473.9,
-      "price_brl": 2483.24,
+      "price_usd": 490.0,
+      "price_brl": 2567.6,
       "offers": 1,
       "specs": {
         "capacity_gb": 32,
@@ -12635,23 +12668,6 @@
     },
     {
       "category": "ram",
-      "name": "Memória Corsair Vengeance DDR5 16GB 6000MHz CMK16GX5M1E6000Z36",
-      "description": "Maximize o desempenho do seu sistema com a memória Corsair Vengeance DD...",
-      "url": "https://www.comprasparaguai.com.br/memoria-corsair-vengeance-ddr5-16gb-6000mhz-cmk16gx5m1e6000z36_68214/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/memoria_corsair_vengeance_ddr5_16gb_6000mhz_cmk16gx5m1e6000z36_199208_76388497-069d-4d67-b313-121c80eb9f3c.avif",
-      "price_usd": 254.9,
-      "price_brl": 1335.68,
-      "offers": 1,
-      "specs": {
-        "capacity_gb": 16,
-        "speed_mhz": 6000,
-        "ddr_gen": "DDR5",
-        "cas_latency": null,
-        "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "ram",
       "name": "Memória G.Skill Trident Z DDR4 16GB (2x 8GB) 3200MHz F4-3200C16D-16GTZSW",
       "description": "A Memória RAM Trident Z oferece alto desempenho para desktops com arqui...",
       "url": "https://www.comprasparaguai.com.br/memoria-gskill-trident-z-ddr4-16gb-2x-8gb-3200mhz-f4-3200c16d-16gtzsw_69527/",
@@ -12665,21 +12681,6 @@
         "ddr_gen": "DDR4",
         "cas_latency": null,
         "form_factor": "DIMM"
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Keepdata DragonFly Radeon RX580 8GB GDDR5 PCI-Express",
-      "description": "Descubra o equilíbrio perfeito entre potência e eficiência graças ao Dr...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-keepdata-dragonfly-radeon-rx580-8gb-gddr5-pci-express_59213/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_keepdata_dragonfly_radeon_rx580_8gb_gddr5_pci_express_185404_200x200.jpg",
-      "price_usd": 135.7,
-      "price_brl": 711.07,
-      "offers": 12,
-      "specs": {
-        "brand": "AMD",
-        "model_key": "rx 580",
-        "vram_gb": 8
       }
     },
     {
@@ -12709,6 +12710,21 @@
       "specs": {
         "brand": "NVIDIA",
         "model_key": "rtx 3070",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Keepdata DragonFly Radeon RX580 8GB GDDR5 PCI-Express",
+      "description": "Descubra o equilíbrio perfeito entre potência e eficiência graças ao Dr...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-keepdata-dragonfly-radeon-rx580-8gb-gddr5-pci-express_59213/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_keepdata_dragonfly_radeon_rx580_8gb_gddr5_pci_express_185404_200x200.jpg",
+      "price_usd": 145.0,
+      "price_brl": 759.8,
+      "offers": 12,
+      "specs": {
+        "brand": "AMD",
+        "model_key": "rx 580",
         "vram_gb": 8
       }
     },
@@ -12774,6 +12790,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo Biostar Extreme Gaming GeForce RTX2060 Super 8GB GDDR6 PCI-Express",
+      "description": "A Placa de Vídeo Biostar é a escolha ideal para gamers e criadores de c...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-biostar-extreme-gaming-geforce-rtx2060-super-8gb-gddr6-pci-express_67058/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_biostar_super_extreme_gaming_geforce_rtx2060_8gb_gddr6_pci_express_197532_f3e8baa1-2593-44f7-9cf3-b9f37a3eb340.avif",
+      "price_usd": 268.0,
+      "price_brl": 1404.32,
+      "offers": 7,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 2060 super",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Biostar Extreme Gaming GeForce RTX3050 6GB GDDR6 PCI-Express",
       "description": "A Placa de Vídeo Biostar é a solução ideal para entusiastas de jogos qu...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-biostar-extreme-gaming-geforce-rtx3050-6gb-gddr6-pci-express_67059/",
@@ -12823,8 +12854,8 @@
       "description": "A linha VENTUS foca em tudo aquilo que é necessário para poder encarar ...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5050-ventus-2x-oc-8gb-gddr6-pci-express_64665/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5050_ventus_2x_oc_8gb_gddr6_pci_express_194159_b324d06b-550d-4470-90cb-0a388e289aba.webp",
-      "price_usd": 350.0,
-      "price_brl": 1834.0,
+      "price_usd": 349.0,
+      "price_brl": 1828.76,
       "offers": 8,
       "specs": {
         "brand": "NVIDIA",
@@ -12879,17 +12910,17 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo Biostar Extreme Gaming GeForce RTX2060 Super 8GB GDDR6 PCI-Express",
-      "description": "A Placa de Vídeo Biostar é a escolha ideal para gamers e criadores de c...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-biostar-extreme-gaming-geforce-rtx2060-super-8gb-gddr6-pci-express_67058/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_biostar_super_extreme_gaming_geforce_rtx2060_8gb_gddr6_pci_express_197532_f3e8baa1-2593-44f7-9cf3-b9f37a3eb340.avif",
-      "price_usd": 268.0,
-      "price_brl": 1404.32,
+      "name": "Placa de Vídeo Zotac GeForce RTX5060TI Twin Edge OC 16GB GDDR7 PCI-Express",
+      "description": "A Placa de Vídeo ZOTAC GeForce RTX 5060 TI Twin Edge OC redefine o dese...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx5060ti-twin-edge-oc-16gb-gddr7-pci-express_65757/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx5060ti_twin_edge_oc_16gb_gddr7_pci_express_195645_7727f7d1-e363-478a-815f-17302d7efb4e.avif",
+      "price_usd": 648.0,
+      "price_brl": 3395.52,
       "offers": 6,
       "specs": {
         "brand": "NVIDIA",
-        "model_key": "rtx 2060 super",
-        "vram_gb": 8
+        "model_key": "rtx 5060 ti",
+        "vram_gb": 16
       }
     },
     {
@@ -12950,21 +12981,6 @@
         "brand": "NVIDIA",
         "model_key": "rtx 5050",
         "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Zotac GeForce RTX5060TI Twin Edge OC 16GB GDDR7 PCI-Express",
-      "description": "A Placa de Vídeo ZOTAC GeForce RTX 5060 TI Twin Edge OC redefine o dese...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx5060ti-twin-edge-oc-16gb-gddr7-pci-express_65757/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx5060ti_twin_edge_oc_16gb_gddr7_pci_express_195645_7727f7d1-e363-478a-815f-17302d7efb4e.avif",
-      "price_usd": 648.0,
-      "price_brl": 3395.52,
-      "offers": 6,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060 ti",
-        "vram_gb": 16
       }
     },
     {
@@ -13074,21 +13090,6 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX3050 LP OC 6GB GDDR6 PCI-Express",
-      "description": "Eleve a sua experiência de jogo graças à MSI GeForce RTX 3050 LP OC, um...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx3050-lp-oc-6gb-gddr6-pci-express_52531/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx3050_lp_oc_6gb_gddr6_pci_express_172909_200x200.jpg",
-      "price_usd": 235.0,
-      "price_brl": 1231.4,
-      "offers": 5,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 3050",
-        "vram_gb": 6
-      }
-    },
-    {
-      "category": "gpu",
       "name": "Placa de Vídeo Star Radeon HD7670 4GB DDR5 PCI-Express",
       "description": "A placa de vídeo Star Radeon HD7670 oferece um desempenho gráfico excep...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-star-radeon-hd7670-4gb-ddr5-pci-express_54736/",
@@ -13108,28 +13109,13 @@
       "description": "Destemido e ousado, o GAMING TRIO oferece desempenho forte tanto para j...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5070-trio-oc-12gb-gddr7-pci-express_59205/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5070_trio_oc_12gb_gddr7_pci_express_185381_200x200.png",
-      "price_usd": 804.0,
-      "price_brl": 4212.96,
+      "price_usd": 805.0,
+      "price_brl": 4218.2,
       "offers": 5,
       "specs": {
         "brand": "NVIDIA",
         "model_key": "rtx 5070",
         "vram_gb": 12
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5080 Shadow 3X OC 16GB GDDR7 PCI-Express",
-      "description": "O MSI SHADOW traz um design focado no desempenho que proporciona a expe...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5080-shadow-3x-oc-16gb-gddr7-pci-express_59210/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5080_shadow_3x_oc_16gb_gddr7_pci_express_185395_200x200.jpg",
-      "price_usd": 1548.0,
-      "price_brl": 8111.52,
-      "offers": 5,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5080",
-        "vram_gb": 16
       }
     },
     {
@@ -13144,6 +13130,36 @@
       "specs": {
         "brand": "AMD",
         "model_key": "rx 6600",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Palit GeForce RTX5070 Infinity 3 12GB GDDR7 PCI-Express",
+      "description": "O Palit Infinity 3 RTX 5070 combina eficiência energética e potência gr...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-palit-geforce-rtx5070-infinity-3-12gb-gddr7-pci-express_60996/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_palit_geforce_rtx5070_infinity_3_12gb_gddr7_pci_express_188224_3e948191-0b34-4267-81a5-92deabe0bcdb.webp",
+      "price_usd": 709.0,
+      "price_brl": 3715.16,
+      "offers": 5,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5070",
+        "vram_gb": 12
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Gigabyte GeForce RTX5060 Eagle OC 8GB GDDR7 PCI-Express",
+      "description": "A Placa de Vídeo Gigabyte GeForce RTX 5060 Eagle OC é a solução perfeit...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060-eagle-oc-8gb-gddr7-pci-express_61457/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060_eagle_oc_8gb_gddr7_pci_express_188914_5870483c-7b77-4db0-a419-d17c7bd1aacf.webp",
+      "price_usd": 425.0,
+      "price_brl": 2227.0,
+      "offers": 5,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060",
         "vram_gb": 8
       }
     },
@@ -13190,21 +13206,6 @@
         "brand": "AMD",
         "model_key": "rx 9060 xt",
         "vram_gb": 16
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5060 Shadow 2X OC 8GB GDDR7 PCI-Express",
-      "description": "O MSI SHADOW traz um design focado em desempenho que proporciona a expe...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060-shadow-2x-oc-8gb-gddr7-pci-express_63048/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060_shadow_2x_oc_8gb_gddr7_pci_express_191534_292c1e83-2f2a-484c-a992-940e5020c9af.webp",
-      "price_usd": 435.0,
-      "price_brl": 2279.4,
-      "offers": 5,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060",
-        "vram_gb": 8
       }
     },
     {
@@ -13404,6 +13405,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX3050 LP OC 6GB GDDR6 PCI-Express",
+      "description": "Eleve a sua experiência de jogo graças à MSI GeForce RTX 3050 LP OC, um...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx3050-lp-oc-6gb-gddr6-pci-express_52531/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx3050_lp_oc_6gb_gddr6_pci_express_172909_200x200.jpg",
+      "price_usd": 239.0,
+      "price_brl": 1252.36,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 3050",
+        "vram_gb": 6
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Star GeForce GT610 2GB DDR3 PCI-Express",
       "description": "Se você está procurando uma placa de vídeo de baixo perfil, alta qualid...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-star-geforce-gt610-2gb-ddr3-pci-express_54730/",
@@ -13449,6 +13465,36 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX5070 Shadow 3X OC 12GB GDDR7 PCI-Express",
+      "description": "O MSI SHADOW traz um design focado no desempenho que proporciona a expe...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5070-shadow-3x-oc-12gb-gddr7-pci-express_59209/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5070_shadow_3x_oc_12gb_gddr7_pci_express_185392_200x200.png",
+      "price_usd": 770.0,
+      "price_brl": 4034.8,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5070",
+        "vram_gb": 12
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX5080 Shadow 3X OC 16GB GDDR7 PCI-Express",
+      "description": "O MSI SHADOW traz um design focado no desempenho que proporciona a expe...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5080-shadow-3x-oc-16gb-gddr7-pci-express_59210/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5080_shadow_3x_oc_16gb_gddr7_pci_express_185395_200x200.jpg",
+      "price_usd": 1595.0,
+      "price_brl": 8357.8,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5080",
+        "vram_gb": 16
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Asrock Radeon RX9070 Challenger 16GB GDDR6 PCI-Express",
       "description": "Descubra o máximo em potência e criatividade através do Asrock Radeon R...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-asrock-radeon-rx9070-challenger-16gb-gddr6-pci-express_59211/",
@@ -13479,17 +13525,17 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5080 Inspire 3X OC 16GB GDDR7 PCI-Express",
-      "description": "Surpreenda-se com o incrível desempenho e os recursos avançados da MSI ...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5080-inspire-3x-oc-16gb-gddr7-pci-express_60658/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5080_inspire_3x_oc_16gb_gddr7_pci_express_187591_ff19b7ee-8d7f-4ce7-80e8-0b25a6ea29b9.webp",
-      "price_usd": 1569.0,
-      "price_brl": 8221.56,
+      "name": "Placa de Vídeo Gigabyte GeForce RTX5060TI Aero OC 8GB GDDR7 PCI-Express",
+      "description": "O sistema de resfriamento WINDFORCE oferece desempenho térmico excepcio...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060ti-aero-oc-8gb-gddr7-pci-express_60656/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_aero_oc_8gb_gddr7_pci_express_187587_5f22d275-2c85-4843-90fc-70ff2cf4c9c0.webp",
+      "price_usd": 515.0,
+      "price_brl": 2698.6,
       "offers": 4,
       "specs": {
         "brand": "NVIDIA",
-        "model_key": "rtx 5080",
-        "vram_gb": 16
+        "model_key": "rtx 5060 ti",
+        "vram_gb": 8
       }
     },
     {
@@ -13543,23 +13589,8 @@
       "description": "O sistema de resfriamento WINDFORCE oferece desempenho térmico excepcio...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060-gaming-oc-8gb-gddr7-pci-express_61455/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060_gaming_oc_8gb_gddr7_pci_express_188908_007b0063-8c8f-44b3-8912-c21a09f0fdc0.webp",
-      "price_usd": 415.0,
-      "price_brl": 2174.6,
-      "offers": 4,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060",
-        "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte GeForce RTX5060 Eagle OC 8GB GDDR7 PCI-Express",
-      "description": "A Placa de Vídeo Gigabyte GeForce RTX 5060 Eagle OC é a solução perfeit...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060-eagle-oc-8gb-gddr7-pci-express_61457/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060_eagle_oc_8gb_gddr7_pci_express_188914_5870483c-7b77-4db0-a419-d17c7bd1aacf.webp",
-      "price_usd": 425.0,
-      "price_brl": 2227.0,
+      "price_usd": 439.0,
+      "price_brl": 2300.36,
       "offers": 4,
       "specs": {
         "brand": "NVIDIA",
@@ -13614,21 +13645,6 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo Zotac GeForce RTX5060 Twin Edge OC 8GB GDDR7 PCI-Express",
-      "description": "A GeForce RTX 5060 Twin Edge OC da ZOTAC é uma placa de vídeo compacta ...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx5060-twin-edge-oc-8gb-gddr7-pci-express_62553/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx5060_twin_edge_oc_8gb_gddr7_pci_express_190674_3863c53f-6d7b-4b32-bf3e-880fc9fa0fa0.webp",
-      "price_usd": 403.0,
-      "price_brl": 2111.72,
-      "offers": 4,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060",
-        "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
       "name": "Placa de Vídeo Asrock Radeon RX9060 XT Challenger OC 16GB GDDR6 PCI-Express",
       "description": "A Placa de Vídeo Asrock Radeon RX9060 XT oferece um desempenho de jogo ...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-asrock-radeon-rx9060-xt-challenger-oc-16gb-gddr6-pci-express_62554/",
@@ -13640,6 +13656,36 @@
         "brand": "AMD",
         "model_key": "rx 9060 xt",
         "vram_gb": 16
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX5060TI Ventus 2X OC Plus 8GB GDDR7 PCI-Express",
+      "description": "A VENTUS foca no essencial para enfrentar qualquer desafio. Sua solução...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060ti-ventus-2x-oc-plus-8gb-gddr7-pci-express_62989/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_ventus_2x_oc_plus_8gb_gddr7_pci_express_191424_19d24d29-ad0a-4bff-a039-eb259e7d3595.webp",
+      "price_usd": 449.0,
+      "price_brl": 2352.76,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060 ti",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX5060 Shadow 2X OC 8GB GDDR7 PCI-Express",
+      "description": "O MSI SHADOW traz um design focado em desempenho que proporciona a expe...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060-shadow-2x-oc-8gb-gddr7-pci-express_63048/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060_shadow_2x_oc_8gb_gddr7_pci_express_191534_292c1e83-2f2a-484c-a992-940e5020c9af.webp",
+      "price_usd": 435.0,
+      "price_brl": 2279.4,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060",
+        "vram_gb": 8
       }
     },
     {
@@ -13704,6 +13750,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo MSI GeForce RTX5060TI Ventus 3X OC 8GB GDDR7 PCI-Express",
+      "description": "A VENTUS foca no essencial para enfrentar qualquer desafio. Sua solução...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060ti-ventus-3x-oc-8gb-gddr7-pci-express_68677/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_ventus_3x_oc_8gb_gddr7_pci_express_200014_a82b74b7-d45e-4df9-856e-155ec462208f.avif",
+      "price_usd": 484.0,
+      "price_brl": 2536.16,
+      "offers": 4,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060 ti",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Gigabyte GeForce RTX5060 Windforce Max OC 8GB GDDR7 PCI-Express",
       "description": "A Placa de Vídeo Gigabyte GeForce RTX 5060 Windforce Max OC 8GB GDDR7 f...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060-windforce-max-oc-8gb-gddr7-pci-express_68679/",
@@ -13714,21 +13775,6 @@
       "specs": {
         "brand": "NVIDIA",
         "model_key": "rtx 5060",
-        "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte GeForce RTX5050 Windforce OC 8GB GDDR6 PCI-Express",
-      "description": "A Placa de Vídeo Gigabyte GeForce RTX 5050 Windforce OC 8GB GDDR6 foi d...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5050-windforce-oc-8gb-gddr6-pci-express_68680/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5050_windforce_oc_8gb_gddr6_pci_express_200025_886d70aa-9802-4e6c-90fd-1ada1443ed92.avif",
-      "price_usd": 334.0,
-      "price_brl": 1750.16,
-      "offers": 4,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5050",
         "vram_gb": 8
       }
     },
@@ -13805,21 +13851,6 @@
         "brand": null,
         "model_key": null,
         "vram_gb": 4
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Zotac GeForce RTX3060 Twin Edge 12GB GDDR6 PCI-Express",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx3060-twin-edge-12gb-gddr6-pci-express_46639/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx3060_twin_edge_12gb_gddr6_pci_express_159879_200x200.jpg",
-      "price_usd": 365.0,
-      "price_brl": 1912.6,
-      "offers": 3,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 3060",
-        "vram_gb": 12
       }
     },
     {
@@ -13914,21 +13945,6 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5070 Shadow 3X OC 12GB GDDR7 PCI-Express",
-      "description": "O MSI SHADOW traz um design focado no desempenho que proporciona a expe...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5070-shadow-3x-oc-12gb-gddr7-pci-express_59209/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5070_shadow_3x_oc_12gb_gddr7_pci_express_185392_200x200.png",
-      "price_usd": 770.0,
-      "price_brl": 4034.8,
-      "offers": 3,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5070",
-        "vram_gb": 12
-      }
-    },
-    {
-      "category": "gpu",
       "name": "Placa de Vídeo Asus TUF Gaming GeForce RTX5070 OC 12GB GDDR7 PCI-Express",
       "description": "Prepare-se para redefinir o desempenho e a imersão com a ASUS RTX 5070....",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-asus-tuf-gaming-geforce-rtx5070-oc-12gb-gddr7-pci-express_60081/",
@@ -13948,8 +13964,8 @@
       "description": "A MSI Ventus 2X OC redefine o que significa ter uma placa de vídeo incr...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5070-ventus-2x-oc-12gb-gddr7-pci-express_60083/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5070_ventus_2x_oc_12gb_gddr7_pci_express_186726_c5e632f3-903d-40a9-963b-98dc3e5e1a88.webp",
-      "price_usd": 704.0,
-      "price_brl": 3688.96,
+      "price_usd": 734.0,
+      "price_brl": 3846.16,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
@@ -13989,17 +14005,17 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte GeForce RTX5060TI Aero OC 8GB GDDR7 PCI-Express",
-      "description": "O sistema de resfriamento WINDFORCE oferece desempenho térmico excepcio...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060ti-aero-oc-8gb-gddr7-pci-express_60656/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_aero_oc_8gb_gddr7_pci_express_187587_5f22d275-2c85-4843-90fc-70ff2cf4c9c0.webp",
-      "price_usd": 515.0,
-      "price_brl": 2698.6,
+      "name": "Placa de Vídeo MSI GeForce RTX5080 Inspire 3X OC 16GB GDDR7 PCI-Express",
+      "description": "Surpreenda-se com o incrível desempenho e os recursos avançados da MSI ...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5080-inspire-3x-oc-16gb-gddr7-pci-express_60658/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5080_inspire_3x_oc_16gb_gddr7_pci_express_187591_ff19b7ee-8d7f-4ce7-80e8-0b25a6ea29b9.webp",
+      "price_usd": 1569.0,
+      "price_brl": 8221.56,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
-        "model_key": "rtx 5060 ti",
-        "vram_gb": 8
+        "model_key": "rtx 5080",
+        "vram_gb": 16
       }
     },
     {
@@ -14025,21 +14041,6 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5070_shadow_2x_oc_12gb_gddr7_pci_express_187599_851f3a32-9a0b-4163-b259-239bdb17548b.webp",
       "price_usd": 739.0,
       "price_brl": 3872.36,
-      "offers": 3,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5070",
-        "vram_gb": 12
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Palit GeForce RTX5070 Infinity 3 12GB GDDR7 PCI-Express",
-      "description": "O Palit Infinity 3 RTX 5070 combina eficiência energética e potência gr...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-palit-geforce-rtx5070-infinity-3-12gb-gddr7-pci-express_60996/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_palit_geforce_rtx5070_infinity_3_12gb_gddr7_pci_express_188224_3e948191-0b34-4267-81a5-92deabe0bcdb.webp",
-      "price_usd": 735.0,
-      "price_brl": 3851.4,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
@@ -14098,8 +14099,8 @@
       "description": "A Placa de Vídeo Gigabyte GeForce RTX 5070 TI Gaming OC é a solução def...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5070ti-gaming-oc-16gb-gddr7-pci-express_61556/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5070ti_gaming_oc_16gb_gddr7_pci_express_189071_2e66957c-c762-4a7a-b55d-d10f87842c48.webp",
-      "price_usd": 1275.0,
-      "price_brl": 6681.0,
+      "price_usd": 1285.0,
+      "price_brl": 6733.4,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
@@ -14184,27 +14185,27 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo Zotac GeForce RTX5060 Twin Edge OC 8GB GDDR7 PCI-Express",
+      "description": "A GeForce RTX 5060 Twin Edge OC da ZOTAC é uma placa de vídeo compacta ...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx5060-twin-edge-oc-8gb-gddr7-pci-express_62553/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx5060_twin_edge_oc_8gb_gddr7_pci_express_190674_3863c53f-6d7b-4b32-bf3e-880fc9fa0fa0.webp",
+      "price_usd": 404.0,
+      "price_brl": 2116.96,
+      "offers": 3,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Zotac GeForce RTX5060TI Twin Edge 8GB GDDR7 PCI-Express",
       "description": "A ZOTAC GAMING GeForce RTX 5060 TI Twin Edge 8GB é uma placa de vídeo c...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx5060ti-twin-edge-8gb-gddr7-pci-express_62744/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx5060ti_twin_edge_8gb_gddr7_pci_express_191024_dfaef94b-9fe5-4e89-b42e-394e5daac67a.webp",
       "price_usd": 445.0,
       "price_brl": 2331.8,
-      "offers": 3,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060 ti",
-        "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5060TI Ventus 2X OC Plus 8GB GDDR7 PCI-Express",
-      "description": "A VENTUS foca no essencial para enfrentar qualquer desafio. Sua solução...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060ti-ventus-2x-oc-plus-8gb-gddr7-pci-express_62989/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_ventus_2x_oc_plus_8gb_gddr7_pci_express_191424_19d24d29-ad0a-4bff-a039-eb259e7d3595.webp",
-      "price_usd": 449.0,
-      "price_brl": 2352.76,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
@@ -14353,8 +14354,8 @@
       "description": "Leve sua experiência um passo adiante com a Gigabyte Gaming OC Radeon R...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-radeon-rx-9070-gaming-oc-16gb-gddr6-pci-express_68037/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_radeon_rx_9070_gaming_oc_16gb_gddr6_pci_express_198975_80f0b249-6f4d-4956-9605-9c9a6b8182f3.avif",
-      "price_usd": 694.0,
-      "price_brl": 3636.56,
+      "price_usd": 689.0,
+      "price_brl": 3610.36,
       "offers": 3,
       "specs": {
         "brand": "AMD",
@@ -14409,16 +14410,16 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo MSI GeForce RTX5060TI Ventus 3X OC 8GB GDDR7 PCI-Express",
-      "description": "A VENTUS foca no essencial para enfrentar qualquer desafio. Sua solução...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5060ti-ventus-3x-oc-8gb-gddr7-pci-express_68677/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5060ti_ventus_3x_oc_8gb_gddr7_pci_express_200014_a82b74b7-d45e-4df9-856e-155ec462208f.avif",
-      "price_usd": 485.0,
-      "price_brl": 2541.4,
+      "name": "Placa de Vídeo Gigabyte GeForce RTX5050 Windforce OC 8GB GDDR6 PCI-Express",
+      "description": "A Placa de Vídeo Gigabyte GeForce RTX 5050 Windforce OC 8GB GDDR6 foi d...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5050-windforce-oc-8gb-gddr6-pci-express_68680/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5050_windforce_oc_8gb_gddr6_pci_express_200025_886d70aa-9802-4e6c-90fd-1ada1443ed92.avif",
+      "price_usd": 335.0,
+      "price_brl": 1755.4,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
-        "model_key": "rtx 5060 ti",
+        "model_key": "rtx 5050",
         "vram_gb": 8
       }
     },
@@ -14435,6 +14436,21 @@
         "brand": "NVIDIA",
         "model_key": "rtx 5090",
         "vram_gb": 32
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Gigabyte Radeon RX 9060 XT Gaming OC 16GB GDDR6 PCI-Express",
+      "description": "A Placa de Vídeo Gigabyte Radeon RX 9060 XT Gaming OC é uma opção excep...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-radeon-rx-9060-xt-gaming-oc-16gb-gddr6-pci-express_68682/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_radeon_rx_9060_xt_gaming_oc_16gb_gddr6_pci_express_200032_d9f57c28-0af7-430c-98c6-ab2f90509687.avif",
+      "price_usd": 529.0,
+      "price_brl": 2771.96,
+      "offers": 3,
+      "specs": {
+        "brand": "AMD",
+        "model_key": "rx 9060 xt",
+        "vram_gb": 16
       }
     },
     {
@@ -14458,8 +14474,8 @@
       "description": "A Gigabyte RTX 5060 Ti Eagle Max OC é baseada na nova arquitetura NVIDI...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060ti-eagle-max-oc-8gb-gddr7-pci-express_69192/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060ti_eagle_max_oc_8gb_gddr7_pci_express_200922_054d87a6-6441-496b-bcc1-371d9471b1cf.avif",
-      "price_usd": 462.0,
-      "price_brl": 2420.88,
+      "price_usd": 465.0,
+      "price_brl": 2436.6,
       "offers": 3,
       "specs": {
         "brand": "NVIDIA",
@@ -14559,6 +14575,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo Gigabyte GeForce RTX5060TI Windforce 8GB GDDR6 PCI-Express",
+      "description": "O sistema de resfriamento WINDFORCE oferece desempenho térmico excepcio...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060ti-windforce-8gb-gddr6-pci-express_60998/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060ti_windforce_8gb_gddr6_pci_express_188230_37729c68-d036-4902-9da8-c95b29d65d59.webp",
+      "price_usd": 459.0,
+      "price_brl": 2405.16,
+      "offers": 3,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060 ti",
+        "vram_gb": 8
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Afox Radeon R5-230 2GB DDR3 PCI-Express",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-afox-radeon-r5-230-2gb-ddr3-pci-express_38308/",
@@ -14604,6 +14635,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo Zotac GeForce RTX3060 Twin Edge 12GB GDDR6 PCI-Express",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-zotac-geforce-rtx3060-twin-edge-12gb-gddr6-pci-express_46639/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_zotac_geforce_rtx3060_twin_edge_12gb_gddr6_pci_express_159879_200x200.jpg",
+      "price_usd": 365.0,
+      "price_brl": 1912.6,
+      "offers": 2,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 3060",
+        "vram_gb": 12
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Arktek Cyclops GeForce GT730 4GB DDR3 PCI-Express",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-arktek-cyclops-geforce-gt730-4gb-ddr3-pci-express_46643/",
@@ -14645,21 +14691,6 @@
         "brand": "NVIDIA",
         "model_key": "rtx 5070 ti",
         "vram_gb": 16
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Asus Prime GeForce RTX5070 OC 12GB GDDR7 PCI-Express",
-      "description": "O ASUS Prime RTX 5070 OC sendo resultado de tecnologia avançada e desig...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-asus-prime-geforce-rtx5070-oc-12gb-gddr7-pci-express_60079/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_asus_prime_geforce_rtx5070_oc_12gb_gddr7_pci_express_186714_b25706ce-75a1-458b-812f-a8dd32a7c8a4.webp",
-      "price_usd": 759.0,
-      "price_brl": 3977.16,
-      "offers": 2,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5070",
-        "vram_gb": 12
       }
     },
     {
@@ -14784,21 +14815,6 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte GeForce RTX5070 Windforce OC SFF 12GB GDDR7 PCI-Express",
-      "description": "Descubra outro nível graças à Gigabyte RTX 5070 Windforce OC SFF que co...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5070-windforce-oc-sff-12gb-gddr7-pci-express_60679/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5070_windforce_oc_sff_12gb_gddr7_pci_express_187645_f9347977-e57a-4feb-b3de-b43866a61cb1.webp",
-      "price_usd": 725.0,
-      "price_brl": 3799.0,
-      "offers": 2,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5070",
-        "vram_gb": 12
-      }
-    },
-    {
-      "category": "gpu",
       "name": "Placa de Vídeo Asrock Radeon RX9070 XT Steel Legend 16GB GDDR6 PCI-Express",
       "description": "A lendária Asrock Radeon RX 7900 XT Steel Legend combina potência extre...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-asrock-radeon-rx9070-xt-steel-legend-16gb-gddr6-pci-express_60680/",
@@ -14854,21 +14870,6 @@
       "specs": {
         "brand": "NVIDIA",
         "model_key": "rtx 5060 ti",
-        "vram_gb": 8
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Palit GeForce RTX5060 Dual 8GB GDDR7 PCI-Express",
-      "description": "A Palit GeForce RTX 5060 Dual oferece eficiência de resfriamento clássi...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-palit-geforce-rtx5060-dual-8gb-gddr7-pci-express_61936/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_palit_geforce_rtx5060_dual_8gb_gddr7_pci_express_189725_555e3a1e-d217-44a6-84df-0dd02773c955.webp",
-      "price_usd": 389.0,
-      "price_brl": 2038.36,
-      "offers": 2,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060",
         "vram_gb": 8
       }
     },
@@ -14994,21 +14995,6 @@
     },
     {
       "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte Radeon RX 9060 XT Gaming OC 16GB GDDR6 PCI-Express",
-      "description": "A Placa de Vídeo Gigabyte Radeon RX 9060 XT Gaming OC é uma opção excep...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-radeon-rx-9060-xt-gaming-oc-16gb-gddr6-pci-express_68682/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_radeon_rx_9060_xt_gaming_oc_16gb_gddr6_pci_express_200032_d9f57c28-0af7-430c-98c6-ab2f90509687.avif",
-      "price_usd": 529.0,
-      "price_brl": 2771.96,
-      "offers": 2,
-      "specs": {
-        "brand": "AMD",
-        "model_key": "rx 9060 xt",
-        "vram_gb": 16
-      }
-    },
-    {
-      "category": "gpu",
       "name": "Placa de Vídeo Gigabyte Radeon RX 9070 XT Gaming OC ICE 16GB GDDR6 PCI-Express",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-radeon-rx-9070-xt-gaming-oc-ice-16gb-gddr6-pci-express_70100/",
@@ -15020,21 +15006,6 @@
         "brand": "AMD",
         "model_key": "rx 9070 xt",
         "vram_gb": 16
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Gigabyte GeForce RTX5060TI Windforce 8GB GDDR6 PCI-Express",
-      "description": "O sistema de resfriamento WINDFORCE oferece desempenho térmico excepcio...",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5060ti-windforce-8gb-gddr6-pci-express_60998/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5060ti_windforce_8gb_gddr6_pci_express_188230_37729c68-d036-4902-9da8-c95b29d65d59.webp",
-      "price_usd": 459.0,
-      "price_brl": 2405.16,
-      "offers": 2,
-      "specs": {
-        "brand": "NVIDIA",
-        "model_key": "rtx 5060 ti",
-        "vram_gb": 8
       }
     },
     {
@@ -15080,21 +15051,6 @@
         "brand": "NVIDIA",
         "model_key": "rtx 3060",
         "vram_gb": 12
-      }
-    },
-    {
-      "category": "gpu",
-      "name": "Placa de Vídeo Afox GeForce GT730 4GB DDR3 PCI-Express",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/placa-de-video-afox-geforce-gt730-4gb-ddr3-pci-express_38310/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_afox_geforce_gt730_4gb_ddr3_pci_express_141369_200x200.jpg",
-      "price_usd": 46.5,
-      "price_brl": 243.66,
-      "offers": 1,
-      "specs": {
-        "brand": null,
-        "model_key": null,
-        "vram_gb": 4
       }
     },
     {
@@ -15204,6 +15160,21 @@
     },
     {
       "category": "gpu",
+      "name": "Placa de Vídeo Asus Prime GeForce RTX5070 OC 12GB GDDR7 PCI-Express",
+      "description": "O ASUS Prime RTX 5070 OC sendo resultado de tecnologia avançada e desig...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-asus-prime-geforce-rtx5070-oc-12gb-gddr7-pci-express_60079/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_asus_prime_geforce_rtx5070_oc_12gb_gddr7_pci_express_186714_b25706ce-75a1-458b-812f-a8dd32a7c8a4.webp",
+      "price_usd": 759.0,
+      "price_brl": 3977.16,
+      "offers": 1,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5070",
+        "vram_gb": 12
+      }
+    },
+    {
+      "category": "gpu",
       "name": "Placa de Vídeo Asus TUF Gaming GeForce RTX5070TI OC 16GB GDDR7 PCI-Express",
       "description": "O ASUS TUF Gaming RTX 5070 TI OC foi construído com componentes de níve...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-asus-tuf-gaming-geforce-rtx5070ti-oc-16gb-gddr7-pci-express_60080/",
@@ -15238,6 +15209,21 @@
       "description": "A Placa de Vídeo Gigabyte GeForce RTX 5070 Eagle SFF OC é uma joia da t...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5070-eagle-oc-sff-12gb-gddr7-pci-express_60676/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5070_eagle_oc_sff_12gb_gddr7_pci_express_187638_39efaaa4-15ff-456d-a8b8-61dbd1c6cc45.webp",
+      "price_usd": 771.0,
+      "price_brl": 4040.04,
+      "offers": 1,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5070",
+        "vram_gb": 12
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Gigabyte GeForce RTX5070 Windforce OC SFF 12GB GDDR7 PCI-Express",
+      "description": "Descubra outro nível graças à Gigabyte RTX 5070 Windforce OC SFF que co...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-gigabyte-geforce-rtx5070-windforce-oc-sff-12gb-gddr7-pci-express_60679/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_gigabyte_geforce_rtx5070_windforce_oc_sff_12gb_gddr7_pci_express_187645_f9347977-e57a-4feb-b3de-b43866a61cb1.webp",
       "price_usd": 749.0,
       "price_brl": 3924.76,
       "offers": 1,
@@ -15275,6 +15261,21 @@
         "brand": "AMD",
         "model_key": "rx 9070 xt",
         "vram_gb": 16
+      }
+    },
+    {
+      "category": "gpu",
+      "name": "Placa de Vídeo Palit GeForce RTX5060 Dual 8GB GDDR7 PCI-Express",
+      "description": "A Palit GeForce RTX 5060 Dual oferece eficiência de resfriamento clássi...",
+      "url": "https://www.comprasparaguai.com.br/placa-de-video-palit-geforce-rtx5060-dual-8gb-gddr7-pci-express_61936/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_palit_geforce_rtx5060_dual_8gb_gddr7_pci_express_189725_555e3a1e-d217-44a6-84df-0dd02773c955.webp",
+      "price_usd": 405.0,
+      "price_brl": 2122.2,
+      "offers": 1,
+      "specs": {
+        "brand": "NVIDIA",
+        "model_key": "rtx 5060",
+        "vram_gb": 8
       }
     },
     {
@@ -15328,8 +15329,8 @@
       "description": "A impressionante MSI Suprim Liquid Soc RTX 5080 é uma placa gráfica van...",
       "url": "https://www.comprasparaguai.com.br/placa-de-video-msi-geforce-rtx5080-suprim-liquid-soc-16gb-gddr7-pci-express_67275/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/placa_de_video_msi_geforce_rtx5080_suprim_liquid_soc_16gb_gddr7_pci_express_197848_94dc1487-f407-45b6-985a-aadc0e0a2267.avif",
-      "price_usd": 2068.0,
-      "price_brl": 10836.32,
+      "price_usd": 2105.0,
+      "price_brl": 11030.2,
       "offers": 1,
       "specs": {
         "brand": "NVIDIA",
@@ -15624,21 +15625,6 @@
     },
     {
       "category": "psu",
-      "name": "Fonte Redragon ATX GC-PS001 80 Plus Bronze 500W",
-      "description": "Essa Fonte é perfeita para você que precisa de muita potência para o se...",
-      "url": "https://www.comprasparaguai.com.br/fonte-redragon-atx-gc-ps001-80-plus-bronze-500w_30584/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_redragon_atx_gc_ps001_80_plus_bronze_500w_121000_200x200.jpg",
-      "price_usd": 42.9,
-      "price_brl": 224.8,
-      "offers": 6,
-      "specs": {
-        "wattage": 500,
-        "efficiency": "80+ bronze",
-        "modular": false
-      }
-    },
-    {
-      "category": "psu",
       "name": "Fonte Azza ATX PSAZ-650W 80 Plus Bronze 650W",
       "description": "Essa Fonte da Azza é ideal para quem quer montar um PC Gamer! Tem 650 W...",
       "url": "https://www.comprasparaguai.com.br/fonte-azza-atx-psaz-650w-80-plus-bronze-650w_33513/",
@@ -15714,21 +15700,6 @@
     },
     {
       "category": "psu",
-      "name": "Fonte Redragon ATX GC-PS006 80 Plus Gold 750W",
-      "description": "Maximize o desempenho do seu PC com a Fonte Redragon GC-PS006! Com cert...",
-      "url": "https://www.comprasparaguai.com.br/fonte-redragon-atx-gc-ps006-80-plus-gold-750w_50202/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_redragon_atx_gc_ps006_80_plus_gold_750w_167853_200x200.jpg",
-      "price_usd": 95.5,
-      "price_brl": 500.42,
-      "offers": 6,
-      "specs": {
-        "wattage": 750,
-        "efficiency": "80+ gold",
-        "modular": false
-      }
-    },
-    {
-      "category": "psu",
       "name": "Fonte MSI ATX Mag A750BN 80 Plus Bronze 750W",
       "description": "A fonte MAG A750BN foi projetada para fornecer potência sólida e estáve...",
       "url": "https://www.comprasparaguai.com.br/fonte-msi-atx-mag-a750bn-80-plus-bronze-750w_56161/",
@@ -15738,6 +15709,21 @@
       "offers": 6,
       "specs": {
         "wattage": 750,
+        "efficiency": "80+ bronze",
+        "modular": false
+      }
+    },
+    {
+      "category": "psu",
+      "name": "Fonte Redragon ATX GC-PS001 80 Plus Bronze 500W",
+      "description": "Essa Fonte é perfeita para você que precisa de muita potência para o se...",
+      "url": "https://www.comprasparaguai.com.br/fonte-redragon-atx-gc-ps001-80-plus-bronze-500w_30584/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_redragon_atx_gc_ps001_80_plus_bronze_500w_121000_200x200.jpg",
+      "price_usd": 42.9,
+      "price_brl": 224.8,
+      "offers": 5,
+      "specs": {
+        "wattage": 500,
         "efficiency": "80+ bronze",
         "modular": false
       }
@@ -16059,6 +16045,21 @@
     },
     {
       "category": "psu",
+      "name": "Fonte Redragon ATX GC-PS006 80 Plus Gold 750W",
+      "description": "Maximize o desempenho do seu PC com a Fonte Redragon GC-PS006! Com cert...",
+      "url": "https://www.comprasparaguai.com.br/fonte-redragon-atx-gc-ps006-80-plus-gold-750w_50202/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_redragon_atx_gc_ps006_80_plus_gold_750w_167853_200x200.jpg",
+      "price_usd": 95.5,
+      "price_brl": 500.42,
+      "offers": 5,
+      "specs": {
+        "wattage": 750,
+        "efficiency": "80+ gold",
+        "modular": false
+      }
+    },
+    {
+      "category": "psu",
       "name": "Fonte Gigabyte ATX GP-UD750GM 80 Plus Gold 750W",
       "description": "Herde o espírito de design de produto da GIGABYTE Ultra Durável, introd...",
       "url": "https://www.comprasparaguai.com.br/fonte-gigabyte-atx-gp-ud750gm-80-plus-gold-750w_51753/",
@@ -16159,21 +16160,6 @@
       "specs": {
         "wattage": 600,
         "efficiency": "none",
-        "modular": false
-      }
-    },
-    {
-      "category": "psu",
-      "name": "Fonte Corsair ATX CX650 80 Plus Bronze 650W",
-      "description": "Fornece potência consistente ao seu PC com até 88% de eficiência operac...",
-      "url": "https://www.comprasparaguai.com.br/fonte-corsair-atx-cx650-80-plus-bronze-650w_52915/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_corsair_atx_cx650_80_plus_bronze_650w_173562_200x200.jpg",
-      "price_usd": 59.0,
-      "price_brl": 309.16,
-      "offers": 4,
-      "specs": {
-        "wattage": 650,
-        "efficiency": "80+ bronze",
         "modular": false
       }
     },
@@ -16374,6 +16360,21 @@
     },
     {
       "category": "psu",
+      "name": "Fonte Corsair ATX CX650 80 Plus Bronze 650W",
+      "description": "Fornece potência consistente ao seu PC com até 88% de eficiência operac...",
+      "url": "https://www.comprasparaguai.com.br/fonte-corsair-atx-cx650-80-plus-bronze-650w_52915/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_corsair_atx_cx650_80_plus_bronze_650w_173562_200x200.jpg",
+      "price_usd": 59.0,
+      "price_brl": 309.16,
+      "offers": 3,
+      "specs": {
+        "wattage": 650,
+        "efficiency": "80+ bronze",
+        "modular": false
+      }
+    },
+    {
+      "category": "psu",
       "name": "Fonte Redragon ATX GC-MS01 80 Plus Gold 850W",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/fonte-redragon-atx-gc-ms01-80-plus-gold-850w_58907/",
@@ -16473,21 +16474,6 @@
       "offers": 3,
       "specs": {
         "wattage": 650,
-        "efficiency": "80+ bronze",
-        "modular": false
-      }
-    },
-    {
-      "category": "psu",
-      "name": "Fonte Lian Li ATX RB0750B 80 Plus Bronze 750W",
-      "description": "Dê ao seu computador a potência e a confiabilidade necessárias para um ...",
-      "url": "https://www.comprasparaguai.com.br/fonte-lian-li-atx-rb0750b-80-plus-bronze-750w_69135/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_lian_li_atx_rb0750b_80_plus_bronze_750w_200814_d7cb4790-774a-4af1-b564-1bccdd9766f0.avif",
-      "price_usd": 60.0,
-      "price_brl": 314.4,
-      "offers": 3,
-      "specs": {
-        "wattage": 750,
         "efficiency": "80+ bronze",
         "modular": false
       }
@@ -16834,6 +16820,21 @@
       "specs": {
         "wattage": 850,
         "efficiency": "80+ platinum",
+        "modular": false
+      }
+    },
+    {
+      "category": "psu",
+      "name": "Fonte Lian Li ATX RB0750B 80 Plus Bronze 750W",
+      "description": "Dê ao seu computador a potência e a confiabilidade necessárias para um ...",
+      "url": "https://www.comprasparaguai.com.br/fonte-lian-li-atx-rb0750b-80-plus-bronze-750w_69135/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/fonte_lian_li_atx_rb0750b_80_plus_bronze_750w_200814_d7cb4790-774a-4af1-b564-1bccdd9766f0.avif",
+      "price_usd": 60.0,
+      "price_brl": 314.4,
+      "offers": 2,
+      "specs": {
+        "wattage": 750,
+        "efficiency": "80+ bronze",
         "modular": false
       }
     },
@@ -17370,7 +17371,7 @@
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdnv256g_j12_256gb_142746_200x200.jpg",
       "price_usd": 48.9,
       "price_brl": 256.24,
-      "offers": 5,
+      "offers": 2,
       "specs": {
         "capacity_gb": 256,
         "interface": "nvme",
@@ -17439,13 +17440,28 @@
     },
     {
       "category": "storage",
+      "name": "SSD Keepdata KDS480G-L21 480GB 2.5\"",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-keepdata-kds480g-l21-480gb-25_37853/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_keepdata_kds480g_l21_240gb_25_140403_200x200.jpg",
+      "price_usd": 60.9,
+      "price_brl": 319.12,
+      "offers": 16,
+      "specs": {
+        "capacity_gb": 480,
+        "interface": "sata_ssd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD Kingston SA400S37 480GB 2.5\"",
       "description": "O dispositivo SSD modelo SA400 da Kingston é uma unidade de estado sóli...",
       "url": "https://www.comprasparaguai.com.br/ssd-kingston-sa400s37-480gb-25_16004/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_kingston_ssd_sa400s37_480gb_25_68454_200x200.jpg",
-      "price_usd": 67.8,
-      "price_brl": 355.27,
-      "offers": 18,
+      "price_usd": 67.9,
+      "price_brl": 355.8,
+      "offers": 16,
       "specs": {
         "capacity_gb": 480,
         "interface": "sata_ssd",
@@ -17463,21 +17479,6 @@
       "offers": 15,
       "specs": {
         "capacity_gb": 240,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD Keepdata KDS480G-L21 480GB 2.5\"",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-keepdata-kds480g-l21-480gb-25_37853/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_keepdata_kds480g_l21_240gb_25_140403_200x200.jpg",
-      "price_usd": 60.9,
-      "price_brl": 319.12,
-      "offers": 15,
-      "specs": {
-        "capacity_gb": 480,
         "interface": "sata_ssd",
         "form_factor": "2.5\""
       }
@@ -17503,8 +17504,8 @@
       "description": "O HD Externo Seagate é a solução ideal para quem busca expandir a capac...",
       "url": "https://www.comprasparaguai.com.br/hd-externo-seagate-stgx2000400-2tb-25-usb-30_53095/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_seagate_stgx2000400_2tb_25_usb_30_174006_200x200.jpg",
-      "price_usd": 130.0,
-      "price_brl": 681.2,
+      "price_usd": 135.0,
+      "price_brl": 707.4,
       "offers": 15,
       "specs": {
         "capacity_gb": 2048,
@@ -17529,21 +17530,6 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Kingston NV3 500GB",
-      "description": "O SSD interno Kingston é a solução ideal para quem busca desempenho e e...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-nv3-500gb_55282/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_nv3_500gb_178087_200x200.jpg",
-      "price_usd": 91.75,
-      "price_brl": 480.77,
-      "offers": 15,
-      "specs": {
-        "capacity_gb": 500,
-        "interface": "nvme",
-        "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
       "name": "HD Externo Seagate STGX4000400 4TB 2.5\" USB 3.0",
       "description": "O HD Externo Seagate é a solução ideal para quem busca expandir a capac...",
       "url": "https://www.comprasparaguai.com.br/hd-externo-seagate-stgx4000400-4tb-25-usb-30_51628/",
@@ -17555,6 +17541,21 @@
         "capacity_gb": 4096,
         "interface": "hdd",
         "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD M.2 Kingston NV3 500GB",
+      "description": "O SSD interno Kingston é a solução ideal para quem busca desempenho e e...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-nv3-500gb_55282/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_nv3_500gb_178087_200x200.jpg",
+      "price_usd": 91.75,
+      "price_brl": 480.77,
+      "offers": 14,
+      "specs": {
+        "capacity_gb": 500,
+        "interface": "nvme",
+        "form_factor": "M.2"
       }
     },
     {
@@ -17619,21 +17620,6 @@
     },
     {
       "category": "storage",
-      "name": "SSD Kingston SA400S37 960GB 2.5\"",
-      "description": "HD SSD Kingston 960GB. Sem possuir discos magnéticos em seu interior o ...",
-      "url": "https://www.comprasparaguai.com.br/ssd-kingston-sa400s37-960gb-25_22951/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_kingston_ssd_sa400s37_960gb_25_98225_200x200.png",
-      "price_usd": 104.0,
-      "price_brl": 544.96,
-      "offers": 11,
-      "specs": {
-        "capacity_gb": 960,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "HD Externo Seagate Expansion 500GB 2.5\" USB 3.0",
       "description": "Este HD da Seagate oferece uma solução fácil de usar quando você precis...",
       "url": "https://www.comprasparaguai.com.br/hd-externo-seagate-expansion-500gb-25-usb-30_27875/",
@@ -17644,6 +17630,21 @@
       "specs": {
         "capacity_gb": 500,
         "interface": "hdd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD Keepdata KDS120G-L21 120GB 2.5\"",
+      "description": "Armazenamento com mais velocidade! Com esse SSD da Keepdata você tem 12...",
+      "url": "https://www.comprasparaguai.com.br/ssd-keepdata-kds120g-l21-120gb-25_33609/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_keepdata_ssd_kds120g_l21_120gb_25_129654_200x200.jpg",
+      "price_usd": 23.9,
+      "price_brl": 125.24,
+      "offers": 11,
+      "specs": {
+        "capacity_gb": 120,
+        "interface": "sata_ssd",
         "form_factor": "2.5\""
       }
     },
@@ -17709,31 +17710,16 @@
     },
     {
       "category": "storage",
-      "name": "SSD Keepdata KDS120G-L21 120GB 2.5\"",
-      "description": "Armazenamento com mais velocidade! Com esse SSD da Keepdata você tem 12...",
-      "url": "https://www.comprasparaguai.com.br/ssd-keepdata-kds120g-l21-120gb-25_33609/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_keepdata_ssd_kds120g_l21_120gb_25_129654_200x200.jpg",
-      "price_usd": 23.9,
-      "price_brl": 125.24,
+      "name": "SSD Kingston SA400S37 960GB 2.5\"",
+      "description": "HD SSD Kingston 960GB. Sem possuir discos magnéticos em seu interior o ...",
+      "url": "https://www.comprasparaguai.com.br/ssd-kingston-sa400s37-960gb-25_22951/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_kingston_ssd_sa400s37_960gb_25_98225_200x200.png",
+      "price_usd": 104.0,
+      "price_brl": 544.96,
       "offers": 10,
       "specs": {
-        "capacity_gb": 120,
+        "capacity_gb": 960,
         "interface": "sata_ssd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Externo Toshiba Canvio Basics 4TB 2.5\" USB 3.0",
-      "description": "O HD Externo Toshiba Canvio Basics oferece uma ampla capacidade de 4TB ...",
-      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-basics-4tb-25-usb-30_34590/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_basics_4tb_25_usb_30_179002_200x200.jpg",
-      "price_usd": 157.0,
-      "price_brl": 822.68,
-      "offers": 10,
-      "specs": {
-        "capacity_gb": 4096,
-        "interface": "hdd",
         "form_factor": "2.5\""
       }
     },
@@ -17844,21 +17830,6 @@
     },
     {
       "category": "storage",
-      "name": "HD Externo Toshiba Canvio Advance 2TB 2.5\" USB 3.2",
-      "description": "O disco rígido externo Toshiba Canvio Advance 2TB destaca-se pela sua a...",
-      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-advance-2tb-25-usb-32_69385/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_advance_2tb_25_usb_32_201231_6d2a2e2a-8d93-4873-aa91-6446746f27fa.avif",
-      "price_usd": 119.0,
-      "price_brl": 623.56,
-      "offers": 12,
-      "specs": {
-        "capacity_gb": 2048,
-        "interface": "hdd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "HD Seagate Barracuda ST4000DM004 4TB 3.5\" 5400RPM 256MB",
       "description": "O HD Interno de 4TB Seagate BarraCuda ST4000DM004 é fácil de instalar e...",
       "url": "https://www.comprasparaguai.com.br/hd-seagate-barracuda-st4000dm004-4tb-35-5400rpm-256mb_18821/",
@@ -17874,6 +17845,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Externo Toshiba Canvio Basics 4TB 2.5\" USB 3.0",
+      "description": "O HD Externo Toshiba Canvio Basics oferece uma ampla capacidade de 4TB ...",
+      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-basics-4tb-25-usb-30_34590/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_basics_4tb_25_usb_30_179002_200x200.jpg",
+      "price_usd": 159.0,
+      "price_brl": 833.16,
+      "offers": 9,
+      "specs": {
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "HD Seagate SkyHawk ST2000VX017 2TB 3.5\" 5400RPM 256MB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-st2000vx017-2tb-35-5400rpm-256mb_47296/",
@@ -17885,21 +17871,6 @@
         "capacity_gb": 2048,
         "interface": "hdd",
         "form_factor": "3.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD M.2 Sandisk Plus 1TB",
-      "description": "O SSD M.2 Sandisk Plus é uma excelente solução de armazenamento em esta...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-sandisk-plus-1tb_49949/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_sandisk_plus_1tb_167172_200x200.jpg",
-      "price_usd": 125.0,
-      "price_brl": 655.0,
-      "offers": 9,
-      "specs": {
-        "capacity_gb": 1024,
-        "interface": "nvme",
-        "form_factor": "M.2"
       }
     },
     {
@@ -17964,6 +17935,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Externo Toshiba Canvio Advance 2TB 2.5\" USB 3.2",
+      "description": "O disco rígido externo Toshiba Canvio Advance 2TB destaca-se pela sua a...",
+      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-advance-2tb-25-usb-32_69385/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_advance_2tb_25_usb_32_201231_6d2a2e2a-8d93-4873-aa91-6446746f27fa.avif",
+      "price_usd": 119.0,
+      "price_brl": 623.56,
+      "offers": 11,
+      "specs": {
+        "capacity_gb": 2048,
+        "interface": "hdd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "HD Externo Toshiba Canvio Ready 2TB 2.5\" USB 3.2",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-ready-2tb-25-usb-32_44828/",
@@ -17975,6 +17961,21 @@
         "capacity_gb": 2048,
         "interface": "hdd",
         "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "HD Western Digital WD Purple WD64PURZ 6TB 3.5\" 5400RPM 256MB",
+      "description": "As unidades WD Purple são projetadas para gravação ininterrupta de vigi...",
+      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd64purz-6tb-35-5400rpm-256mb_47297/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd64purz_6tb_35_5400rpm_256mb_161563_200x200.jpg",
+      "price_usd": 267.0,
+      "price_brl": 1399.08,
+      "offers": 8,
+      "specs": {
+        "capacity_gb": 6144,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -18159,17 +18160,17 @@
     },
     {
       "category": "storage",
-      "name": "HD Western Digital WD Purple WD64PURZ 6TB 3.5\" 5400RPM 256MB",
-      "description": "As unidades WD Purple são projetadas para gravação ininterrupta de vigi...",
-      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd64purz-6tb-35-5400rpm-256mb_47297/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd64purz_6tb_35_5400rpm_256mb_161563_200x200.jpg",
-      "price_usd": 274.0,
-      "price_brl": 1435.76,
+      "name": "SSD M.2 Sandisk Plus 1TB",
+      "description": "O SSD M.2 Sandisk Plus é uma excelente solução de armazenamento em esta...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-sandisk-plus-1tb_49949/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_sandisk_plus_1tb_167172_200x200.jpg",
+      "price_usd": 125.0,
+      "price_brl": 655.0,
       "offers": 7,
       "specs": {
-        "capacity_gb": 6144,
-        "interface": "hdd",
-        "form_factor": "3.5\""
+        "capacity_gb": 1024,
+        "interface": "nvme",
+        "form_factor": "M.2"
       }
     },
     {
@@ -18185,21 +18186,6 @@
         "capacity_gb": 8192,
         "interface": "hdd",
         "form_factor": "3.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD M.2 Adata Legend 710 256GB",
-      "description": "Explore um novo patamar de velocidade e agilidade em suas tarefas sem m...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-adata-legend-710-256gb_54433/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_adata_legend_710_256gb_176442_200x200.jpg",
-      "price_usd": 59.0,
-      "price_brl": 309.16,
-      "offers": 7,
-      "specs": {
-        "capacity_gb": 256,
-        "interface": "nvme",
-        "form_factor": "M.2"
       }
     },
     {
@@ -18354,21 +18340,6 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Keepdata KDM512G-J12 512GB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-keepdata-kdm512g-j12-512gb_37852/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdm512g_j12_512gb_140402_200x200.jpg",
-      "price_usd": 79.9,
-      "price_brl": 418.68,
-      "offers": 6,
-      "specs": {
-        "capacity_gb": 512,
-        "interface": "nvme",
-        "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD Western Digital WD Green 240GB 2.5\" WDS240G3G0A",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-western-digital-wd-green-240gb-25-wds240g3g0a_42067/",
@@ -18429,17 +18400,17 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate IronWolf Pro ST12000NT001 12TB 3.5\" 7200RPM 256MB",
-      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st12000nt001-12tb-35-7200rpm-256mb_53843/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st12000nt001_12tb_35_7200rpm_256mb_175464_200x200.jpg",
-      "price_usd": 520.0,
-      "price_brl": 2724.8,
+      "name": "SSD M.2 Adata Legend 710 256GB",
+      "description": "Explore um novo patamar de velocidade e agilidade em suas tarefas sem m...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-adata-legend-710-256gb_54433/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_adata_legend_710_256gb_176442_200x200.jpg",
+      "price_usd": 59.0,
+      "price_brl": 309.16,
       "offers": 6,
       "specs": {
-        "capacity_gb": 12288,
-        "interface": "hdd",
-        "form_factor": "3.5\""
+        "capacity_gb": 256,
+        "interface": "nvme",
+        "form_factor": "M.2"
       }
     },
     {
@@ -18485,21 +18456,6 @@
         "capacity_gb": 250,
         "interface": "sata_ssd",
         "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Western Digital WD Purple WD44PURZ 4TB 3.5\" 5400RPM 256MB",
-      "description": "O Disco Rígido Western Digital WD Purple WD44PURZ é a solução ideal par...",
-      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd44purz-4tb-35-5400rpm-256mb_66094/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd44purz_4tb_35_5400rpm_256mb_196183_8b1d0510-7a44-4870-9be2-9aa70610c750.avif",
-      "price_usd": 194.0,
-      "price_brl": 1016.56,
-      "offers": 6,
-      "specs": {
-        "capacity_gb": 4096,
-        "interface": "hdd",
-        "form_factor": "3.5\""
       }
     },
     {
@@ -18714,6 +18670,21 @@
     },
     {
       "category": "storage",
+      "name": "SSD M.2 Keepdata KDM512G-J12 512GB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-keepdata-kdm512g-j12-512gb_37852/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdm512g_j12_512gb_140402_200x200.jpg",
+      "price_usd": 79.9,
+      "price_brl": 418.68,
+      "offers": 5,
+      "specs": {
+        "capacity_gb": 512,
+        "interface": "nvme",
+        "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD Adata SU650 240GB 2.5\"",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-adata-su650-240gb-25_41605/",
@@ -18744,40 +18715,10 @@
     },
     {
       "category": "storage",
-      "name": "SSD Crucial BX500 500GB 2.5\"",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-crucial-bx500-500gb-25_43655/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_crucial_bx500_500gb_25_152641_200x200.jpg",
-      "price_usd": 76.9,
-      "price_brl": 402.96,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 500,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD M.2 Keepdata KDM2T-J12 2TB",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-keepdata-kdm2t-j12-2tb_43848/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdm2t_j12_2tb_153115_200x200.jpg",
-      "price_usd": 179.9,
-      "price_brl": 942.68,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 2048,
-        "interface": "nvme",
-        "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD M.2 Keepdata KDNV2T-J12 2TB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-keepdata-kdnv2t-j12-2tb_43850/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdnv2t_j12_2tb_153118_200x200.jpg",
       "price_usd": 179.9,
       "price_brl": 942.68,
       "offers": 5,
@@ -18834,21 +18775,6 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate SkyHawk ST4000VX016 4TB 3.5\" 5400RPM 256MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-st4000vx016-4tb-35-5400rpm-256mb_48291/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_st4000vx016_4tb_35_5400rpm_256mb_163758_200x200.png",
-      "price_usd": 179.9,
-      "price_brl": 942.68,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 4096,
-        "interface": "hdd",
-        "form_factor": "3.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD M.2 Sandisk Plus 2TB",
       "description": "O SSD M.2 Sandisk Plus é uma excelente solução de armazenamento em esta...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-sandisk-plus-2tb_50450/",
@@ -18860,21 +18786,6 @@
         "capacity_gb": 2048,
         "interface": "nvme",
         "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Seagate IronWolf Pro ST20000NT001 20TB 3.5\" 7200RPM 256MB",
-      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st20000nt001-20tb-35-7200rpm-256mb_51641/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st20000nt001_20tb_35_7200rpm_256mb_171084_200x200.jpg",
-      "price_usd": 788.0,
-      "price_brl": 4129.12,
-      "offers": 5,
-      "specs": {
-        "capacity_gb": 20480,
-        "interface": "hdd",
-        "form_factor": "3.5\""
       }
     },
     {
@@ -18894,17 +18805,17 @@
     },
     {
       "category": "storage",
-      "name": "SSD Adata SU650 512GB 2.5\"",
-      "description": "Transforme sua experiência de computação graças ao SSD ADATA SU650, um ...",
-      "url": "https://www.comprasparaguai.com.br/ssd-adata-su650-512gb-25_54648/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_adata_su650_512gb_25_176792_200x200.jpg",
-      "price_usd": 64.5,
-      "price_brl": 337.98,
+      "name": "HD Seagate IronWolf Pro ST12000NT001 12TB 3.5\" 7200RPM 256MB",
+      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st12000nt001-12tb-35-7200rpm-256mb_53843/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st12000nt001_12tb_35_7200rpm_256mb_175464_200x200.jpg",
+      "price_usd": 520.0,
+      "price_brl": 2724.8,
       "offers": 5,
       "specs": {
-        "capacity_gb": 512,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
+        "capacity_gb": 12288,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -19044,15 +18955,15 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Western Digital WD Green SN350 2TB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-green-sn350-2tb_37847/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_green_sn350_2tb_140395_200x200.jpg",
-      "price_usd": 199.0,
-      "price_brl": 1042.76,
+      "name": "SSD M.2 Kingston Fury Renegade 1TB Com Dissipador de Calor",
+      "description": "O SSD Kingston Fury Renegade oferece tecnologia de ponta e desempenho e...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-fury-renegade-1tb-com-dissipador-de-calor_46843/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_fury_renegade_1tb_com_dissipador_de_calor_160297_200x200.jpg",
+      "price_usd": 315.0,
+      "price_brl": 1650.6,
       "offers": 5,
       "specs": {
-        "capacity_gb": 2048,
+        "capacity_gb": 1024,
         "interface": "nvme",
         "form_factor": "M.2"
       }
@@ -19209,12 +19120,27 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Western Digital WD Black SN850X 1TB Com Dissipador de Calor",
+      "name": "SSD Crucial BX500 500GB 2.5\"",
       "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-black-sn850x-1tb-com-dissipador-de-calor_45374/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_black_sn850x_1tb_wds100t2xhe_156789_200x200.jpg",
-      "price_usd": 321.0,
-      "price_brl": 1682.04,
+      "url": "https://www.comprasparaguai.com.br/ssd-crucial-bx500-500gb-25_43655/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_crucial_bx500_500gb_25_152641_200x200.jpg",
+      "price_usd": 76.9,
+      "price_brl": 402.96,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 500,
+        "interface": "sata_ssd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD M.2 Kingston KC3000 1TB",
+      "description": "O SSD M.2 Kingston KC3000 oferece desempenho de próximo nível usando o ...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-kc3000-1tb_43844/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_kc3000_1tb_153106_200x200.jpg",
+      "price_usd": 295.0,
+      "price_brl": 1545.8,
       "offers": 4,
       "specs": {
         "capacity_gb": 1024,
@@ -19224,12 +19150,42 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Kingston Fury Renegade 1TB Com Dissipador de Calor",
-      "description": "O SSD Kingston Fury Renegade oferece tecnologia de ponta e desempenho e...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-fury-renegade-1tb-com-dissipador-de-calor_46843/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_fury_renegade_1tb_com_dissipador_de_calor_160297_200x200.jpg",
-      "price_usd": 315.0,
-      "price_brl": 1650.6,
+      "name": "SSD M.2 Keepdata KDNV2T-J12 2TB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-keepdata-kdnv2t-j12-2tb_43850/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_keepdata_kdnv2t_j12_2tb_153118_200x200.jpg",
+      "price_usd": 179.9,
+      "price_brl": 942.68,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 2048,
+        "interface": "nvme",
+        "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
+      "name": "HD Externo Toshiba Canvio Ready 4TB 2.5\" USB 3.2",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-ready-4tb-25-usb-32_44450/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_ready_4tb_25_usb_32_154535_200x200.jpg",
+      "price_usd": 113.5,
+      "price_brl": 594.74,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD M.2 Western Digital WD Black SN850X 1TB Com Dissipador de Calor",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-black-sn850x-1tb-com-dissipador-de-calor_45374/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_black_sn850x_1tb_wds100t2xhe_156789_200x200.jpg",
+      "price_usd": 321.0,
+      "price_brl": 1682.04,
       "offers": 4,
       "specs": {
         "capacity_gb": 1024,
@@ -19269,6 +19225,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Seagate SkyHawk ST4000VX016 4TB 3.5\" 5400RPM 256MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-st4000vx016-4tb-35-5400rpm-256mb_48291/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_st4000vx016_4tb_35_5400rpm_256mb_163758_200x200.png",
+      "price_usd": 179.9,
+      "price_brl": 942.68,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "HD Seagate SkyHawk ST6000VX009 6TB 3.5\" 5400RPM 256MB",
       "description": "O HD Seagate SkyHawk, com 6TB e velocidade de 5400 RPM, foi projetado e...",
       "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-st6000vx009-6tb-35-5400rpm-256mb_49374/",
@@ -19284,17 +19255,17 @@
     },
     {
       "category": "storage",
-      "name": "SSD Star 240GB 2.5\"",
-      "description": "Crie, trabalhe e salve tudo o que quiser no eficiente SSD Star, que ofe...",
-      "url": "https://www.comprasparaguai.com.br/ssd-star-240gb-25_53844/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_star_240gb_25_175465_200x200.jpg",
-      "price_usd": 34.5,
-      "price_brl": 180.78,
+      "name": "HD Seagate IronWolf Pro ST20000NT001 20TB 3.5\" 7200RPM 256MB",
+      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st20000nt001-20tb-35-7200rpm-256mb_51641/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st20000nt001_20tb_35_7200rpm_256mb_171084_200x200.jpg",
+      "price_usd": 788.0,
+      "price_brl": 4129.12,
       "offers": 4,
       "specs": {
-        "capacity_gb": 240,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
+        "capacity_gb": 20480,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -19314,17 +19285,17 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate IronWolf Pro ST8000NT001 8TB 3.5\" 7200RPM 256MB",
-      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st8000nt001-8tb-35-7200rpm-256mb_54667/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st8000nt001_8tb_35_7200rpm_256mb_176823_200x200.jpg",
-      "price_usd": 344.0,
-      "price_brl": 1802.56,
+      "name": "SSD Adata SU650 512GB 2.5\"",
+      "description": "Transforme sua experiência de computação graças ao SSD ADATA SU650, um ...",
+      "url": "https://www.comprasparaguai.com.br/ssd-adata-su650-512gb-25_54648/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_adata_su650_512gb_25_176792_200x200.jpg",
+      "price_usd": 64.5,
+      "price_brl": 337.98,
       "offers": 4,
       "specs": {
-        "capacity_gb": 8192,
-        "interface": "hdd",
-        "form_factor": "3.5\""
+        "capacity_gb": 512,
+        "interface": "sata_ssd",
+        "form_factor": "2.5\""
       }
     },
     {
@@ -19524,17 +19495,17 @@
     },
     {
       "category": "storage",
-      "name": "HD Western Digital WD Purple Pro WD122PURP 12TB 3.5\" 7200RPM 512MB",
-      "description": "Maximize o seu armazenamento e leve o seu sistema para o próximo nível ...",
-      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-pro-wd122purp-12tb-35-7200rpm-512mb_63041/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_pro_wd122purp_12tb_35_7200rpm_512mb_191523_4b062a16-15e3-4978-b2b5-a0d21913d63f.webp",
-      "price_usd": 555.0,
-      "price_brl": 2908.2,
+      "name": "SSD M.2 Western Digital WD Black SN8100 2TB",
+      "description": "Aproveite o poder de uma performance de última geração com o SSD WD BLA...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-black-sn8100-2tb_63036/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_black_sn8100_2tb_191518_07a6688a-fc89-4df2-83bd-bb0e61234f71.webp",
+      "price_usd": 615.0,
+      "price_brl": 3222.6,
       "offers": 4,
       "specs": {
-        "capacity_gb": 12288,
-        "interface": "hdd",
-        "form_factor": "3.5\""
+        "capacity_gb": 2048,
+        "interface": "nvme",
+        "form_factor": "M.2"
       }
     },
     {
@@ -19563,6 +19534,21 @@
       "offers": 4,
       "specs": {
         "capacity_gb": 2048,
+        "interface": "nvme",
+        "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD M.2 Western Digital WD Green SN3000 1TB",
+      "description": "Seu PC pode ser mais rápido do que você imagina, e seus arquivos import...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-green-sn3000-1tb_64543/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_green_sn3000_1tb_193968_16f25642-d453-49a3-a173-cf6f91561cfb.webp",
+      "price_usd": 139.0,
+      "price_brl": 728.36,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 1024,
         "interface": "nvme",
         "form_factor": "M.2"
       }
@@ -19614,6 +19600,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Western Digital WD Purple WD44PURZ 4TB 3.5\" 5400RPM 256MB",
+      "description": "O Disco Rígido Western Digital WD Purple WD44PURZ é a solução ideal par...",
+      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd44purz-4tb-35-5400rpm-256mb_66094/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd44purz_4tb_35_5400rpm_256mb_196183_8b1d0510-7a44-4870-9be2-9aa70610c750.avif",
+      "price_usd": 194.0,
+      "price_brl": 1016.56,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD M.2 Western Digital WD Blue SN5100 1TB",
       "description": "O SSD M.2 Sandisk WD Blue SN5100 é uma unidade de estado sólido de últi...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-blue-sn5100-1tb_67270/",
@@ -19625,6 +19626,21 @@
         "capacity_gb": 1024,
         "interface": "nvme",
         "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD Biostar S180 128GB 2.5\"",
+      "description": "O SSD Biostar S180 de 128GB foi pensado como uma atualização rápida e e...",
+      "url": "https://www.comprasparaguai.com.br/ssd-biostar-s180-128gb-25_68927/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_biostar_s180_128gb_25_200453_ead1f8e2-f99d-4253-9b68-e5cf63b18ff9.avif",
+      "price_usd": 24.3,
+      "price_brl": 127.33,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 128,
+        "interface": "sata_ssd",
+        "form_factor": "2.5\""
       }
     },
     {
@@ -19655,6 +19671,21 @@
         "capacity_gb": 512,
         "interface": "sata_ssd",
         "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "SSD M.2 Western Digital WD Green SN350 2TB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-green-sn350-2tb_37847/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_green_sn350_2tb_140395_200x200.jpg",
+      "price_usd": 199.0,
+      "price_brl": 1042.76,
+      "offers": 4,
+      "specs": {
+        "capacity_gb": 2048,
+        "interface": "nvme",
+        "form_factor": "M.2"
       }
     },
     {
@@ -19824,36 +19855,6 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Kingston KC3000 1TB",
-      "description": "O SSD M.2 Kingston KC3000 oferece desempenho de próximo nível usando o ...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-kc3000-1tb_43844/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_kingston_kc3000_1tb_153106_200x200.jpg",
-      "price_usd": 295.0,
-      "price_brl": 1545.8,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 1024,
-        "interface": "nvme",
-        "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Externo Toshiba Canvio Ready 4TB 2.5\" USB 3.2",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/hd-externo-toshiba-canvio-ready-4tb-25-usb-32_44450/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_toshiba_canvio_ready_4tb_25_usb_32_154535_200x200.jpg",
-      "price_usd": 113.5,
-      "price_brl": 594.74,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 4096,
-        "interface": "hdd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD M.2 Adata Legend 710 512GB",
       "description": "Explore um novo patamar de velocidade e agilidade em suas tarefas sem m...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-adata-legend-710-512gb_45792/",
@@ -19929,6 +19930,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Seagate Exos 7E10 Enterprise ST8000NM017B 8TB 3.5\" 7200RPM 256MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-exos-7e10-enterprise-st8000nm017b-8tb-35-7200rpm-256mb_46078/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_exos_7e10_enterprise_st8000nm017b_8tb_35_7200rpm_256mb_158613_200x200.jpg",
+      "price_usd": 282.0,
+      "price_brl": 1477.68,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8192,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD M.2 Kingston Fury Renegade 2TB Com Dissipador de Calor",
       "description": "O SSD Kingston Fury Renegade oferece tecnologia de ponta e desempenho e...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-fury-renegade-2tb-com-dissipador-de-calor_46844/",
@@ -19940,6 +19956,21 @@
         "capacity_gb": 2048,
         "interface": "nvme",
         "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
+      "name": "HD Western Digital WD Purple WD43PURZ 4TB 3.5\" 5400RPM 256MB",
+      "description": "As unidades WD Purple são projetadas para gravação ininterrupta de vigi...",
+      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd43purz-4tb-35-5400rpm-256mb_47299/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd43purz_4tb_35_5400rpm_256mb_161566_200x200.jpg",
+      "price_usd": 198.0,
+      "price_brl": 1037.52,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -20079,17 +20110,32 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Star 1TB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-star-1tb_55283/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_star_1tb_178088_200x200.jpg",
-      "price_usd": 115.0,
-      "price_brl": 602.6,
+      "name": "SSD Star 240GB 2.5\"",
+      "description": "Crie, trabalhe e salve tudo o que quiser no eficiente SSD Star, que ofe...",
+      "url": "https://www.comprasparaguai.com.br/ssd-star-240gb-25_53844/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_star_240gb_25_175465_200x200.jpg",
+      "price_usd": 34.5,
+      "price_brl": 180.78,
       "offers": 3,
       "specs": {
-        "capacity_gb": 1024,
-        "interface": "nvme",
-        "form_factor": "M.2"
+        "capacity_gb": 240,
+        "interface": "sata_ssd",
+        "form_factor": "2.5\""
+      }
+    },
+    {
+      "category": "storage",
+      "name": "HD Seagate IronWolf Pro ST8000NT001 8TB 3.5\" 7200RPM 256MB",
+      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st8000nt001-8tb-35-7200rpm-256mb_54667/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st8000nt001_8tb_35_7200rpm_256mb_176823_200x200.jpg",
+      "price_usd": 344.0,
+      "price_brl": 1802.56,
+      "offers": 3,
+      "specs": {
+        "capacity_gb": 8192,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -20229,17 +20275,17 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Western Digital WD Black SN8100 2TB",
-      "description": "Aproveite o poder de uma performance de última geração com o SSD WD BLA...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-black-sn8100-2tb_63036/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_black_sn8100_2tb_191518_07a6688a-fc89-4df2-83bd-bb0e61234f71.webp",
-      "price_usd": 615.0,
-      "price_brl": 3222.6,
+      "name": "HD Western Digital WD Purple Pro WD122PURP 12TB 3.5\" 7200RPM 512MB",
+      "description": "Maximize o seu armazenamento e leve o seu sistema para o próximo nível ...",
+      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-pro-wd122purp-12tb-35-7200rpm-512mb_63041/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_pro_wd122purp_12tb_35_7200rpm_512mb_191523_4b062a16-15e3-4978-b2b5-a0d21913d63f.webp",
+      "price_usd": 555.0,
+      "price_brl": 2908.2,
       "offers": 3,
       "specs": {
-        "capacity_gb": 2048,
-        "interface": "nvme",
-        "form_factor": "M.2"
+        "capacity_gb": 12288,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -20253,21 +20299,6 @@
       "offers": 3,
       "specs": {
         "capacity_gb": 2048,
-        "interface": "nvme",
-        "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD M.2 Western Digital WD Green SN3000 1TB",
-      "description": "Seu PC pode ser mais rápido do que você imagina, e seus arquivos import...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-western-digital-wd-green-sn3000-1tb_64543/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_western_digital_wd_green_sn3000_1tb_193968_16f25642-d453-49a3-a173-cf6f91561cfb.webp",
-      "price_usd": 135.7,
-      "price_brl": 711.07,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 1024,
         "interface": "nvme",
         "form_factor": "M.2"
       }
@@ -20405,21 +20436,6 @@
         "capacity_gb": 4096,
         "interface": "hdd",
         "form_factor": "3.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "SSD Biostar S180 128GB 2.5\"",
-      "description": "O SSD Biostar S180 de 128GB foi pensado como uma atualização rápida e e...",
-      "url": "https://www.comprasparaguai.com.br/ssd-biostar-s180-128gb-25_68927/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_biostar_s180_128gb_25_200453_ead1f8e2-f99d-4253-9b68-e5cf63b18ff9.avif",
-      "price_usd": 24.3,
-      "price_brl": 127.33,
-      "offers": 3,
-      "specs": {
-        "capacity_gb": 128,
-        "interface": "sata_ssd",
-        "form_factor": "2.5\""
       }
     },
     {
@@ -20593,8 +20609,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-goline-gl120ssd-120gb-25_36445/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_goline_ssd_gl120ssd_120gb_25_137424_200x200.jpg",
-      "price_usd": 21.9,
-      "price_brl": 114.76,
+      "price_usd": 21.5,
+      "price_brl": 112.66,
       "offers": 2,
       "specs": {
         "capacity_gb": 120,
@@ -20814,21 +20830,6 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate Exos 7E10 Enterprise ST8000NM017B 8TB 3.5\" 7200RPM 256MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-exos-7e10-enterprise-st8000nm017b-8tb-35-7200rpm-256mb_46078/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_exos_7e10_enterprise_st8000nm017b_8tb_35_7200rpm_256mb_158613_200x200.jpg",
-      "price_usd": 282.0,
-      "price_brl": 1477.68,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 8192,
-        "interface": "hdd",
-        "form_factor": "3.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD UP Gamer UP500 480GB 2.5\"",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-up-gamer-up500-480gb-25_46849/",
@@ -20840,21 +20841,6 @@
         "capacity_gb": 480,
         "interface": "sata_ssd",
         "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Western Digital WD Purple WD43PURZ 4TB 3.5\" 5400RPM 256MB",
-      "description": "As unidades WD Purple são projetadas para gravação ininterrupta de vigi...",
-      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd-purple-wd43purz-4tb-35-5400rpm-256mb_47299/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd_purple_wd43purz_4tb_35_5400rpm_256mb_161566_200x200.jpg",
-      "price_usd": 198.0,
-      "price_brl": 1037.52,
-      "offers": 2,
-      "specs": {
-        "capacity_gb": 4096,
-        "interface": "hdd",
-        "form_factor": "3.5\""
       }
     },
     {
@@ -21069,6 +21055,21 @@
     },
     {
       "category": "storage",
+      "name": "SSD M.2 Star 1TB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-star-1tb_55283/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_star_1tb_178088_200x200.jpg",
+      "price_usd": 120.0,
+      "price_brl": 628.8,
+      "offers": 2,
+      "specs": {
+        "capacity_gb": 1024,
+        "interface": "nvme",
+        "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD FTX 240GB 2.5\"",
       "description": "O SSD FTX de 240GB é uma excelente opção de armazenamento para quem bus...",
       "url": "https://www.comprasparaguai.com.br/ssd-ftx-240gb-25_56736/",
@@ -21140,6 +21141,21 @@
         "capacity_gb": 1024,
         "interface": "nvme",
         "form_factor": "M.2"
+      }
+    },
+    {
+      "category": "storage",
+      "name": "HD Toshiba N300 Pro NAS HDWG780XZSTB 8TB 3.5\" 7200RPM 512MB",
+      "description": "Descubra o NAS N300 da Toshiba, a solução definitiva para aqueles que e...",
+      "url": "https://www.comprasparaguai.com.br/hd-toshiba-n300-pro-nas-hdwg780xzstb-8tb-35-7200rpm-512mb_61078/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_toshiba_n300_pro_nas_hdwg780xzstb_8tb_35_7200rpm_512mb_188350_fb37f1a9-4380-4bb9-84b8-4e6bbf2d37fe.webp",
+      "price_usd": 339.0,
+      "price_brl": 1776.36,
+      "offers": 2,
+      "specs": {
+        "capacity_gb": 8192,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
@@ -21264,6 +21280,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Seagate SkyHawk AI Surveillance ST12000VE003 12TB 3.5\" 7200RPM 512MB",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-ai-surveillance-st12000ve003-12tb-35-7200rpm-512mb_67028/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_ai_surveillance_st12000ve003_12tb_35_7200rpm_512mb_197488_6d9b269e-cb37-48e5-b104-9b3a4120c275.avif",
+      "price_usd": 469.0,
+      "price_brl": 2457.56,
+      "offers": 2,
+      "specs": {
+        "capacity_gb": 12288,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD M.2 Lexar NM790 1TB",
       "description": "O SSD M.2 Lexar NM790 é uma solução de armazenamento de alto desempenho...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-lexar-nm790-1tb_68605/",
@@ -21354,12 +21385,12 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate SkyHawk Surveillance ST2000VX008 2TB 3.5\" 5900RPM 64MB",
-      "description": "O HD interno Seagate ST2000VX008 foi optimizado para sistemas de DVR e ...",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-surveillance-st2000vx008-2tb-35-5900rpm-64mb_16871/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_surveillance_st2000vx008_2tb_35_5900rpm_64mb_133094_200x200.jpg",
-      "price_usd": 140.0,
-      "price_brl": 733.6,
+      "name": "HD Western Digital WD20EZRZ 2TB 3.5\"",
+      "description": "",
+      "url": "https://www.comprasparaguai.com.br/hd-western-digital-wd20ezrz-2tb-35_16161/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_wd20ezrz_2tb_35_75872_200x200.jpg",
+      "price_usd": 65.0,
+      "price_brl": 340.6,
       "offers": 1,
       "specs": {
         "capacity_gb": 2048,
@@ -21369,15 +21400,15 @@
     },
     {
       "category": "storage",
-      "name": "HD Western Digital Blue WD10EZEX 1TB 3.5\" 7200RPM 64MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/hd-western-digital-blue-wd10ezex-1tb-35-7200rpm-64mb_16876/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_western_digital_blue_wd10ezex_1tb_35_131280_200x200.jpg",
-      "price_usd": 43.0,
-      "price_brl": 225.32,
+      "name": "HD Seagate SkyHawk Surveillance ST2000VX008 2TB 3.5\" 5900RPM 64MB",
+      "description": "O HD interno Seagate ST2000VX008 foi optimizado para sistemas de DVR e ...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-surveillance-st2000vx008-2tb-35-5900rpm-64mb_16871/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_surveillance_st2000vx008_2tb_35_5900rpm_64mb_133094_200x200.jpg",
+      "price_usd": 140.0,
+      "price_brl": 733.6,
       "offers": 1,
       "specs": {
-        "capacity_gb": 1024,
+        "capacity_gb": 2048,
         "interface": "hdd",
         "form_factor": "3.5\""
       }
@@ -21579,6 +21610,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Seagate Constellation ES ST2000NM0011 2TB 3.5\" 7200RPM 64MB",
+      "description": "Aumente o disco rígido do seu PC e não deixe que não falte nunca espaço...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-constellation-es-st2000nm0011-2tb-35-7200rpm-64mb_33606/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_constellation_es_st2000nm0011_2tb_35_7200rpm_64mb_133417_200x200.jpg",
+      "price_usd": 65.0,
+      "price_brl": 340.6,
+      "offers": 1,
+      "specs": {
+        "capacity_gb": 2048,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "SSD Patriot Burst Elite 120GB 2.5\"",
       "description": "",
       "url": "https://www.comprasparaguai.com.br/ssd-patriot-burst-elite-120gb-25_33908/",
@@ -21703,8 +21749,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/hd-hitachi-hua722010cla330-1tb-35-7200rpm-32mb_36449/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_hgst_hua722010cla330_1tb_35_7200rpm_32mb_138823_200x200.jpg",
-      "price_usd": 43.0,
-      "price_brl": 225.32,
+      "price_usd": 42.0,
+      "price_brl": 220.08,
       "offers": 1,
       "specs": {
         "capacity_gb": 1024,
@@ -22018,8 +22064,8 @@
       "description": "",
       "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-nas-st4000vn006-4tb-35-5400rpm-256mb_46082/",
       "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_nas_st4000vn006_4tb_35_5400rpm_256mb_158622_200x200.jpg",
-      "price_usd": 248.0,
-      "price_brl": 1299.52,
+      "price_usd": 249.0,
+      "price_brl": 1304.76,
       "offers": 1,
       "specs": {
         "capacity_gb": 4096,
@@ -22224,21 +22270,6 @@
     },
     {
       "category": "storage",
-      "name": "HD Externo Seagate Ultra Touch 1TB 2.5\" USB 3.0",
-      "description": "O HD Externo Seagate Ultra Touch oferece 1TB de capacidade de armazenam...",
-      "url": "https://www.comprasparaguai.com.br/hd-externo-seagate-ultra-touch-1tb-25-usb-30_49959/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_seagate_ultra_touch_1tb_25_usb_30_167196_200x200.jpg",
-      "price_usd": 115.0,
-      "price_brl": 602.6,
-      "offers": 1,
-      "specs": {
-        "capacity_gb": 1024,
-        "interface": "hdd",
-        "form_factor": "2.5\""
-      }
-    },
-    {
-      "category": "storage",
       "name": "SSD M.2 Kingston Fury Renegade 4TB Com Dissipador de Calor",
       "description": "O SSD Kingston Fury Renegade oferece tecnologia de ponta e desempenho e...",
       "url": "https://www.comprasparaguai.com.br/ssd-m2-kingston-fury-renegade-4tb-com-dissipador-de-calor_49962/",
@@ -22314,30 +22345,30 @@
     },
     {
       "category": "storage",
-      "name": "SSD M.2 Adata XPG Gammix S70 Blade 512GB",
-      "description": "Apresentando um formato M.2 2280, o SSD Adata XPG Gammix S70 Blade é pe...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-adata-xpg-gammix-s70-blade-512gb_52362/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_adata_xpg_gammix_s70_blade_512gb_172587_200x200.jpg",
-      "price_usd": 125.0,
-      "price_brl": 655.0,
+      "name": "HD Seagate IronWolf Pro ST4000NT001 4TB 3.5\" 7200RPM 256MB",
+      "description": "O IronWolf Pro é um disco rígido que oferece confiabilidade e segurança...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st4000nt001-4tb-35-7200rpm-256mb_52358/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st4000nt001_4tb_35_7200rpm_256mb_172577_200x200.jpg",
+      "price_usd": 260.0,
+      "price_brl": 1362.4,
       "offers": 1,
       "specs": {
-        "capacity_gb": 512,
-        "interface": "nvme",
-        "form_factor": "M.2"
+        "capacity_gb": 4096,
+        "interface": "hdd",
+        "form_factor": "3.5\""
       }
     },
     {
       "category": "storage",
-      "name": "SSD M.2 UP Gamer UP2000 1TB",
-      "description": "Elimine os longos carregamentos do sistema, transferência de arquivos e...",
-      "url": "https://www.comprasparaguai.com.br/ssd-m2-up-gamer-up2000-1tb_52370/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_up_gamer_up2000_1tb_172608_200x200.png",
-      "price_usd": 125.0,
-      "price_brl": 655.0,
+      "name": "SSD M.2 Adata XPG Gammix S70 Blade 512GB",
+      "description": "Apresentando um formato M.2 2280, o SSD Adata XPG Gammix S70 Blade é pe...",
+      "url": "https://www.comprasparaguai.com.br/ssd-m2-adata-xpg-gammix-s70-blade-512gb_52362/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/ssd_m2_adata_xpg_gammix_s70_blade_512gb_172587_200x200.jpg",
+      "price_usd": 135.0,
+      "price_brl": 707.4,
       "offers": 1,
       "specs": {
-        "capacity_gb": 1024,
+        "capacity_gb": 512,
         "interface": "nvme",
         "form_factor": "M.2"
       }
@@ -22554,6 +22585,21 @@
     },
     {
       "category": "storage",
+      "name": "HD Externo Seagate Expansion 24TB 3.5\" USB 3.0 STKP24000400",
+      "description": "O HD Externo Seagate Expansion de 24TB foi concebido para expandir o se...",
+      "url": "https://www.comprasparaguai.com.br/hd-externo-seagate-expansion-24tb-35-usb-30-stkp24000400_57487/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_externo_seagate_expansion_24tb_35_usb_30_stkp24000400_182176_200x200.jpg",
+      "price_usd": 695.0,
+      "price_brl": 3641.8,
+      "offers": 1,
+      "specs": {
+        "capacity_gb": 24576,
+        "interface": "hdd",
+        "form_factor": "3.5\""
+      }
+    },
+    {
+      "category": "storage",
       "name": "HD Externo Lacie Rugged 1TB 2.5\" USB-C",
       "description": "O disco rígido externo Lacie Rugged é a solução ideal para estudantes, ...",
       "url": "https://www.comprasparaguai.com.br/hd-externo-lacie-rugged-1tb-25-usb-c_58328/",
@@ -22670,21 +22716,6 @@
         "capacity_gb": 4096,
         "interface": "nvme",
         "form_factor": "M.2"
-      }
-    },
-    {
-      "category": "storage",
-      "name": "HD Toshiba N300 Pro NAS HDWG780XZSTB 8TB 3.5\" 7200RPM 512MB",
-      "description": "Descubra o NAS N300 da Toshiba, a solução definitiva para aqueles que e...",
-      "url": "https://www.comprasparaguai.com.br/hd-toshiba-n300-pro-nas-hdwg780xzstb-8tb-35-7200rpm-512mb_61078/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_toshiba_n300_pro_nas_hdwg780xzstb_8tb_35_7200rpm_512mb_188350_fb37f1a9-4380-4bb9-84b8-4e6bbf2d37fe.webp",
-      "price_usd": 339.0,
-      "price_brl": 1776.36,
-      "offers": 1,
-      "specs": {
-        "capacity_gb": 8192,
-        "interface": "hdd",
-        "form_factor": "3.5\""
       }
     },
     {
@@ -23049,15 +23080,15 @@
     },
     {
       "category": "storage",
-      "name": "HD Seagate SkyHawk AI Surveillance ST12000VE003 12TB 3.5\" 7200RPM 512MB",
-      "description": "",
-      "url": "https://www.comprasparaguai.com.br/hd-seagate-skyhawk-ai-surveillance-st12000ve003-12tb-35-7200rpm-512mb_67028/",
-      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_skyhawk_ai_surveillance_st12000ve003_12tb_35_7200rpm_512mb_197488_6d9b269e-cb37-48e5-b104-9b3a4120c275.avif",
-      "price_usd": 469.0,
-      "price_brl": 2457.56,
+      "name": "HD Seagate IronWolf Pro ST28000NT000 28TB 3.5\" 7200RPM 512MB",
+      "description": "Pensado para sistemas NAS que exigem resistência contínua, o Seagate Ir...",
+      "url": "https://www.comprasparaguai.com.br/hd-seagate-ironwolf-pro-st28000nt000-28tb-35-7200rpm-512mb_67029/",
+      "image": "https://bucket-prod.us-ord-10.linodeobjects.com/site/media/fotos/modelos/hd_seagate_ironwolf_pro_st28000nt000_28tb_35_7200rpm_512mb_197489_d4f2e3d6-7b1c-4d05-a1ce-89cd9db793c9.avif",
+      "price_usd": 1135.0,
+      "price_brl": 5947.4,
       "offers": 1,
       "specs": {
-        "capacity_gb": 12288,
+        "capacity_gb": 28672,
         "interface": "hdd",
         "form_factor": "3.5\""
       }

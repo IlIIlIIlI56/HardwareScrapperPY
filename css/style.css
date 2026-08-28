@@ -585,6 +585,29 @@ code {
   margin-top: 3px;
 }
 
+.catalog-item-score {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.extra-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  align-items: end;
+}
+
+.extra-filters .extra-filter-field {
+  margin: 0;
+}
+
+.extra-filters .btn {
+  align-self: end;
+  height: fit-content;
+}
+
 .catalog-item-price {
   text-align: right;
   flex-shrink: 0;

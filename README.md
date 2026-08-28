@@ -71,6 +71,21 @@ rodando, o botao no topo de `index.html` dispara a coleta, mostra o progresso ao
 pagina automaticamente quando termina. Se o botao mostrar "servidor nao encontrado", e porque esse
 terminal nao esta rodando.
 
+Na primeira vez (sem nenhum dado ainda), o botao mostra "Coletar dados agora". Depois que
+`data/products.json` ja tem produtos, o mesmo botao vira **"Reiniciar coleta"**: clicar nele pede
+confirmacao e, se confirmado, apaga `data/products.json` e coleta tudo de novo do zero (em vez de
+so atualizar por cima) -- util para descartar dados antigos/desatualizados antes de uma nova
+coleta completa. Se a nova coleta falhar no meio do caminho, os dados antigos ja terao sido
+apagados (o log mostra `[reiniciar] dados anteriores apagados`); rode a coleta de novo para
+preencher `data/products.json` outra vez.
+
+> **Importante:** `trigger_server.py` e um processo Python de vida longa -- ele NAO recarrega o
+> proprio codigo sozinho. Depois de atualizar os arquivos do projeto (`git pull`, uma correcao,
+> etc.), pare o terminal onde ele esta rodando (`Ctrl+C`) e rode `python trigger_server.py` de
+> novo antes de usar o botao. Um terminal com a versao antiga ainda de pe pode responder aos
+> endpoints de um jeito desatualizado (por exemplo, nao reconhecer `?reset=1` e devolver HTTP 404);
+> o botao detecta esse erro e mostra a mensagem no log em vez de fingir que a coleta rodou.
+
 **Pela linha de comando (alternativa/avancado):**
 
 ```bash
@@ -133,9 +148,13 @@ pequeno delay entre paginas -- leva alguns minutos.
 ## Pagina "Base de Dados" (`catalogo.html`)
 
 Lista todos os produtos raspados de cada categoria, com filtros por categoria, status (pontuado /
-pendente / adicionado manualmente / ignorado) e busca por nome. O foco principal e a fila de
-**itens pendentes**: produtos que o pipeline nao conseguiu pontuar automaticamente (preco invalido,
-specs nao reconhecidas no nome, ou nenhuma correspondencia na base de benchmarks de CPU/GPU).
+pendente / adicionado manualmente / ignorado) e busca por nome. O status exibido aqui roda **a
+mesma pontuacao em lote usada na pagina de builds** (incluindo o filtro de outliers de preco
+descrito abaixo), entao um item nunca aparece como "Pontuado" aqui e de fora das builds ao mesmo
+tempo. O foco principal e a fila de **itens pendentes**: produtos que o pipeline nao incluiu no
+calculo automaticamente -- por preco invalido, specs nao reconhecidas no nome, nenhuma
+correspondencia na base de benchmarks de CPU/GPU/chipset, ou indice desempenho/preco estatisticamente
+fora do padrao da categoria (ver "Itens com preco fora do padrao" mais abaixo).
 
 Para cada item pendente, o botao "Revisar item" abre um formulario com os campos daquela categoria
 (ex: para CPU/GPU, marca + modelo; para RAM, capacidade/velocidade/geracao/formato; etc). Conforme
@@ -148,6 +167,57 @@ extrair do nome do produto (ou corrige falsos positivos, como uma memoria RAM id
 
 Cada item tambem pode ser explicitamente **ignorado**, o que o exclui do calculo de builds mesmo
 que ele viesse a se tornar pontuavel no futuro.
+
+### Aba "Pontuados": score visivel e filtros especificos por categoria
+
+Com a aba de status **"Pontuados"** ativa, cada card passa a mostrar a linha "Desempenho: ... ·
+Indice de valor: ..." com o mesmo `perfScore`/`valueRatio` calculados por `js/scoring.js` --
+o mesmo numero usado para escolher o "TOP Custo-Beneficio" e montar as builds.
+
+Alem disso, ao selecionar **uma unica categoria** junto com "Pontuados", aparecem filtros extras
+especificos daquele tipo de peca (definidos em `EXTRA_FILTER_SCHEMAS`, `js/catalog.js`), sobre
+campos que so uma categoria tem:
+
+- **CPU:** marca, nucleos (minimo).
+- **Placa-Mae:** soquete, tipo de RAM suportado, tier (minimo).
+- **RAM:** velocidade minima (MHz), geracao (DDR2-5), CAS Latency maxima.
+- **GPU:** marca, VRAM minima (GB).
+- **Fonte:** wattagem minima, selo 80 PLUS.
+- **Armazenamento:** interface, capacidade minima (GB).
+
+Esses filtros operam sobre as specs extraidas e sobre a performance ja calculada (nucleos, VRAM e
+soquete resolvidos, por exemplo, so existem depois da pontuacao) -- por isso so aparecem com
+"Pontuados" selecionado. Trocar de categoria limpa os filtros extras, ja que os campos mudam de um
+tipo de peca para outro.
+
+### Por que RAM nao mostra o bloco "Modelo nao encontrado na base de benchmarks"
+
+Diferente de CPU, GPU e chipset de Placa-Mae, a **RAM nao e casada contra nenhuma tabela de
+modelos** em `data/benchmarks.json` -- olhe `scoreRam` em `js/scoring.js`. A performance de um kit
+de memoria e calculada direto por formula a partir de `capacity_gb`, `speed_mhz` e (se informado)
+`cas_latency`, os mesmos campos que ja aparecem no formulario de revisao. Por isso, uma vez que
+esses campos estejam preenchidos, o item pontua -- nao existe um "modelo desconhecido" para RAM
+como existe para um Ryzen ou uma RTX cujo `model_key` nao bate com nada na base curada. O bloco de
+cadastro de benchmark (`renderBenchmarkAddSection` em `js/catalog.js`) so e acionado para
+`cpu`/`gpu`/`motherboard`, que sao as unicas categorias com esse tipo de dependencia.
+
+Se um item de RAM continuar como **pendente** mesmo depois de preencher capacidade e velocidade, a
+causa e outra: o anuncio foi identificado como memoria de notebook (SO-DIMM) -- corrija o campo
+"Formato" para "DIMM" se for um falso positivo -- ou o item foi marcado como **outlier estatistico
+de preco** (ver secao seguinte), que e um motivo diferente de "specs insuficientes" e aparece
+explicado no proprio painel de revisao.
+
+### Itens com preco fora do padrao ("outlier estatistico")
+
+Alem de specs insuficientes, um produto (de qualquer categoria) pode ficar de fora do calculo de
+builds por ter um indice desempenho/preco muito acima do restante da categoria --
+`flagValueOutliers` em `js/scoring.js`, baseado em desvio absoluto mediano (MAD). Isso existe para
+nao deixar um erro de preco na fonte (ex: um produto de US$ 200 listado por engano a US$ 10)
+distorcer o "TOP Custo-Beneficio". Esses itens tambem aparecem como **pendentes** na pagina Base de
+Dados, com uma mensagem especifica explicando o motivo (distinta da mensagem de "specs
+insuficientes"). Se o preco do anuncio estiver realmente correto, use "Adicionar a base": isso
+isenta aquele item do filtro de outlier dali em diante (ele passa a contar como confirmado
+manualmente), sem precisar editar nenhuma spec.
 
 Essas decisoes ficam salvas no `localStorage` do navegador (chave `hw-overrides-v1`) -- nao alteram
 `data/products.json` nem exigem rodar o scraper de novo. A pagina de builds (`index.html`) aplica

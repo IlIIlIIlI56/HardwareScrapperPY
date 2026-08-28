@@ -41,15 +41,26 @@ function scoreGpu(product, benchmarks) {
   };
 }
 
+/**
+ * Memoria SO-DIMM (formato de notebook) nao serve numa build desktop --
+ * fisicamente incompativel com o encaixe DIMM de uma placa-mae de mesa,
+ * independente de capacidade/velocidade estarem corretas. Exportada (nao so
+ * usada dentro de scoreRam) para que a pagina Base de Dados (js/catalog.js)
+ * possa mostrar o motivo real da exclusao em vez do generico "specs
+ * insuficientes" quando na verdade as specs estao completas e validas.
+ */
+function isNotebookRam(specs, name) {
+  return (
+    specs.form_factor === "SODIMM" ||
+    (specs.form_factor !== "DIMM" && /notebook|so-?dimm/i.test(name || ""))
+  );
+}
+
 function scoreRam(product, benchmarks) {
   const specs = product.specs || {};
-  // memoria SO-DIMM de notebook nao serve numa build desktop -- descarta.
   // se o usuario confirmar explicitamente form_factor "DIMM" (revisao manual
   // na pagina de base de dados), isso corrige um falso positivo do regex.
-  const looksNotebook =
-    specs.form_factor === "SODIMM" ||
-    (specs.form_factor !== "DIMM" && /notebook|so-?dimm/i.test(product.name || ""));
-  if (looksNotebook) return null;
+  if (isNotebookRam(specs, product.name)) return null;
   if (!specs.capacity_gb || !specs.speed_mhz) return null;
 
   // MT/s (o "MHz" anunciado) ja e comparavel entre geracoes DDR2/3/4/5 --
@@ -130,7 +141,10 @@ function median(values) {
  * tipicamente causados por erro de preco na fonte (ex: um produto de US$
  * 200+ listado por engano a US$ 10) em vez de uma pechincha real. Usa
  * desvio absoluto mediano (MAD) com margem generosa para nao descartar
- * ofertas legitimamente boas -- so casos extremos.
+ * ofertas legitimamente boas -- so casos extremos. Itens que o usuario
+ * confirmou manualmente na pagina Base de Dados (manuallyAdded, ver
+ * overrides.js) ficam isentos: a revisao humana do anuncio ja responde
+ * pela mesma duvida que esse filtro tenta resolver automaticamente.
  */
 function flagValueOutliers(scoredList) {
   if (scoredList.length < 5) return scoredList;
@@ -140,7 +154,7 @@ function flagValueOutliers(scoredList) {
   const upperFence = med + 8 * mad;
 
   return scoredList.map((p) => {
-    if (p.valueRatio > upperFence) {
+    if (!p.manuallyAdded && p.valueRatio > upperFence) {
       return { ...p, scored: false, reason: "outlier estatistico de preco (provavel erro na fonte)" };
     }
     return p;
@@ -177,4 +191,4 @@ function scoreProducts(category, products, benchmarks) {
   return [...flagValueOutliers(scored), ...unscored];
 }
 
-window.HWScoring = { scoreProducts, SCORERS };
+window.HWScoring = { scoreProducts, SCORERS, isNotebookRam };

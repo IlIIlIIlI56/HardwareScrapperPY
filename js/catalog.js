@@ -73,7 +73,58 @@ const state = {
   status: "pending",
   search: "",
   expanded: new Set(),
+  statusMap: new Map(),
+  extraFilters: {},
 };
+
+const PRICE_OUTLIER_REASON = "outlier estatistico de preco (provavel erro na fonte)";
+
+/**
+ * Filtros extras exibidos apenas quando ha uma unica categoria selecionada
+ * e a aba "Pontuados" esta ativa -- cada um opera sobre um campo especifico
+ * do item ja pontuado (specs extraidas ou performance calculada por
+ * scoring.js), entao so fazem sentido para itens que de fato pontuaram.
+ * `field` e um caminho tipo "specs.speed_mhz" ou "performance.cores"
+ * resolvido contra o objeto pontuado guardado em state.statusMap.
+ */
+const EXTRA_FILTER_SCHEMAS = {
+  cpu: [
+    { key: "brand", label: "Marca", type: "select", options: ["Intel", "AMD"], field: "specs.brand" },
+    { key: "cores_min", label: "Nucleos (minimo)", type: "number-min", field: "performance.cores" },
+  ],
+  motherboard: [
+    { key: "socket", label: "Soquete", type: "select", field: "performance.socket" },
+    { key: "ram_type", label: "Tipo de RAM", type: "select", options: ["DDR3", "DDR4", "DDR5"], field: "performance.ramType" },
+    { key: "tier_min", label: "Tier (minimo)", type: "number-min", field: "performance.tier" },
+  ],
+  ram: [
+    { key: "speed_min", label: "Velocidade minima (MHz)", type: "number-min", field: "specs.speed_mhz" },
+    { key: "ddr_gen", label: "Geracao", type: "select", options: ["DDR2", "DDR3", "DDR4", "DDR5"], field: "specs.ddr_gen" },
+    { key: "cl_max", label: "CAS Latency maxima", type: "number-max", field: "specs.cas_latency" },
+  ],
+  gpu: [
+    { key: "brand", label: "Marca", type: "select", options: ["NVIDIA", "AMD", "Intel"], field: "specs.brand" },
+    { key: "vram_min", label: "VRAM minima (GB)", type: "number-min", field: "performance.vramGb" },
+  ],
+  psu: [
+    { key: "wattage_min", label: "Wattagem minima (W)", type: "number-min", field: "specs.wattage" },
+    {
+      key: "efficiency",
+      label: "Selo 80 PLUS",
+      type: "select",
+      options: ["none", "80+ white", "80+ bronze", "80+ silver", "80+ gold", "80+ platinum", "80+ titanium"],
+      field: "specs.efficiency",
+    },
+  ],
+  storage: [
+    { key: "interface", label: "Interface", type: "select", options: ["hdd", "sata_ssd", "nvme", "nvme_gen4"], field: "specs.interface" },
+    { key: "capacity_min", label: "Capacidade minima (GB)", type: "number-min", field: "specs.capacity_gb" },
+  ],
+};
+
+function getPath(obj, path) {
+  return path.split(".").reduce((acc, key) => (acc == null ? undefined : acc[key]), obj);
+}
 
 function el(tag, className, html) {
   const e = document.createElement(tag);
@@ -124,13 +175,78 @@ function searchUrl(query) {
   return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 }
 
+/**
+ * Roda o MESMO HWScoring.scoreProducts usado pela pagina de builds (app.js),
+ * categoria por categoria, sobre os produtos ja com as decisoes de
+ * override aplicadas (added/ignored) -- para refletir corretamente aqui os
+ * itens que o pipeline real exclui por serem outliers estatisticos de
+ * preco (flagValueOutliers em scoring.js). Sem isso, um item com specs
+ * perfeitamente validas mas preco fora do padrao aparecia como "Pontuado"
+ * nesta pagina mesmo estando de fora do calculo de builds -- nao dava para
+ * saber o motivo real, so "specs insuficientes" (que nao era o caso).
+ *
+ * Guarda o objeto pontuado INTEIRO (nao so scored/reason) -- ele ja traz
+ * performance/perfScore/valueRatio calculados por scoring.js, reaproveitados
+ * tanto para mostrar o score nos cards quanto para os filtros extras por
+ * categoria (ver EXTRA_FILTER_SCHEMAS), sem recalcular nada.
+ */
+function computeStatusMap() {
+  const working = HWOverrides.applyOverridesToProducts(state.products);
+  const byCategory = {};
+  for (const p of working) {
+    (byCategory[p.category] = byCategory[p.category] || []).push(p);
+  }
+  const benchmarks = getEffectiveBenchmarks();
+  const map = new Map();
+  for (const category of Object.keys(byCategory)) {
+    const scored = HWScoring.scoreProducts(category, byCategory[category], benchmarks);
+    scored.forEach((p) => map.set(p.url, p));
+  }
+  return map;
+}
+
 function computeStatus(product) {
   const ov = HWOverrides.getOverrides()[product.url];
   if (ov && ov.decision === "ignored") return "ignored";
   if (ov && ov.decision === "added") return "added";
-  const mergedSpecs = product.specs || {};
-  const probe = previewScore(product, mergedSpecs);
-  return probe.ok ? "scored" : "pending";
+  const entry = state.statusMap.get(product.url);
+  return entry && entry.scored ? "scored" : "pending";
+}
+
+function pendingReason(product) {
+  const entry = state.statusMap.get(product.url);
+  return entry ? entry.reason : null;
+}
+
+function scoreEntry(product) {
+  return state.statusMap.get(product.url) || null;
+}
+
+/**
+ * So se aplica quando ha uma categoria unica selecionada e a aba ativa e
+ * "Pontuados" (renderExtraFilters so exibe os controles nessas condicoes).
+ * Compara contra o objeto pontuado (scoreEntry), nao contra o produto cru,
+ * porque os campos de performance (nucleos, VRAM, tier, soquete resolvido)
+ * so existem depois da pontuacao.
+ */
+function matchesExtraFilters(product) {
+  const schema = EXTRA_FILTER_SCHEMAS[state.category];
+  if (!schema) return true;
+  const entry = scoreEntry(product);
+  if (!entry) return true;
+  for (const f of schema) {
+    const filterValue = state.extraFilters[f.key];
+    if (filterValue === undefined || filterValue === "") continue;
+    const actual = getPath(entry, f.field);
+    if (f.type === "select") {
+      if (actual == null || String(actual) !== String(filterValue)) return false;
+    } else if (f.type === "number-min") {
+      if (actual == null || Number(actual) < Number(filterValue)) return false;
+    } else if (f.type === "number-max") {
+      if (actual == null || Number(actual) > Number(filterValue)) return false;
+    }
+  }
+  return true;
 }
 
 function matchesFilters(product, status) {
@@ -140,6 +256,7 @@ function matchesFilters(product, status) {
     const needle = HWMatch.normalizeKey(state.search);
     if (!HWMatch.normalizeKey(product.name).includes(needle)) return false;
   }
+  if (state.status === "scored" && state.category !== "all" && !matchesExtraFilters(product)) return false;
   return true;
 }
 
@@ -317,10 +434,16 @@ function renderReviewPanel(product) {
   const schema = FIELD_SCHEMAS[product.category] || [];
   const panel = el("div", "review-panel");
 
+  const isPriceOutlier = pendingReason(product) === PRICE_OUTLIER_REASON;
+  const isNotebookRam = product.category === "ram" && HWScoring.isNotebookRam(product.specs || {}, product.name);
   const reasonLine = el(
     "div",
     "review-reason",
-    "Especificacoes insuficientes ou sem correspondencia na base de performance -- complete os campos abaixo."
+    isPriceOutlier
+      ? "Este item tem especificacoes validas e pontua normalmente, mas foi excluido do calculo de builds por ter um indice desempenho/preco muito fora do padrao da categoria (heuristica MAD em js/scoring.js) -- geralmente sinal de erro de preco na fonte. Confira o anuncio original: se o preco estiver correto, use \"Adicionar a base\" para forcar a inclusao; caso contrario, \"Ignorar\"."
+      : isNotebookRam
+      ? "Identificada como memoria SO-DIMM (formato de notebook) -- fisicamente incompativel com uma build desktop, entao fica de fora mesmo com capacidade/velocidade corretas. Se for um falso positivo do regex (o anuncio e de uma DIMM de desktop), mude \"Formato\" para DIMM abaixo; caso contrario, o correto e usar \"Ignorar item\"."
+      : "Especificacoes insuficientes ou sem correspondencia na base de performance -- complete os campos abaixo."
   );
   panel.appendChild(reasonLine);
 
@@ -390,7 +513,10 @@ function renderReviewPanel(product) {
       lastGoodSpecs = edited;
     } else {
       preview.className = "review-preview fail";
-      preview.textContent = probe.reason;
+      preview.textContent =
+        product.category === "ram" && HWScoring.isNotebookRam(merged, product.name)
+          ? "Ainda identificada como SO-DIMM (notebook) -- mude \"Formato\" para DIMM se isso for um falso positivo do regex, ou use \"Ignorar item\" se for mesmo uma memoria de notebook."
+          : probe.reason;
       addBtn.disabled = true;
       lastGoodSpecs = null;
     }
@@ -449,6 +575,17 @@ function renderCatalogItem(product) {
   main.appendChild(
     el("div", "catalog-item-meta", `${product.offers != null ? product.offers + " ofertas" : "ofertas: --"}`)
   );
+
+  const entry = scoreEntry(product);
+  if (entry && entry.scored) {
+    main.appendChild(
+      el(
+        "div",
+        "catalog-item-score",
+        `Desempenho: ${entry.perfScore.toFixed(1)} · Indice de valor: ${entry.valueRatio.toFixed(3)} (desempenho/USD)`
+      )
+    );
+  }
 
   if (specSummary(product.specs).length && status !== "pending") {
     const tags = el("div", "spec-tags");
@@ -537,6 +674,7 @@ function renderFilters() {
     const btn = el("button", `chip-btn${state.category === c.key ? " active" : ""}`, c.label);
     btn.addEventListener("click", () => {
       state.category = c.key;
+      state.extraFilters = {}; // os campos de filtro extra mudam por categoria
       renderFilters();
       renderList();
     });
@@ -554,12 +692,83 @@ function renderFilters() {
     });
     statusBox.appendChild(btn);
   });
+
+  renderExtraFilters();
+}
+
+/** Valores distintos de um campo (ex: soquetes de placa-mae) entre os itens ja pontuados da categoria ativa. */
+function dynamicFilterOptions(field) {
+  const values = new Set();
+  for (const entry of state.statusMap.values()) {
+    if (!entry.scored || entry.category !== state.category) continue;
+    const v = getPath(entry, field);
+    if (v !== null && v !== undefined && v !== "") values.add(v);
+  }
+  return [...values].sort();
+}
+
+/**
+ * Filtros especificos da categoria (velocidade/latencia de RAM, marca/VRAM
+ * de GPU, marca/nucleos de CPU etc.) -- so exibidos com uma categoria
+ * especifica selecionada e a aba "Pontuados" ativa, ja que operam sobre
+ * campos de performance/specs que so existem para itens pontuados.
+ */
+function renderExtraFilters() {
+  const container = document.getElementById("extra-filters");
+  if (!container) return;
+  container.innerHTML = "";
+
+  const schema = EXTRA_FILTER_SCHEMAS[state.category];
+  const show = state.status === "scored" && state.category !== "all" && schema;
+  container.hidden = !show;
+  if (!show) return;
+
+  schema.forEach((f) => {
+    const wrapper = el("div", "field extra-filter-field");
+    wrapper.appendChild(el("label", null, f.label));
+    let input;
+    if (f.type === "select") {
+      input = document.createElement("select");
+      const blank = document.createElement("option");
+      blank.value = "";
+      blank.textContent = "Todos";
+      input.appendChild(blank);
+      (f.options || dynamicFilterOptions(f.field)).forEach((opt) => {
+        const o = document.createElement("option");
+        o.value = opt;
+        o.textContent = opt;
+        if (String(state.extraFilters[f.key]) === String(opt)) o.selected = true;
+        input.appendChild(o);
+      });
+    } else {
+      input = document.createElement("input");
+      input.type = "number";
+      input.placeholder = "qualquer";
+      if (state.extraFilters[f.key] !== undefined) input.value = state.extraFilters[f.key];
+    }
+    input.addEventListener("input", () => {
+      if (input.value === "") delete state.extraFilters[f.key];
+      else state.extraFilters[f.key] = input.value;
+      renderList();
+    });
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
+  });
+
+  const clearBtn = el("button", "btn btn-ghost", "Limpar filtros extras");
+  clearBtn.addEventListener("click", () => {
+    state.extraFilters = {};
+    renderExtraFilters();
+    renderList();
+  });
+  container.appendChild(clearBtn);
 }
 
 function renderList() {
   const container = document.getElementById("catalog-list");
   container.innerHTML = "";
 
+  state.statusMap = computeStatusMap();
   const withStatus = state.products.map((p) => ({ product: p, status: computeStatus(p) }));
   const counts = { scored: 0, pending: 0, added: 0, ignored: 0 };
   withStatus.forEach(({ status }) => counts[status]++);

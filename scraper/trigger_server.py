@@ -3,10 +3,15 @@ Servidor local minimo (so biblioteca padrao do Python -- sem dependencias
 novas) que expoe dois endpoints HTTP para o botao "Coletar dados agora" na
 pagina index.html:
 
-    POST /scrape   -> dispara scrape_comprasparaguai.run_scrape() em uma
-                       thread de fundo (nao bloqueia) e responde na hora.
-    GET  /status   -> estado atual da coleta (rodando?, log recente,
-                       resultado, erro).
+    POST /scrape          -> dispara scrape_comprasparaguai.run_scrape() em
+                              uma thread de fundo (nao bloqueia) e responde
+                              na hora.
+    POST /scrape?reset=1  -> como acima, mas apaga data/products.json ANTES
+                              de comecar (botao vira "Reiniciar coleta" no
+                              front-end depois da primeira coleta bem
+                              sucedida).
+    GET  /status          -> estado atual da coleta (rodando?, log recente,
+                              resultado, erro).
 
 Por que isso existe: um navegador NAO consegue executar um script Python
 local por questoes de seguranca (nao existe API JS para rodar processos
@@ -30,6 +35,8 @@ import json
 import threading
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlparse, parse_qs
 
 import scrape_comprasparaguai as scraper
 
@@ -63,7 +70,7 @@ class _LiveLogStream(io.TextIOBase):
         pass
 
 
-def _run_in_background():
+def _run_in_background(reset=False):
     with _lock:
         _state.update(
             running=True,
@@ -73,6 +80,22 @@ def _run_in_background():
             started_at=datetime.now(timezone.utc).isoformat(),
             finished_at=None,
         )
+
+    if reset:
+        # "Reiniciar coleta": apaga o products.json atual ANTES de raspar de
+        # novo, em vez de so confiar que run_scrape vai sobrescrever tudo no
+        # final -- assim, se a nova coleta falhar no meio do caminho, o
+        # usuario ve que os dados antigos sumiram (em vez de uma base
+        # silenciosamente desatualizada) e sabe que precisa tentar de novo.
+        output_path = Path(scraper.DEFAULT_OUTPUT)
+        try:
+            if output_path.exists():
+                output_path.unlink()
+            with _lock:
+                _state["log"].append("[reiniciar] dados anteriores apagados -- coletando do zero.")
+        except OSError as exc:
+            with _lock:
+                _state["log"].append(f"[aviso] nao foi possivel apagar dados anteriores: {exc}")
 
     try:
         with contextlib.redirect_stdout(_LiveLogStream()):
@@ -122,12 +145,14 @@ class Handler(BaseHTTPRequestHandler):
             self._send_json(404, {"error": "endpoint desconhecido"})
 
     def do_POST(self):
-        if self.path == "/scrape":
+        parsed = urlparse(self.path)
+        if parsed.path == "/scrape":
+            reset = parse_qs(parsed.query).get("reset", ["0"])[0] == "1"
             with _lock:
                 already_running = _state["running"]
             if not already_running:
-                threading.Thread(target=_run_in_background, daemon=True).start()
-            self._send_json(202, {"started": not already_running, "already_running": already_running})
+                threading.Thread(target=_run_in_background, args=(reset,), daemon=True).start()
+            self._send_json(202, {"started": not already_running, "already_running": already_running, "reset": reset})
         else:
             self._send_json(404, {"error": "endpoint desconhecido"})
 
