@@ -3,23 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
   <title>Builds de Custo-Beneficio — Comprasparaguai Informatica</title>
   <link rel="stylesheet" href="css/style.css" />
+  <!-- antes do <body>: aplicar o tema depois da pintura causaria um flash branco -->
+  <script src="js/theme.js"></script>
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
       <div class="brand-row">
-        <h1><span class="mark">&#127807;</span>Builds de Custo-Beneficio</h1>
-        <nav class="site-nav">
-          <a href="index.html" class="active">Builds</a>
-          <a href="catalogo.html">Base de dados</a>
-        </nav>
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </span>
+          <div class="brand-text">
+            <h1>Builds de Custo-Beneficio</h1>
+            <div class="brand-sub">Comprasparaguai · Informatica</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Secoes">
+            <a href="index.html" class="active">Builds</a>
+            <a href="catalogo.html">Base de dados</a>
+          </nav>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </button>
+        </div>
       </div>
       <p class="subtitle">
         Montagem automatica de PCs a partir dos precos da categoria Informatica da
         <a href="https://www.comprasparaguai.com.br/informatica/" target="_blank" rel="noopener noreferrer">comprasparaguai.com.br</a>,
-        comparados com bases de performance de CPU/GPU.
+        cruzados com uma base de performance de CPU/GPU. Toda a analise e feita por codigo.
       </p>
       <p class="data-meta" id="data-meta">carregando metadados...</p>
     </div>
@@ -47,46 +72,51 @@ python trigger_server.py</code></pre>
     </section>
 
     <section class="panel">
-      <h2>Pipeline de analise (100% por codigo)</h2>
-      <div id="status-panel" class="status-panel"></div>
-    </section>
-
-    <section class="panel">
       <h2>Item TOP Custo-Beneficio por categoria</h2>
+      <p class="panel-hint">
+        Maior indice desempenho/preco de cada categoria, descartando o quartil de desempenho mais
+        fraco -- cada um deles vira a ancora de uma build abaixo.
+      </p>
       <div id="top-strip" class="top-strip"></div>
     </section>
 
     <section class="panel">
       <h2>Builds recomendadas</h2>
       <p class="panel-hint">
-        Cada build parte do item TOP Custo-Beneficio de uma categoria; as demais 5 pecas sao escolhidas
-        automaticamente por compatibilidade (soquete, tipo de memoria, wattagem de fonte) e faixa de preco/performance
-        equivalente. A build com melhor indice de valor geral fica destacada no topo.
+        Cada build parte de um item TOP; as outras 5 pecas sao escolhidas automaticamente por
+        compatibilidade (soquete, tipo de memoria, wattagem de fonte) e faixa de preco equivalente.
+        A build com melhor indice de valor geral fica destacada no topo.
       </p>
       <div id="builds-container" class="builds-container"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Pipeline de analise</h2>
+      <div id="status-panel" class="status-panel"></div>
     </section>
 
     <section class="panel methodology">
       <h2>Metodologia</h2>
       <ul>
-        <li><strong>Coleta:</strong> script Python (<code>scraper/scrape_comprasparaguai.py</code>) percorre as paginas de Processador, Placa-Mae, Memoria RAM, Placa de Video, Fonte e HD/SSD e salva em <code>data/products.json</code>.</li>
+        <li><strong>Coleta:</strong> <code>scraper/scrape_comprasparaguai.py</code> percorre as paginas de Processador, Placa-Mae, Memoria RAM, Placa de Video, Fonte e HD/SSD e salva em <code>data/products.json</code>.</li>
         <li><strong>Especificacoes:</strong> extraidas por regex do nome de cada produto (soquete, chipset, capacidade, velocidade, wattagem, selo 80 PLUS, interface de armazenamento).</li>
-        <li><strong>Performance de CPU/GPU:</strong> casada (exata ou por similaridade textual) com uma base de referencia curada em <code>data/benchmarks.json</code>, com valores aproximados de indices publicos de desempenho (estilo PassMark CPU Mark / G3D).</li>
-        <li><strong>Performance de RAM:</strong> capacidade x velocidade (MT/s, ja comparavel entre geracoes DDR2/3/4/5) x um fator de latencia real calculado a partir do CAS Latency quando informado no anuncio (CL convertido para nanossegundos -- unico jeito correto de comparar timings entre geracoes diferentes).</li>
-        <li><strong>Performance de Fonte/Armazenamento/Placa-Mae:</strong> calculada por formula sobre as specs extraidas (wattagem x eficiencia 80 PLUS, capacidade x interface, tier de chipset).</li>
-        <li><strong>TOP Custo-Beneficio:</strong> maior indice performance/preco dentro de cada categoria, ignorando o quartil de performance mais fraco (para nao eleger sempre a peca mais fraca e mais barata).</li>
-        <li><strong>Montagem da build:</strong> a partir de cada peca TOP, as demais sao escolhidas pelo melhor indice de valor entre as opcoes compativeis e de faixa de preco equivalente.</li>
-        <li><strong>RAM x plataforma:</strong> alem do tipo de memoria (DDR4/DDR5), a escolha da RAM leva em conta a velocidade que o CPU+placa-mae realmente aproveitam (<code>max_ram_mhz</code> em <code>data/benchmarks.json</code>) -- um kit muito mais rapido do que a plataforma suporta tem seu score reduzido na comparacao, para nao pagar por MHz que ficam sem uso.</li>
-        <li><strong>Itens nao pontuados:</strong> produtos sem specs suficientes ficam de fora automaticamente, mas podem ser revisados manualmente na pagina <a href="catalogo.html">Base de dados</a> e adicionados ao calculo.</li>
+        <li><strong>Performance de CPU/GPU:</strong> casada com a base curada em <code>data/benchmarks.json</code> -- por chave exata, por apelido cadastrado por voce, ou por similaridade textual (que so aceita o par quando os numeros do modelo e os sufixos tipo Ti/XT/F sao identicos).</li>
+        <li><strong>Performance de RAM:</strong> capacidade x velocidade (MT/s, comparavel entre geracoes DDR2-5) x um fator de latencia real, calculado a partir do CAS Latency quando o anuncio informa (CL convertido para nanossegundos).</li>
+        <li><strong>Performance de Fonte/Armazenamento/Placa-Mae:</strong> formula sobre as specs extraidas (wattagem x eficiencia, capacidade x interface, tier de chipset).</li>
+        <li><strong>TOP Custo-Beneficio:</strong> maior indice desempenho/preco de cada categoria, ignorando o quartil mais fraco -- para nao eleger sempre a peca mais fraca e mais barata.</li>
+        <li><strong>Montagem:</strong> a partir de cada peca TOP, as demais sao escolhidas pelo melhor indice de valor entre as opcoes compativeis e de faixa de preco equivalente.</li>
+        <li><strong>RAM x plataforma:</strong> alem do tipo de memoria, a escolha considera a velocidade que o CPU+placa-mae realmente aproveitam (<code>max_ram_mhz</code>) -- um kit muito mais rapido do que a plataforma suporta tem o score reduzido, para nao pagar por MHz que ficam sem uso.</li>
+        <li><strong>Itens nao pontuados:</strong> produtos sem specs suficientes ficam de fora automaticamente, mas podem ser revisados na pagina <a href="catalogo.html">Base de dados</a> e reincluidos no calculo.</li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Gerado localmente a partir de dados publicos de precos. Nenhuma chamada de rede acontece a partir desta pagina — tudo roda sobre os arquivos em <code>data/</code>.</p>
+    <p>Gerado localmente a partir de dados publicos de precos. Nenhuma chamada de rede sai desta pagina — tudo roda sobre os arquivos em <code>data/</code>.</p>
   </footer>
 
   <script src="js/format.js"></script>
+  <script src="js/ui.js"></script>
   <script src="js/matcher.js"></script>
   <script src="js/scoring.js"></script>
   <script src="js/builder.js"></script>

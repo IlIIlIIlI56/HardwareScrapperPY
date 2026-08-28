@@ -908,7 +908,7 @@
       "specs": {
         "brand": "AMD",
         "socket": "AM4",
-        "model_key": null
+        "model_key": "athlon 3000g"
       }
     },
     {
@@ -12888,8 +12888,8 @@
       "price_brl": 286.63,
       "offers": 6,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 740",
         "vram_gb": 2
       }
     },
@@ -12948,8 +12948,8 @@
       "price_brl": 288.2,
       "offers": 6,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 730",
         "vram_gb": 4
       }
     },
@@ -12964,7 +12964,7 @@
       "offers": 6,
       "specs": {
         "brand": "AMD",
-        "model_key": "rx 9070",
+        "model_key": "rx 9070 gre",
         "vram_gb": 12
       }
     },
@@ -13008,8 +13008,8 @@
       "price_brl": 176.59,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 610",
         "vram_gb": 2
       }
     },
@@ -13023,8 +13023,8 @@
       "price_brl": 234.23,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 730",
         "vram_gb": 2
       }
     },
@@ -13068,8 +13068,8 @@
       "price_brl": 298.68,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 740",
         "vram_gb": 2
       }
     },
@@ -13083,8 +13083,8 @@
       "price_brl": 146.72,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 2
       }
     },
@@ -13098,8 +13098,8 @@
       "price_brl": 178.16,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "hd 7670",
         "vram_gb": 4
       }
     },
@@ -13218,8 +13218,8 @@
       "price_brl": 136.24,
       "offers": 5,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 210",
         "vram_gb": 1
       }
     },
@@ -13294,7 +13294,7 @@
       "offers": 5,
       "specs": {
         "brand": "Intel",
-        "model_key": null,
+        "model_key": "arc b570",
         "vram_gb": 6
       }
     },
@@ -13338,8 +13338,8 @@
       "price_brl": 167.68,
       "offers": 4,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 210",
         "vram_gb": 1
       }
     },
@@ -13353,8 +13353,8 @@
       "price_brl": 139.91,
       "offers": 4,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 210",
         "vram_gb": 1
       }
     },
@@ -13368,8 +13368,8 @@
       "price_brl": 145.15,
       "offers": 4,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 220",
         "vram_gb": 1
       }
     },
@@ -13428,8 +13428,8 @@
       "price_brl": 178.16,
       "offers": 4,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 610",
         "vram_gb": 2
       }
     },
@@ -13578,8 +13578,8 @@
       "price_brl": 1215.68,
       "offers": 4,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "quadro t400",
         "vram_gb": 4
       }
     },
@@ -13804,7 +13804,7 @@
       "offers": 4,
       "specs": {
         "brand": "Intel",
-        "model_key": null,
+        "model_key": "arc a380",
         "vram_gb": 6
       }
     },
@@ -13818,8 +13818,8 @@
       "price_brl": 372.04,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 710",
         "vram_gb": 2
       }
     },
@@ -13833,8 +13833,8 @@
       "price_brl": 104.28,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 1
       }
     },
@@ -13848,8 +13848,8 @@
       "price_brl": 256.24,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 420",
         "vram_gb": 4
       }
     },
@@ -13863,8 +13863,8 @@
       "price_brl": 239.47,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 730",
         "vram_gb": 4
       }
     },
@@ -13878,8 +13878,8 @@
       "price_brl": 120.52,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 220",
         "vram_gb": 1
       }
     },
@@ -13893,8 +13893,8 @@
       "price_brl": 256.76,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 730",
         "vram_gb": 4
       }
     },
@@ -13908,8 +13908,8 @@
       "price_brl": 471.08,
       "offers": 3,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r9 370",
         "vram_gb": 4
       }
     },
@@ -14539,7 +14539,7 @@
       "offers": 3,
       "specs": {
         "brand": "AMD",
-        "model_key": "rx 9070",
+        "model_key": "rx 9070 gre",
         "vram_gb": 12
       }
     },
@@ -14598,8 +14598,8 @@
       "price_brl": 146.2,
       "offers": 2,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 2
       }
     },
@@ -14613,8 +14613,8 @@
       "price_brl": 156.68,
       "offers": 2,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 2
       }
     },
@@ -14628,8 +14628,8 @@
       "price_brl": 261.48,
       "offers": 2,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 740",
         "vram_gb": 2
       }
     },
@@ -14658,8 +14658,8 @@
       "price_brl": 256.24,
       "offers": 2,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 730",
         "vram_gb": 4
       }
     },
@@ -15033,8 +15033,8 @@
       "price_brl": 125.76,
       "offers": 1,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 1
       }
     },
@@ -15063,8 +15063,8 @@
       "price_brl": 345.32,
       "offers": 1,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "NVIDIA",
+        "model_key": "gt 1030",
         "vram_gb": 2
       }
     },
@@ -15078,8 +15078,8 @@
       "price_brl": 146.2,
       "offers": 1,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r5 230",
         "vram_gb": 1
       }
     },
@@ -15093,8 +15093,8 @@
       "price_brl": 240.52,
       "offers": 1,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "r7 350",
         "vram_gb": 2
       }
     },
@@ -15108,8 +15108,8 @@
       "price_brl": 156.68,
       "offers": 1,
       "specs": {
-        "brand": null,
-        "model_key": null,
+        "brand": "AMD",
+        "model_key": "hd 6450",
         "vram_gb": 2
       }
     },
@@ -23258,5 +23258,6 @@
         "form_factor": "3.5\""
       }
     }
-  ]
+  ],
+  "specs_reextracted_at": "2026-08-28T17:35:21.037110+00:00"
 }

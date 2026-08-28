@@ -175,7 +175,7 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
   // realmente aproveita -- ver effectiveRamRank.
   const ramType =
     items.motherboard?.performance?.ramType ||
-    benchmarks.socket_default_ram[items.cpu?.performance?.socket] ||
+    (benchmarks.socket_default_ram || {})[items.cpu?.performance?.socket] ||
     null;
   const recommendedRamMhz =
     items.motherboard?.performance?.maxRamMhz ||
@@ -228,9 +228,14 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
       tierTarget,
       (p) => !p.specs.wattage || p.specs.wattage >= minWattage
     );
-    if (items.psu && items.psu.specs.wattage && items.psu.specs.wattage < minWattage) {
-      notes.push(`Fonte pode estar no limite (recomendado >= ${minWattage}W).`);
-    }
+  }
+  // vale tambem quando a fonte E a ancora: nesse caso ela foi eleita pelo
+  // custo-beneficio da propria categoria, antes de existir um CPU e uma GPU
+  // para alimentar -- e pode nao dar conta da dupla escolhida depois.
+  if (items.psu && items.psu.specs.wattage && items.psu.specs.wattage < minWattage) {
+    notes.push(
+      `Fonte de ${items.psu.specs.wattage}W abaixo do recomendado para esta combinacao (>= ${minWattage}W).`
+    );
   }
   if (!items.psu) notes.push("Nenhuma fonte compativel encontrada.");
 
@@ -254,6 +259,8 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
     totalBrl,
     minWattage,
     ramEffectiveScore,
+    recommendedRamMhz,
+    ramType,
     notes,
   };
 }
@@ -269,13 +276,25 @@ function computeNormalizers(byCategory) {
 
 function scoreBuild(build, normalizers) {
   let performanceIndex = 0;
+  // guardado para a UI: quanto cada peca contribuiu do indice final e quanto do
+  // orcamento ela consumiu -- e o que mostra, sem abrir o codigo, por que uma
+  // build "boa no papel" gasta metade do dinheiro num item de peso 0.08.
+  const perCategory = {};
   for (const cat of CATEGORY_ORDER) {
     // RAM usa o score "efetivo" (capado pela velocidade que a plataforma
     // escolhida nessa build realmente aproveita), nao o score bruto/intrinseco.
     const rawScore = cat === "ram" && build.ramEffectiveScore != null ? build.ramEffectiveScore : build.items[cat].perfScore;
     const normalized = (rawScore / (normalizers[cat] || 1)) * 100;
-    performanceIndex += normalized * BUILD_WEIGHTS[cat];
+    const contribution = normalized * BUILD_WEIGHTS[cat];
+    performanceIndex += contribution;
+    perCategory[cat] = {
+      normalized,
+      contribution,
+      weight: BUILD_WEIGHTS[cat],
+      priceShare: build.totalUsd ? build.items[cat].price_usd / build.totalUsd : 0,
+    };
   }
+  build.perCategory = perCategory;
   build.performanceIndex = performanceIndex;
   build.valueIndex = performanceIndex / build.totalUsd;
   return build;

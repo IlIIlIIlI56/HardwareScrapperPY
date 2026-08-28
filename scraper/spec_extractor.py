@@ -44,7 +44,12 @@ def _find_socket(text):
 
 INTEL_CORE_RE = re.compile(r"\bi([3579])[\s-]?(\d{4,5})([a-z]{0,3})\b", re.IGNORECASE)
 INTEL_ULTRA_RE = re.compile(r"\bultra\s?([579])\s?(\d{3})([a-z]{0,3})\b", re.IGNORECASE)
+INTEL_LEGACY_RE = re.compile(r"\b(pentium|celeron)\s+(?:gold\s+|silver\s+)?(g?\d{4}[a-z]{0,2})\b", re.IGNORECASE)
 AMD_RYZEN_RE = re.compile(r"r(?:yzen)?\s?([3579])[\s-]?(\d{3,4})([a-z0-9]{0,4})\b", re.IGNORECASE)
+# Athlon/APU: nao seguem o padrao "ryzen N XXXX", entao precisam da propria
+# regra -- sem ela um Athlon 3000G ficava sem model_key nenhuma e caia fora do
+# calculo, mesmo com soquete e preco perfeitamente legiveis no anuncio.
+AMD_ATHLON_RE = re.compile(r"\bathlon\s+(?:gold\s+|silver\s+|x4\s+)?(\d{3,4})\s?(ge|g|e)?\b", re.IGNORECASE)
 
 
 def extract_cpu(name, description=""):
@@ -54,15 +59,19 @@ def extract_cpu(name, description=""):
     brand = None
     if "intel" in norm:
         brand = "Intel"
-    elif "amd" in norm or "ryzen" in norm:
+    elif "amd" in norm or "ryzen" in norm or "athlon" in norm:
         brand = "AMD"
 
     model_key = None
     if brand == "Intel":
         ultra_m = INTEL_ULTRA_RE.search(norm)
+        legacy_m = INTEL_LEGACY_RE.search(norm)
         if ultra_m:
             tier, num, suffix = ultra_m.groups()
             model_key = f"ultra {tier} {num}{suffix.lower()}"
+        elif legacy_m:
+            family, num = legacy_m.groups()
+            model_key = f"{family.lower()} {num.lower()}"
         else:
             m = INTEL_CORE_RE.search(norm)
             if m:
@@ -70,9 +79,13 @@ def extract_cpu(name, description=""):
                 model_key = f"i{tier}-{num}{suffix.upper()}"
     elif brand == "AMD":
         m = AMD_RYZEN_RE.search(norm)
+        athlon_m = AMD_ATHLON_RE.search(norm)
         if m:
             tier, num, suffix = m.groups()
             model_key = f"ryzen {tier} {num}{suffix.lower()}"
+        elif athlon_m:
+            num, suffix = athlon_m.groups()
+            model_key = f"athlon {num}{(suffix or '').lower()}"
 
     return {
         "brand": brand,
@@ -161,18 +174,33 @@ def extract_ram(name, description=""):
 # ------------------------------------------------------------------ GPU --
 
 NVIDIA_RE = re.compile(r"\b(RTX|GTX)\s?-?(\d{3,4})\s?(Ti\s?Super|Ti|Super)?\b", re.IGNORECASE)
-AMD_GPU_RE = re.compile(r"\bRX\s?-?(\d{3,4})\s?(XTX|XT)?\b", re.IGNORECASE)
+# Linha GeForce de entrada. Ela ficava inteiramente de fora do regex antigo (so
+# RTX/GTX eram reconhecidas) apesar de a base de benchmarks ja trazer gt 610 /
+# gt 730 / gt 740 -- dezenas de anuncios eram descartados por falta de
+# model_key sem que faltasse nenhum dado. Os prefixos "G" e "N" cobrem os
+# codigos de fabricante (G210 da Biostar, N210 da MSI) do mesmo chip GT 210.
+NVIDIA_GT_RE = re.compile(r"\b(?:GTS|GT|G|N)\s?-?(\d{3,4})\b", re.IGNORECASE)
+NVIDIA_QUADRO_RE = re.compile(r"\bquadro\s+([a-z]?\d{3,4})\b", re.IGNORECASE)
+INTEL_ARC_RE = re.compile(r"\barc\s?-?([AB])\s?-?(\d{3})\b", re.IGNORECASE)
+AMD_GPU_RE = re.compile(r"\bRX\s?-?(\d{3,4})\s?(XTX|XT|GRE)?\b", re.IGNORECASE)
+# Radeon antiga (R5-230, R7 350, R9 370, HD 6450, HD 7670) -- a mesma historia
+# das GT: nomenclatura anterior ao "RX", comum no mercado de usados do site.
+AMD_LEGACY_RE = re.compile(r"\bR([579])\s?-?(\d{3})\b", re.IGNORECASE)
+AMD_HD_RE = re.compile(r"\bHD\s?-?(\d{4})\b", re.IGNORECASE)
 GPU_VRAM_RE = re.compile(r"\b(\d{1,2})\s?GB\b", re.IGNORECASE)
 
 
 def extract_gpu(name, description=""):
     text = f"{name} {description}"
     norm = normalize(text)
+    is_geforce = "geforce" in norm or "nvidia" in norm
+    is_radeon = "radeon" in norm or "amd" in norm
 
     brand = None
     model_key = None
 
     nv = NVIDIA_RE.search(text)
+    arc = INTEL_ARC_RE.search(text)
     amd = AMD_GPU_RE.search(text)
 
     if nv:
@@ -181,10 +209,29 @@ def extract_gpu(name, description=""):
         suffix_norm = (suffix or "").lower().replace(" ", "")
         model_key = f"{series.lower()} {num}" + (f" {suffix_norm}" if suffix_norm else "")
         model_key = model_key.replace("tisuper", "ti super")
+    elif arc:
+        brand = "Intel"
+        letter, num = arc.groups()
+        model_key = f"arc {letter.lower()}{num}"
     elif amd:
         brand = "AMD"
         num, suffix = amd.groups()
         model_key = f"rx {num}" + (f" {suffix.lower()}" if suffix else "")
+    elif is_radeon and AMD_LEGACY_RE.search(text):
+        brand = "AMD"
+        tier, num = AMD_LEGACY_RE.search(text).groups()
+        model_key = f"r{tier} {num}"
+    elif is_radeon and AMD_HD_RE.search(text):
+        brand = "AMD"
+        model_key = f"hd {AMD_HD_RE.search(text).group(1)}"
+    elif NVIDIA_QUADRO_RE.search(text):
+        brand = "NVIDIA"
+        model_key = f"quadro {NVIDIA_QUADRO_RE.search(text).group(1).lower()}"
+    elif is_geforce and NVIDIA_GT_RE.search(text):
+        # os prefixos G/N so sao aceitos com "GeForce"/"NVIDIA" no nome, senao
+        # um codigo de fabricante qualquer viraria uma GPU inexistente
+        brand = "NVIDIA"
+        model_key = f"gt {NVIDIA_GT_RE.search(text).group(1)}"
     elif "arc" in norm:
         brand = "Intel"
 
