@@ -21,6 +21,9 @@ O que e servido:
     GET  /api/status            -> estado da coleta
     POST /api/scrape[?reset=1]  -> inicia a coleta
     POST /api/cancel            -> aborta a coleta em andamento
+    POST /api/reset-all         -> reset de fabrica: apaga produtos, restaura
+                                   a base de benchmarks padrao e apaga a
+                                   curadoria inteira (decisoes.json)
     POST /api/save              -> grava uma exportacao em dados/exportacoes/
     POST /api/open              -> abre uma pasta no Explorer
     POST /api/quit              -> encerra o app
@@ -204,6 +207,40 @@ class AppServer:
         destination.write_text(content, encoding="utf-8")
         return destination
 
+    def reset_all(self):
+        """
+        Reset de fabrica: apaga os produtos coletados, restaura a base de
+        benchmarks para a versao que acompanha o app (paths.ensure_user_data
+        so reseeda o que estiver faltando) e apaga toda a curadoria --
+        decisoes de revisao, apelidos, ajustes e as builds manuais salvas na
+        pagina Build, que vivem todas em `decisoes.json`.
+
+        `dados/exportacoes/` nao e tocada: sao arquivos que o usuario gerou de
+        proposito (backups, listas de compra), nao estado do app, e apagar
+        arquivos que a pessoa pediu para salvar seria surpreendente demais
+        para um botao chamado so de "resetar dados".
+
+        Recusa rodar com uma coleta em andamento -- apagar products.json por
+        baixo do proprio scraper que esta escrevendo nele deixaria o arquivo
+        num estado inconsistente pela metade.
+        """
+        if self.job.snapshot()["running"]:
+            raise ValueError("nao e possivel resetar com uma coleta em andamento -- cancele-a primeiro")
+
+        removed = []
+        for name in ("products.json", "benchmarks.json"):
+            target = self.data_root / name
+            if target.exists():
+                target.unlink()
+                removed.append(name)
+
+        if self.state_path.exists():
+            self.state_path.unlink()
+            removed.append(STATE_FILENAME)
+
+        seeded = paths.ensure_user_data()
+        return {"removed": removed, "seeded": seeded}
+
 
 def _make_handler(app):
     class Handler(BaseHTTPRequestHandler):
@@ -329,6 +366,9 @@ def _make_handler(app):
 
                 elif parsed.path == "/api/cancel":
                     self._json(HTTPStatus.OK, {"cancelling": app.job.cancel()})
+
+                elif parsed.path == "/api/reset-all":
+                    self._json(HTTPStatus.OK, app.reset_all())
 
                 elif parsed.path == "/api/save":
                     payload = json.loads(self._body() or b"{}")

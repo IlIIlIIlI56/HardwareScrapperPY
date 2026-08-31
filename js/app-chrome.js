@@ -24,4 +24,63 @@
     folderBtn.title = HWApp.dataDir;
     folderBtn.addEventListener("click", () => HWApp.openFolder("data"));
   }
+
+  /**
+   * Reset de fabrica, ao lado do botao de tema. So aparece dentro do app
+   * porque apagar dados/*.json exige o backend Python (appcore/server.py) --
+   * uma pagina fora do app nao tem como fazer isso.
+   *
+   * A confirmacao lista exatamente o que sera apagado em vez de um generico
+   * "tem certeza?": e uma acao irreversivel que custa produtos coletados,
+   * curadoria e builds manuais, e quem clica precisa saber isso antes, nao
+   * descobrir depois.
+   */
+  const resetBtn = document.getElementById("reset-all-btn");
+  if (resetBtn) {
+    resetBtn.hidden = false;
+    resetBtn.addEventListener("click", () => {
+      HWUi.openModal({
+        title: "Resetar todos os dados?",
+        subtitle: "Essa acao nao pode ser desfeita.",
+        render: (body) => {
+          body.appendChild(HWUi.el("p", null, "Isto apaga tudo o que o aplicativo guardou ate agora:"));
+          const list = document.createElement("ul");
+          list.className = "reset-all-list";
+          [
+            "Produtos coletados (dados/products.json) -- vai ser preciso coletar de novo.",
+            "Base de performance (dados/benchmarks.json) -- volta para a versao padrao que acompanha o app; edicoes ja mescladas no arquivo se perdem.",
+            "Toda a curadoria (dados/decisoes.json): revisoes de produtos, apelidos, ajustes de pontuacao e as builds manuais salvas na pagina Build.",
+          ].forEach((text) => {
+            const item = document.createElement("li");
+            item.textContent = text;
+            list.appendChild(item);
+          });
+          body.appendChild(list);
+          body.appendChild(HWUi.el("p", "decision-note", "As exportacoes em dados/exportacoes/ nao sao afetadas."));
+        },
+        actions: [
+          { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
+          {
+            label: "Apagar tudo",
+            className: "btn-danger-ghost",
+            onClick: async (close) => {
+              const res = await HWApp.api("/api/reset-all", { method: "POST" });
+              close();
+              if (res && res.ok) {
+                HWUi.toast(
+                  "Dados resetados",
+                  "O aplicativo volta ao estado de primeira instalacao. Recarregando...",
+                  "ok",
+                  4000
+                );
+                setTimeout(() => window.location.reload(), 900);
+              } else {
+                HWUi.toast("Nao foi possivel resetar", (res && res.error) || "Tente novamente.", "error", 8000);
+              }
+            },
+          },
+        ],
+      });
+    });
+  }
 })();
