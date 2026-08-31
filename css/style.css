@@ -1484,6 +1484,12 @@ a.top-chip:hover {
   text-decoration: underline;
 }
 
+/* RAM e Armazenamento aceitam mais de uma peca -- este botao fica logo abaixo
+   das ja escolhidas, e so aparece enquanto ainda houver espaco (SLOT_LIMITS). */
+.pcb-add-more {
+  align-self: flex-start;
+}
+
 .pcb-current-actions {
   display: flex;
   gap: 8px;

@@ -11,6 +11,13 @@
  * usa HWBuilder.recommendedWattage, exportado por builder.js de proposito para
  * as duas telas nunca divergirem sobre o que conta como compativel.
  *
+ * Toda categoria guarda uma LISTA de pecas (nunca uma peca solta), mesmo as
+ * que so aceitam uma -- isso evita ter dois formatos de dado (objeto solto vs
+ * array) espalhados pelo arquivo. SLOT_LIMITS e quem decide, por categoria,
+ * quantas cabem: CPU/Placa-Mae/GPU/Fonte ficam em 1 (uma build so tem um
+ * soquete e uma fonte); RAM aceita ate 4 pentes e Armazenamento ate 2
+ * unidades, o normal para uma configuracao de verdade.
+ *
  * O filtro de compatibilidade pode ser desligado -- nesse caso a lista de cada
  * etapa mostra qualquer peca da categoria, e a build atual passa a exibir um
  * aviso (reaproveitando o estilo `.build-note` da pagina de Analise) sempre
@@ -25,6 +32,16 @@
   const SAVED_KEY = "hw-pcbuild-saved-v1";
   const PAGE_SIZE = 40;
 
+  /** Quantas pecas cada categoria aceita. Minimo 1 em todas -- so o teto muda. */
+  const SLOT_LIMITS = {
+    cpu: { min: 1, max: 1 },
+    motherboard: { min: 1, max: 1 },
+    ram: { min: 1, max: 4 },
+    gpu: { min: 1, max: 1 },
+    storage: { min: 1, max: 2 },
+    psu: { min: 1, max: 1 },
+  };
+
   const PICKER_SORTERS = {
     value: (a, b) => b.valueRatio - a.valueRatio,
     perf: (a, b) => b.perfScore - a.perfScore,
@@ -33,9 +50,15 @@
     name: (a, b) => a.name.localeCompare(b.name, "pt-BR"),
   };
 
+  function emptyItems() {
+    const items = {};
+    for (const cat of STEP_ORDER) items[cat] = [];
+    return items;
+  }
+
   const state = {
     productsByCategory: {},
-    items: {},
+    items: emptyItems(),
     compatFilterEnabled: true,
     openStep: STEP_ORDER[0],
     query: "",
@@ -43,6 +66,14 @@
     visibleLimit: PAGE_SIZE,
     saved: {},
   };
+
+  const single = (list) => (list && list[0]) || null;
+
+  /** Aceita tanto uma lista (formato atual) quanto uma peca solta (builds salvas no formato antigo). */
+  function toArray(value) {
+    if (Array.isArray(value)) return value;
+    return value ? [value] : [];
+  }
 
   /* ================================================== compatibilidade ==== */
 
@@ -60,20 +91,47 @@
     return ramType === moboRamType;
   }
 
+  /** As RAMs de uma mesma build tem que ser da mesma geracao -- misturar DDR4 com DDR5 nao encaixa fisicamente. */
+  function ramGroupCompatible(candidate, existingRam) {
+    const candidateGen = candidate && candidate.specs && candidate.specs.ddr_gen;
+    const referenceGen = existingRam.map((r) => r.specs && r.specs.ddr_gen).find(Boolean);
+    if (!candidateGen || !referenceGen) return true;
+    return candidateGen === referenceGen;
+  }
+
   function psuSufficient(psu, cpu, gpu) {
     const wattage = psu && psu.specs && psu.specs.wattage;
     if (!wattage) return true;
     return wattage >= HWBuilder.recommendedWattage(cpu, gpu);
   }
 
-  /** Um candidato de `category` e compativel com o que ja esta escolhido nas outras etapas? */
-  function isCompatibleCandidate(category, candidate) {
+  /**
+   * Um candidato de `category` continua valido se uma peca de OUTRA categoria
+   * mudar? Usado nos dois sentidos: para filtrar a lista da etapa (o que da
+   * pra escolher agora) e para revalidar escolhas anteriores depois de trocar
+   * algo (ver cascadeClearIncompatible). Nao inclui a checagem de RAM-com-RAM
+   * (ramGroupCompatible) de proposito -- essa so faz sentido ao ADICIONAR uma
+   * nova peca, nao ao revalidar pentes que ja eram consistentes entre si.
+   */
+  function matchesUpstream(category, candidate) {
     const items = state.items;
-    if (category === "cpu") return cpuMoboCompatible(candidate, items.motherboard);
-    if (category === "motherboard") return cpuMoboCompatible(items.cpu, candidate) && ramMoboCompatible(items.ram, candidate);
-    if (category === "ram") return ramMoboCompatible(candidate, items.motherboard);
-    if (category === "psu") return psuSufficient(candidate, items.cpu, items.gpu);
+    if (category === "cpu") return cpuMoboCompatible(candidate, single(items.motherboard));
+    if (category === "motherboard") {
+      return (
+        cpuMoboCompatible(single(items.cpu), candidate) &&
+        (items.ram || []).every((ram) => ramMoboCompatible(ram, candidate))
+      );
+    }
+    if (category === "ram") return ramMoboCompatible(candidate, single(items.motherboard));
+    if (category === "psu") return psuSufficient(candidate, single(items.cpu), single(items.gpu));
     return true; // GPU e armazenamento nao tem restricao dura de compatibilidade
+  }
+
+  /** Filtro completo para a lista da etapa: compatibilidade a montante + consistencia entre RAMs. */
+  function isCandidateSelectable(category, candidate) {
+    if (!matchesUpstream(category, candidate)) return false;
+    if (category === "ram") return ramGroupCompatible(candidate, state.items.ram || []);
+    return true;
   }
 
   /**
@@ -84,28 +142,39 @@
    */
   function computeConflicts(items) {
     const msgs = [];
-    if (items.cpu && items.motherboard && !cpuMoboCompatible(items.cpu, items.motherboard)) {
-      msgs.push(
-        `Soquete incompativel: CPU (${items.cpu.performance.socket}) e placa-mae (${items.motherboard.performance.socket}) nao encaixam.`
-      );
+    const cpu = single(items.cpu);
+    const mobo = single(items.motherboard);
+    const gpu = single(items.gpu);
+    const psu = single(items.psu);
+    const ramList = items.ram || [];
+
+    if (cpu && mobo && !cpuMoboCompatible(cpu, mobo)) {
+      msgs.push(`Soquete incompativel: CPU (${cpu.performance.socket}) e placa-mae (${mobo.performance.socket}) nao encaixam.`);
     }
-    if (items.ram && items.motherboard && !ramMoboCompatible(items.ram, items.motherboard)) {
-      msgs.push(
-        `Memoria incompativel: RAM ${items.ram.specs.ddr_gen} nao e suportada pela placa-mae escolhida (aceita ${items.motherboard.performance.ramType}).`
-      );
+    if (mobo) {
+      ramList.forEach((ram, idx) => {
+        if (!ramMoboCompatible(ram, mobo)) {
+          const label = ramList.length > 1 ? `Memoria ${idx + 1}` : "Memoria";
+          msgs.push(
+            `${label} incompativel: RAM ${ram.specs.ddr_gen} nao e suportada pela placa-mae escolhida (aceita ${mobo.performance.ramType}).`
+          );
+        }
+      });
     }
-    if (items.psu && !psuSufficient(items.psu, items.cpu, items.gpu)) {
-      const needed = HWBuilder.recommendedWattage(items.cpu, items.gpu);
-      msgs.push(
-        `Fonte insuficiente: ${items.psu.specs.wattage}W abaixo do recomendado (>= ${needed}W) para esta CPU + GPU.`
-      );
+    const ramGens = new Set(ramList.map((r) => r.specs && r.specs.ddr_gen).filter(Boolean));
+    if (ramGens.size > 1) {
+      msgs.push(`Memorias de geracoes diferentes misturadas na mesma build: ${[...ramGens].join(", ")}.`);
+    }
+    if (psu && !psuSufficient(psu, cpu, gpu)) {
+      const needed = HWBuilder.recommendedWattage(cpu, gpu);
+      msgs.push(`Fonte insuficiente: ${psu.specs.wattage}W abaixo do recomendado (>= ${needed}W) para esta CPU + GPU.`);
     }
     return msgs;
   }
 
   function candidatesFor(category) {
     let list = state.productsByCategory[category] || [];
-    if (state.compatFilterEnabled) list = list.filter((p) => isCompatibleCandidate(category, p));
+    if (state.compatFilterEnabled) list = list.filter((p) => isCandidateSelectable(category, p));
     if (state.query) {
       const needle = HWMatch.normalizeKey(state.query);
       list = list.filter((p) => HWMatch.normalizeKey(p.name).includes(needle));
@@ -115,47 +184,82 @@
 
   /* =========================================================== selecao ==== */
 
-  function selectItem(category, product) {
-    state.items[category] = product;
+  function nextIncompleteStep() {
+    return STEP_ORDER.find((cat) => (state.items[cat] || []).length < SLOT_LIMITS[cat].min) || null;
+  }
 
-    // Com o filtro ligado, a lista nunca deveria ter oferecido isto -- mas
-    // reabrir uma etapa ANTERIOR (trocar a placa-mae depois de ja ter uma RAM
-    // escolhida) pode invalidar uma escolha posterior que era valida antes.
-    if (state.compatFilterEnabled) {
-      const cleared = [];
-      for (const laterCat of STEP_ORDER) {
-        if (laterCat === category) continue;
-        const chosen = state.items[laterCat];
-        if (chosen && !isCompatibleCandidate(laterCat, chosen)) {
-          delete state.items[laterCat];
-          cleared.push(HWRender.CATEGORY_META[laterCat].label);
-        }
-      }
-      if (cleared.length) {
-        toast(
-          "Selecao ajustada",
-          `${cleared.join(", ")} deixou de ser compativel com a nova escolha e precisa ser selecionado(a) de novo.`,
-          "warn",
-          7000
-        );
+  /**
+   * Revalida as OUTRAS categorias depois de mudar `changedCategory`, tirando
+   * quem deixou de ser compativel. Reabrir uma etapa anterior (trocar a
+   * placa-mae depois de ja ter RAM escolhida) pode invalidar uma escolha
+   * posterior que era valida antes -- com varias RAMs, so os pentes que
+   * realmente pararam de bater com a nova placa saem, os outros ficam.
+   */
+  function cascadeClearIncompatible(changedCategory) {
+    if (!state.compatFilterEnabled) return [];
+    const clearedLabels = [];
+    for (const cat of STEP_ORDER) {
+      if (cat === changedCategory) continue;
+      const items = state.items[cat] || [];
+      const kept = items.filter((item) => matchesUpstream(cat, item));
+      if (kept.length !== items.length) {
+        state.items[cat] = kept;
+        clearedLabels.push(HWRender.CATEGORY_META[cat].label);
       }
     }
+    return clearedLabels;
+  }
 
-    state.openStep = STEP_ORDER.find((cat) => !state.items[cat]) || null;
+  function openStepFor(cat) {
+    state.openStep = cat;
+    state.query = "";
+    state.visibleLimit = PAGE_SIZE;
+    renderSteps();
+    renderPicker();
+    document.getElementById("pcb-picker").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function addItem(category, product) {
+    const limit = SLOT_LIMITS[category];
+    const current = state.items[category] || [];
+
+    if (limit.max === 1) {
+      // Categoria de peca unica ("Trocar"): substitui sempre, mesmo ja
+      // tendo uma escolhida -- e assim que o botao "Trocar" troca a peca.
+      state.items[category] = [product];
+    } else {
+      if (current.length >= limit.max) return; // a UI ja desabilita isso; e so uma garantia
+      state.items[category] = [...current, product];
+    }
+
+    const cleared = cascadeClearIncompatible(category);
+    if (cleared.length) {
+      toast(
+        "Selecao ajustada",
+        `${cleared.join(", ")} deixou de ser compativel com a nova escolha e precisa ser selecionado(a) de novo.`,
+        "warn",
+        7000
+      );
+    }
+
+    // Categoria de varias pecas com espaco sobrando: continua aberta, para dar
+    // pra adicionar a proxima sem reabrir a etapa. Senao, avanca.
+    const stillHasRoom = limit.max > 1 && state.items[category].length < limit.max;
+    state.openStep = stillHasRoom ? category : nextIncompleteStep();
     state.query = "";
     state.visibleLimit = PAGE_SIZE;
     persistDraft();
     renderAll();
   }
 
-  function removeItem(category) {
-    delete state.items[category];
+  function removeItemAt(category, index) {
+    state.items[category] = (state.items[category] || []).filter((_, i) => i !== index);
     persistDraft();
     renderAll();
   }
 
   function resetDraft() {
-    state.items = {};
+    state.items = emptyItems();
     state.openStep = STEP_ORDER[0];
     state.query = "";
     state.visibleLimit = PAGE_SIZE;
@@ -164,7 +268,7 @@
   }
 
   function confirmResetDraft() {
-    if (!STEP_ORDER.some((c) => state.items[c])) {
+    if (!STEP_ORDER.some((c) => (state.items[c] || []).length > 0)) {
       resetDraft();
       return;
     }
@@ -183,7 +287,10 @@
 
   function persistDraft() {
     const items = {};
-    for (const cat of STEP_ORDER) if (state.items[cat]) items[cat] = state.items[cat].url;
+    for (const cat of STEP_ORDER) {
+      const list = state.items[cat] || [];
+      if (list.length) items[cat] = list.map((p) => p.url);
+    }
     HWStore.set(DRAFT_KEY, { items, compatFilterEnabled: state.compatFilterEnabled });
   }
 
@@ -212,8 +319,13 @@
   function snapshotItems() {
     const out = {};
     for (const cat of STEP_ORDER) {
-      const p = state.items[cat];
-      out[cat] = { category: cat, name: p.name, url: p.url, price_usd: p.price_usd, price_brl: p.price_brl || null };
+      out[cat] = (state.items[cat] || []).map((p) => ({
+        category: cat,
+        name: p.name,
+        url: p.url,
+        price_usd: p.price_usd,
+        price_brl: p.price_brl || null,
+      }));
     }
     return out;
   }
@@ -221,8 +333,9 @@
   function saveCurrentBuild(name) {
     const id = generateId();
     const items = snapshotItems();
-    const totalUsd = STEP_ORDER.reduce((sum, c) => sum + items[c].price_usd, 0);
-    const totalBrl = STEP_ORDER.reduce((sum, c) => sum + (items[c].price_brl || 0), 0);
+    const flatSnapshots = STEP_ORDER.flatMap((c) => items[c]);
+    const totalUsd = flatSnapshots.reduce((sum, s) => sum + s.price_usd, 0);
+    const totalBrl = flatSnapshots.reduce((sum, s) => sum + (s.price_brl || 0), 0);
     const conflicts = computeConflicts(state.items);
     const finalName = name || "Build sem nome";
 
@@ -335,9 +448,11 @@
     if (!saved) return;
 
     const proceed = () => {
-      state.items = {};
-      for (const cat of STEP_ORDER) state.items[cat] = resolveSnapshotItem(cat, saved.items[cat]);
-      state.openStep = null;
+      state.items = emptyItems();
+      for (const cat of STEP_ORDER) {
+        state.items[cat] = toArray(saved.items[cat]).map((snap) => resolveSnapshotItem(cat, snap));
+      }
+      state.openStep = nextIncompleteStep();
       state.query = "";
       state.visibleLimit = PAGE_SIZE;
       persistDraft();
@@ -345,7 +460,7 @@
       toast("Build carregada", `"${saved.name}" foi carregada para edicao.`, "ok");
     };
 
-    if (!STEP_ORDER.some((c) => state.items[c])) {
+    if (!STEP_ORDER.some((c) => (state.items[c] || []).length > 0)) {
       proceed();
       return;
     }
@@ -364,10 +479,13 @@
   function buildTxtContent(saved) {
     const lines = [`Build: ${saved.name}`, `Gerada em: ${HWFormat.fmtDate(saved.createdAt)}`, ""];
     STEP_ORDER.forEach((cat) => {
-      const item = saved.items[cat];
-      const priceBits = [HWFormat.fmtUsd(item.price_usd)];
-      if (item.price_brl) priceBits.push(HWFormat.fmtBrl(item.price_brl));
-      lines.push(HWRender.CATEGORY_META[cat].label, `  ${item.name}`, `  ${priceBits.join(" / ")}`, `  ${item.url}`, "");
+      const list = toArray(saved.items[cat]);
+      const label = HWRender.CATEGORY_META[cat].label;
+      list.forEach((item, idx) => {
+        const priceBits = [HWFormat.fmtUsd(item.price_usd)];
+        if (item.price_brl) priceBits.push(HWFormat.fmtBrl(item.price_brl));
+        lines.push(list.length > 1 ? `${label} ${idx + 1}` : label, `  ${item.name}`, `  ${priceBits.join(" / ")}`, `  ${item.url}`, "");
+      });
     });
     const totalBits = [HWFormat.fmtUsd(saved.totalUsd)];
     if (saved.totalBrl) totalBits.push(HWFormat.fmtBrl(saved.totalBrl));
@@ -390,24 +508,32 @@
 
   /* ============================================================ render ==== */
 
+  function stepStatusText(cat) {
+    const items = state.items[cat] || [];
+    const limit = SLOT_LIMITS[cat];
+    if (items.length === 0) return { text: "Selecionar", empty: true };
+    if (limit.max === 1) return { text: items[0].name, empty: false };
+    return { text: `${items.length}/${limit.max} selecionadas`, empty: false };
+  }
+
   function renderSteps() {
     const container = document.getElementById("pcb-steps");
     clear(container);
     STEP_ORDER.forEach((cat, idx) => {
       const meta = HWRender.CATEGORY_META[cat];
-      const chosen = state.items[cat];
+      const items = state.items[cat] || [];
       const isOpen = state.openStep === cat;
-      const cls = ["pcb-step", isOpen && "pcb-step--open", chosen && "pcb-step--done"].filter(Boolean).join(" ");
+      const done = items.length >= SLOT_LIMITS[cat].min;
+      const cls = ["pcb-step", isOpen && "pcb-step--open", done && "pcb-step--done"].filter(Boolean).join(" ");
 
       const btn = el("button", cls);
       btn.type = "button";
       btn.appendChild(el("span", "pcb-step-index", String(idx + 1)));
 
+      const status = stepStatusText(cat);
       const text = el("span", "pcb-step-text");
       text.appendChild(el("span", "pcb-step-label", meta.short));
-      text.appendChild(
-        el("span", `pcb-step-value${chosen ? "" : " pcb-step-value--empty"}`, chosen ? chosen.name : "Selecionar")
-      );
+      text.appendChild(el("span", `pcb-step-value${status.empty ? " pcb-step-value--empty" : ""}`, status.text));
       btn.appendChild(text);
 
       btn.addEventListener("click", () => {
@@ -432,8 +558,10 @@
     link.rel = "noopener noreferrer";
     main.appendChild(link);
 
-    const metaBits = [describeSpecs(category, product.specs), `valor ${HWFormat.fmtScore(product.valueRatio)}`].filter(Boolean);
-    main.appendChild(el("div", "pcb-picker-item-meta", metaBits.join(" · ")));
+    const alreadyIn = (state.items[category] || []).filter((p) => p.url === product.url).length;
+    const metaBits = [describeSpecs(category, product.specs), `valor ${HWFormat.fmtScore(product.valueRatio)}`];
+    if (alreadyIn > 0) metaBits.push(alreadyIn > 1 ? `ja selecionada x${alreadyIn}` : "ja selecionada");
+    main.appendChild(el("div", "pcb-picker-item-meta", metaBits.filter(Boolean).join(" · ")));
     row.appendChild(main);
 
     const priceBox = el("div", "pcb-picker-item-price");
@@ -442,7 +570,7 @@
     row.appendChild(priceBox);
 
     const selectBtn = el("button", "btn btn-primary btn-sm", "Selecionar");
-    selectBtn.addEventListener("click", () => selectItem(category, product));
+    selectBtn.addEventListener("click", () => addItem(category, product));
     row.appendChild(selectBtn);
     return row;
   }
@@ -456,12 +584,23 @@
     if (!category) {
       const done = el("div", "empty-state");
       done.appendChild(el("strong", null, "Build completa"));
-      done.appendChild(el("div", null, "Clique em qualquer etapa acima para trocar a peca escolhida."));
+      done.appendChild(el("div", null, "Clique em qualquer etapa acima para adicionar ou trocar uma peca."));
       container.appendChild(done);
       return;
     }
 
     const meta = HWRender.CATEGORY_META[category];
+    const limit = SLOT_LIMITS[category];
+    const currentCount = (state.items[category] || []).length;
+
+    if (currentCount >= limit.max) {
+      const full = el("div", "empty-state");
+      full.appendChild(el("strong", null, `Limite de ${limit.max} ${meta.label.toLowerCase()} atingido`));
+      full.appendChild(el("div", null, "Remova uma peca desta categoria, na build atual abaixo, para adicionar outra no lugar."));
+      container.appendChild(full);
+      return;
+    }
+
     const toolbar = el("div", "toolbar");
 
     const searchWrap = el("div", "search-wrap");
@@ -538,16 +677,21 @@
     }
   }
 
-  function renderCurrentRow(cat) {
+  /**
+   * `hideChange` esconde o "Trocar" para categorias de mais de uma peca --
+   * com 2+ ja escolhidas nao ha como saber qual delas o clique se refere, e
+   * remover + reabrir a etapa resolve sem ambiguidade. `showIndex` numera a
+   * linha (1, 2, ...) so quando ha MAIS de uma peca de fato selecionada nesta
+   * categoria agora -- a mesma regra usada no .txt exportado, para os dois
+   * lugares concordarem sobre quando vale a pena numerar.
+   */
+  function renderCurrentRow(cat, item, idx, hideChange, showIndex) {
     const meta = HWRender.CATEGORY_META[cat];
-    const item = state.items[cat];
-    if (!item) return el("div", "pcb-current-row pcb-current-row--empty", `${meta.label}: nao selecionado`);
-
     const row = el("div", "pcb-current-row");
     row.appendChild(thumb(item, "thumb--sm"));
 
     const info = el("div", "part-info");
-    info.appendChild(el("div", "part-category", meta.label));
+    info.appendChild(el("div", "part-category", showIndex ? `${meta.label} ${idx + 1}` : meta.label));
     const link = el("a", "part-name", item.name);
     link.href = item.url;
     link.target = "_blank";
@@ -563,18 +707,13 @@
     row.appendChild(priceBox);
 
     const actions = el("div", "pcb-current-actions");
-    const changeBtn = el("button", "btn btn-ghost btn-sm", "Trocar");
-    changeBtn.addEventListener("click", () => {
-      state.openStep = cat;
-      state.query = "";
-      state.visibleLimit = PAGE_SIZE;
-      renderSteps();
-      renderPicker();
-      document.getElementById("pcb-picker").scrollIntoView({ behavior: "smooth", block: "nearest" });
-    });
+    if (!hideChange) {
+      const changeBtn = el("button", "btn btn-ghost btn-sm", "Trocar");
+      changeBtn.addEventListener("click", () => openStepFor(cat));
+      actions.appendChild(changeBtn);
+    }
     const removeBtn = el("button", "btn btn-ghost btn-sm", "Remover");
-    removeBtn.addEventListener("click", () => removeItem(cat));
-    actions.appendChild(changeBtn);
+    removeBtn.addEventListener("click", () => removeItemAt(cat, idx));
     actions.appendChild(removeBtn);
     row.appendChild(actions);
 
@@ -586,17 +725,38 @@
     clear(container);
 
     const list = el("div", "pcb-current-list");
-    STEP_ORDER.forEach((cat) => list.appendChild(renderCurrentRow(cat)));
+    STEP_ORDER.forEach((cat) => {
+      const meta = HWRender.CATEGORY_META[cat];
+      const limit = SLOT_LIMITS[cat];
+      const items = state.items[cat] || [];
+      const isMulti = limit.max > 1;
+
+      if (items.length === 0) {
+        list.appendChild(el("div", "pcb-current-row pcb-current-row--empty", `${meta.label}: nao selecionado`));
+        return;
+      }
+      const hideChange = isMulti && items.length > 1;
+      items.forEach((item, idx) => list.appendChild(renderCurrentRow(cat, item, idx, hideChange, items.length > 1)));
+
+      if (isMulti && items.length < limit.max) {
+        const addMore = el("button", "btn btn-ghost btn-sm pcb-add-more", `+ Adicionar ${meta.label.toLowerCase()}`);
+        addMore.addEventListener("click", () => openStepFor(cat));
+        list.appendChild(addMore);
+      }
+    });
     container.appendChild(list);
 
-    const chosenCount = STEP_ORDER.filter((c) => state.items[c]).length;
-    const totalUsd = STEP_ORDER.reduce((sum, c) => sum + (state.items[c] ? state.items[c].price_usd : 0), 0);
-    const totalBrl = STEP_ORDER.reduce((sum, c) => sum + (state.items[c] && state.items[c].price_brl ? state.items[c].price_brl : 0), 0);
+    const filledCategories = STEP_ORDER.filter((c) => (state.items[c] || []).length >= SLOT_LIMITS[c].min).length;
+    const flatItems = STEP_ORDER.flatMap((c) => state.items[c] || []);
+    const totalUsd = flatItems.reduce((sum, p) => sum + p.price_usd, 0);
+    const totalBrl = flatItems.reduce((sum, p) => sum + (p.price_brl || 0), 0);
 
     const totals = el("div", "pcb-current-totals");
     totals.appendChild(el("span", "total-usd", HWFormat.fmtUsd(totalUsd)));
     if (totalBrl) totals.appendChild(el("span", "total-brl", HWFormat.fmtBrl(totalBrl)));
-    totals.appendChild(el("span", "psu-note", `${chosenCount}/${STEP_ORDER.length} pecas escolhidas`));
+    totals.appendChild(
+      el("span", "psu-note", `${filledCategories}/${STEP_ORDER.length} categorias preenchidas · ${flatItems.length} pecas`)
+    );
     container.appendChild(totals);
 
     const conflicts = computeConflicts(state.items);
@@ -611,10 +771,10 @@
     }
 
     const actions = el("div", "pcb-current-actions");
-    const canSave = chosenCount === STEP_ORDER.length;
+    const canSave = filledCategories === STEP_ORDER.length;
     const saveBtn = el("button", "btn btn-primary", "Salvar build");
     saveBtn.disabled = !canSave;
-    saveBtn.title = canSave ? "" : "Escolha as 6 categorias antes de salvar.";
+    saveBtn.title = canSave ? "" : "Escolha pelo menos uma peca de cada categoria antes de salvar.";
     saveBtn.addEventListener("click", promptSaveCurrentBuild);
     actions.appendChild(saveBtn);
 
@@ -727,11 +887,11 @@
       state.compatFilterEnabled = draft.compatFilterEnabled !== false;
       let droppedAny = false;
       for (const cat of STEP_ORDER) {
-        const url = draft.items && draft.items[cat];
-        if (!url) continue;
-        const found = state.productsByCategory[cat].find((p) => p.url === url);
-        if (found) state.items[cat] = found;
-        else droppedAny = true;
+        const urls = toArray(draft.items && draft.items[cat]);
+        if (!urls.length) continue;
+        const resolved = urls.map((url) => state.productsByCategory[cat].find((p) => p.url === url)).filter(Boolean);
+        state.items[cat] = resolved;
+        if (resolved.length !== urls.length) droppedAny = true;
       }
       if (droppedAny) {
         toast(
@@ -742,7 +902,7 @@
         );
       }
     }
-    state.openStep = STEP_ORDER.find((cat) => !state.items[cat]) || null;
+    state.openStep = nextIncompleteStep();
 
     const toggle = document.getElementById("pcb-compat-toggle");
     toggle.checked = state.compatFilterEnabled;
