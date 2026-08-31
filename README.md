@@ -93,8 +93,9 @@ HardwareScrapperPY/
 ├── assets/
 │   ├── make_icon.py           gera o icone por codigo, sem dependencias
 │   └── icon.ico
-├── index.html               <- pagina principal: builds
-├── catalogo.html            <- pagina secundaria: base de dados / revisao / backup
+├── index.html               <- pagina "Analise": builds automaticas
+├── catalogo.html            <- pagina "Base de dados": revisao / benchmarks / backup
+├── build.html               <- pagina "Build": montagem manual, uma peca de cada vez
 ├── css/style.css              design system: preto e branco + verde-eco, tema claro/escuro
 ├── js/
 │   ├── app-bridge.js          ponte com o Python: API, HWStore, exportacoes
@@ -104,16 +105,17 @@ HardwareScrapperPY/
 │   ├── ui.js                  helpers de DOM, icones SVG, miniaturas, toasts, modal
 │   ├── matcher.js             normalizacao e casamento model_key <-> base de benchmarks
 │   ├── scoring.js             performance/preco por categoria + diagnostico de exclusao
-│   ├── builder.js             algoritmo de montagem das builds
-│   ├── render.js              renderizacao da UI de builds
+│   ├── builder.js             algoritmo de montagem automatica das builds
+│   ├── render.js              renderizacao da UI de builds (pagina Analise)
 │   ├── overrides.js           persistencia: decisoes, benchmarks, apelidos, ajustes, backup
 │   ├── scrape-control.js      painel "Coletar dados agora"
-│   ├── app.js                 orquestracao da pagina de builds
+│   ├── app.js                 orquestracao da pagina Analise
 │   ├── catalog-state.js       estado + pontuacao em lote + esquemas de formulario
 │   ├── review.js              painel de revisao de um produto
 │   ├── benchdb.js             aba "Base de performance": navegar/editar benchmarks e ajustes
 │   ├── backup.js              aba "Backup e exportacao"
-│   └── catalog.js             orquestracao da pagina de base de dados
+│   ├── catalog.js             orquestracao da pagina Base de dados
+│   └── pc-builder.js          orquestracao da pagina Build (montagem manual)
 ├── data/                       SEMENTE que acompanha o app -- nao e onde voce le/escreve
 │   └── benchmarks.json           base de performance, copiada para dados/ no primeiro uso
 ├── dados/                      seus dados (criada no primeiro uso; fora do controle de versao)
@@ -378,6 +380,30 @@ que o servidor local sorteia a cada abertura, justamente para nunca brigar por u
 de curadoria evaporariam a cada vez que o app fosse fechado e reaberto, sem erro nenhum na tela. Num
 arquivo dentro de `dados/`, elas ainda ganham o que importa num app portatil: viajam junto quando a
 pasta e copiada, entram no backup por um Ctrl+C na pasta, e nao esbarram na cota de ~5 MB.
+
+## Pagina "Build" (`build.html`)
+
+Enquanto "Analise" monta builds sozinha e "Base de dados" e sobre curadoria, "Build" e para quem
+quer escolher cada peca na mao: um assistente de 6 etapas, na ordem **CPU > Placa-Mae > RAM > GPU >
+Armazenamento > Fonte**.
+
+Cada etapa lista as pecas **ja pontuadas** daquela categoria (as mesmas usadas em "Analise") e, por
+padrao, so mostra as que sao compativeis com o que ja foi escolhido nas etapas anteriores -- mesmo
+soquete (CPU/placa-mae), mesmo tipo de memoria (RAM/placa-mae) e wattagem minima de fonte (calculada
+a partir da CPU e da GPU escolhidas, pela mesma formula de `js/builder.js`). Escolher uma peca abre
+a proxima etapa em aberto automaticamente; reabrir uma etapa ja preenchida permite trocar a peca, e
+se isso tornar uma escolha posterior incompativel, ela e desfeita com um aviso.
+
+O checkbox **"Filtrar por compatibilidade"** desliga essas restricoes -- a lista passa a mostrar
+qualquer peca da categoria. Nesse caso, se a combinacao final tiver um problema real, a build atual
+mostra um **aviso laranja** (reaproveitando o estilo do painel de builds automaticas) explicando
+exatamente qual e o problema (soquete, memoria ou fonte), em vez de um alerta generico.
+
+A build em andamento e salva automaticamente (em `dados/decisoes.json`, sob a chave
+`hw-pcbuild-draft-v1`) -- fechar o app no meio de uma montagem nao perde o progresso. Com as 6 pecas
+escolhidas, **"Salvar build"** guarda uma copia nomeada (chave `hw-pcbuild-saved-v1`) na lista de
+builds salvas, de onde da para **baixar a lista** (um `.txt` com nome, preco e link de cada peca,
+gravado em `dados/exportacoes/`), **carregar de volta** para continuar editando, ou **excluir**.
 
 ## Atualizando a base de performance
 

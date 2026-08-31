@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Build — Builds de Custo-Beneficio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- ver o comentario sobre a ordem destes tres em index.html -->
+  <script src="/app-bootstrap.js"></script>
+  <script src="js/app-bridge.js"></script>
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <path d="M9 4v16M4 9h5M4 15h5"/>
+            </svg>
+          </span>
+          <div class="brand-text">
+            <h1>Build</h1>
+            <div class="brand-sub">Monte sua propria configuracao</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <nav class="site-nav" aria-label="Secoes">
+            <a href="index.html">Analise</a>
+            <a href="catalogo.html">Base de dados</a>
+            <a href="build.html" class="active">Build</a>
+          </nav>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="subtitle">
+        Escolha as pecas voce mesmo, uma categoria de cada vez. A lista de cada etapa ja vem filtrada
+        pelo que e compativel com o que voce ja escolheu -- soquete, tipo de memoria, wattagem da
+        fonte. O filtro pode ser desligado, mas incompatibilidades reais continuam sinalizadas.
+      </p>
+      <p class="data-meta" id="data-meta">carregando metadados...</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel" id="pcb-empty-state" hidden>
+      <div class="empty-state">
+        <strong>Nenhum dado coletado ainda</strong>
+        <div>Va para a pagina <a href="index.html">Analise</a> e use "Coletar dados agora" antes de montar uma build.</div>
+      </div>
+    </section>
+
+    <section class="panel" id="pcb-wizard-panel" hidden>
+      <div class="pcb-wizard-head">
+        <h2>Montar build</h2>
+        <label class="pcb-compat-toggle">
+          <input type="checkbox" id="pcb-compat-toggle" checked />
+          Filtrar por compatibilidade
+        </label>
+      </div>
+      <p class="panel-hint" id="pcb-compat-hint">
+        Cada etapa mostra so pecas compativeis com o que voce ja escolheu. Desligar o filtro libera
+        qualquer peca da categoria -- se a combinacao final tiver um problema real (soquete, memoria
+        ou fonte incompativel), a build atual mostra um aviso explicando exatamente qual.
+      </p>
+      <div class="pcb-steps" id="pcb-steps"></div>
+      <div id="pcb-picker"></div>
+    </section>
+
+    <section class="panel" id="pcb-current-panel" hidden>
+      <h2>Build atual</h2>
+      <div id="pcb-current"></div>
+    </section>
+
+    <section class="panel" id="pcb-saved-panel" hidden>
+      <h2>Builds salvas</h2>
+      <p class="panel-hint">
+        Cada build salva fica guardada em <code>dados/decisoes.json</code>, junto com o resto da sua
+        curadoria. "Baixar lista" gera um .txt com nome, preco e link de cada peca escolhida.
+      </p>
+      <div id="pcb-saved"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Aplicativo portatil: tudo o que voce coleta e cura fica em <code>dados/</code>, ao lado do
+      executavel — copiar a pasta leva os dados junto. A analise roda inteira nesta maquina, sobre
+      os arquivos ja baixados; a unica hora em que o app acessa a internet e durante a coleta.
+    </p>
+    <p class="footer-actions">
+      <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de dados</button>
+      <span id="app-version" class="footer-version"></span>
+    </p>
+  </footer>
+
+  <script src="js/format.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/matcher.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/builder.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/overrides.js"></script>
+  <script src="js/pc-builder.js"></script>
+  <script src="js/app-chrome.js"></script>
+</body>
+</html>

@@ -1261,6 +1261,270 @@ a.top-chip:hover {
   margin-top: 2px;
 }
 
+/* ==================================================== montagem manual ==== */
+
+.pcb-wizard-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pcb-wizard-head h2 {
+  margin: 0;
+}
+
+.pcb-compat-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.83rem;
+  font-weight: 560;
+  color: var(--text-soft);
+  cursor: pointer;
+  user-select: none;
+}
+
+.pcb-compat-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.pcb-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.pcb-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  border-radius: 999px;
+  padding: 6px 14px 6px 8px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.pcb-step:hover {
+  border-color: var(--border-strong);
+}
+
+.pcb-step--open {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.pcb-step--done {
+  border-color: var(--ok-line);
+}
+
+.pcb-step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-inset);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pcb-step--done .pcb-step-index {
+  background: var(--ok);
+  color: var(--accent-on);
+}
+
+.pcb-step--open .pcb-step-index {
+  background: var(--accent);
+  color: var(--accent-on);
+}
+
+.pcb-step-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.pcb-step-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+
+.pcb-step-value {
+  font-size: 0.8rem;
+  font-weight: 570;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 22ch;
+}
+
+.pcb-step-value--empty {
+  color: var(--text-faint);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.pcb-picker {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 14px;
+}
+
+.pcb-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 12px;
+  max-height: 560px;
+  overflow-y: auto;
+}
+
+.pcb-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+
+.pcb-picker-item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pcb-picker-item-name {
+  font-weight: 570;
+  font-size: 0.86rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.pcb-picker-item-name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.pcb-picker-item-meta {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pcb-picker-item-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.pcb-picker-more {
+  margin-top: 10px;
+}
+
+.pcb-current-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.pcb-current-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 8px 11px;
+}
+
+.pcb-current-row--empty {
+  color: var(--text-faint);
+  font-style: italic;
+  font-size: 0.83rem;
+}
+
+.pcb-current-row .part-name {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.pcb-current-row .part-name:hover {
+  color: var(--accent-text);
+  text-decoration: underline;
+}
+
+.pcb-current-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pcb-current-totals {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.pcb-saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pcb-saved-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.pcb-saved-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pcb-saved-name {
+  font-weight: 620;
+  font-size: 0.92rem;
+}
+
+.pcb-saved-meta {
+  color: var(--text-faint);
+  font-size: 0.76rem;
+  margin-top: 2px;
+}
+
+.pcb-saved-actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 9px;
+}
+
 /* ========================================================= genericos ==== */
 
 .empty-state {

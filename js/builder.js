@@ -362,4 +362,11 @@ function buildAllOptions(byCategory, benchmarks) {
   return { tops, builds, normalizers };
 }
 
-window.HWBuilder = { buildAllOptions, CATEGORY_ORDER, findTopValue, assignPriceTiers };
+window.HWBuilder = {
+  buildAllOptions,
+  CATEGORY_ORDER,
+  findTopValue,
+  assignPriceTiers,
+  recommendedWattage,
+  estimateCpuTdp,
+};

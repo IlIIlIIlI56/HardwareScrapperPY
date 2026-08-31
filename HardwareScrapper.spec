@@ -26,6 +26,7 @@ from PyInstaller.utils.hooks import collect_all
 datas = [
     ("index.html", "."),
     ("catalogo.html", "."),
+    ("build.html", "."),
     ("css", "css"),
     ("js", "js"),
     ("data/benchmarks.json", "data"),
