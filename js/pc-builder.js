@@ -243,11 +243,18 @@
     }
 
     // Categoria de varias pecas com espaco sobrando: continua aberta, para dar
-    // pra adicionar a proxima sem reabrir a etapa. Senao, avanca.
+    // pra adicionar a proxima sem reabrir a etapa -- e SEM apagar a busca, ja
+    // que comprar duas unidades do mesmo produto (2 pentes iguais, por
+    // exemplo) e o caso comum, e o usuario acabou de usa-la para achar essa
+    // peca. So limpa busca/paginacao quando a etapa realmente muda.
     const stillHasRoom = limit.max > 1 && state.items[category].length < limit.max;
-    state.openStep = stillHasRoom ? category : nextIncompleteStep();
-    state.query = "";
-    state.visibleLimit = PAGE_SIZE;
+    if (stillHasRoom) {
+      state.openStep = category;
+    } else {
+      state.openStep = nextIncompleteStep();
+      state.query = "";
+      state.visibleLimit = PAGE_SIZE;
+    }
     persistDraft();
     renderAll();
   }
@@ -575,20 +582,25 @@
     return row;
   }
 
-  function renderPicker() {
-    const container = document.getElementById("pcb-picker");
-    clear(container);
-    container.className = "pcb-picker";
+  /**
+   * `renderPicker` so recria o campo de busca e o seletor de ordenacao
+   * quando a etapa muda de verdade -- categoria diferente, ou a mesma
+   * categoria cruzando a fronteira de cheia/com espaco. Antes, toda vez que o
+   * usuario digitava, o `debounce` disparava um `renderPicker` que apagava e
+   * recriava o `<input>` inteiro: o navegador troca o elemento e o foco (e o
+   * cursor de digitacao) se perdem, entao cada pausa na digitacao exigia
+   * clicar de novo na caixa para continuar. Buscar e ordenar agora so tocam
+   * `renderPickerResults`, que redesenha unicamente a lista de baixo,
+   * deixando o campo de busca (e o foco nele) intocado.
+   */
+  function pickerRenderKey(category) {
+    if (!category) return "none";
+    const limit = SLOT_LIMITS[category];
+    const count = (state.items[category] || []).length;
+    return `${category}:${count >= limit.max ? "full" : "open"}`;
+  }
 
-    const category = state.openStep;
-    if (!category) {
-      const done = el("div", "empty-state");
-      done.appendChild(el("strong", null, "Build completa"));
-      done.appendChild(el("div", null, "Clique em qualquer etapa acima para adicionar ou trocar uma peca."));
-      container.appendChild(done);
-      return;
-    }
-
+  function buildPickerShell(container, category) {
     const meta = HWRender.CATEGORY_META[category];
     const limit = SLOT_LIMITS[category];
     const currentCount = (state.items[category] || []).length;
@@ -615,7 +627,7 @@
       debounce(() => {
         state.query = input.value;
         state.visibleLimit = PAGE_SIZE;
-        renderPicker();
+        renderPickerResults(category);
       })
     );
     searchWrap.appendChild(input);
@@ -639,10 +651,17 @@
     sortSelect.addEventListener("change", () => {
       state.sort = sortSelect.value;
       state.visibleLimit = PAGE_SIZE;
-      renderPicker();
+      renderPickerResults(category);
     });
     toolbar.appendChild(sortSelect);
     container.appendChild(toolbar);
+    container.appendChild(el("div", "pcb-picker-results"));
+  }
+
+  function renderPickerResults(category) {
+    const results = document.querySelector("#pcb-picker .pcb-picker-results");
+    if (!results) return; // a etapa mudou entre o debounce disparar e isto rodar
+    clear(results);
 
     const all = candidatesFor(category);
     const visible = all.slice(0, state.visibleLimit);
@@ -659,21 +678,49 @@
             : "Nao ha produtos pontuados nesta categoria com os dados atuais -- tente ajustar a busca ou revisar itens pendentes na Base de dados."
         )
       );
-      container.appendChild(empty);
+      results.appendChild(empty);
       return;
     }
 
     const list = el("div", "pcb-picker-list");
     visible.forEach((p) => list.appendChild(renderPickerItem(category, p)));
-    container.appendChild(list);
+    results.appendChild(list);
 
     if (all.length > visible.length) {
       const more = el("button", "btn btn-ghost pcb-picker-more", `Mostrar mais (${all.length - visible.length} restantes)`);
       more.addEventListener("click", () => {
         state.visibleLimit += PAGE_SIZE;
-        renderPicker();
+        renderPickerResults(category);
       });
-      container.appendChild(more);
+      results.appendChild(more);
+    }
+  }
+
+  function renderPicker() {
+    const container = document.getElementById("pcb-picker");
+    const category = state.openStep;
+    const renderKey = pickerRenderKey(category);
+
+    if (container.dataset.renderKey !== renderKey) {
+      clear(container);
+      container.className = "pcb-picker";
+      container.dataset.renderKey = renderKey;
+
+      if (!category) {
+        const done = el("div", "empty-state");
+        done.appendChild(el("strong", null, "Build completa"));
+        done.appendChild(el("div", null, "Clique em qualquer etapa acima para adicionar ou trocar uma peca."));
+        container.appendChild(done);
+        return;
+      }
+      buildPickerShell(container, category);
+    }
+
+    // buildPickerShell so acrescenta .pcb-picker-results quando a categoria
+    // nao esta cheia -- presente ou nao, e o sinal certo de que ha lista para
+    // (re)desenhar (em vez de inspecionar o estado "cheio" de novo aqui).
+    if (container.querySelector(".pcb-picker-results")) {
+      renderPickerResults(category);
     }
   }
 
