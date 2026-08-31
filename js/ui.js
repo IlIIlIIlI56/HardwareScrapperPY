@@ -62,6 +62,7 @@
     x: '<path d="M18 6 6 18M6 6l12 12"/>',
     filter: '<path d="M3 5h18l-7 8v6l-4 2v-8Z"/>',
     zap: '<path d="M13 2 3 14h8l-1 8 10-12h-8Z"/>',
+    folder: '<path d="M4 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/>',
   };
 
   /** SVG inline de 24x24 com stroke em currentColor -- acompanha o tema sozinho. */

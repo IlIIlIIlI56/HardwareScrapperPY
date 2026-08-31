@@ -1,35 +1,39 @@
 /**
- * Botao "Coletar dados agora" na pagina de builds. Um navegador nao pode
- * executar o scraper Python diretamente (sem API para rodar processos
- * locais) -- por isso este modulo fala com um servidor local minimo
- * (scraper/trigger_server.py, so biblioteca padrao do Python) que roda o
- * scraper em segundo piano e devolve o progresso. Se esse servidor nao
- * estiver de pe, mostramos o comando exato para iniciar.
+ * Painel "Coleta de dados" da pagina de builds.
  *
- * Uma vez que ja existam dados coletados em data/products.json, o mesmo
- * botao vira "Reiniciar coleta": pede confirmacao, avisa o servidor para
- * apagar o arquivo atual antes de raspar de novo (`POST /scrape?reset=1`,
- * ver trigger_server.py) e so entao comeca uma coleta nova do zero.
- */
-
-/*
- * Envolvido numa IIFE pelo mesmo motivo dos outros modulos: scripts classicos
- * dividem um unico escopo global de pagina, e nomes soltos aqui colidiriam com
- * os de app.js. Este arquivo nao expoe nada -- ele so se liga ao botao.
+ * A coleta roda numa thread do proprio processo do aplicativo
+ * (appcore/scrape_job.py) e este modulo so a comanda e mostra o progresso.
+ * Antes ele falava com um segundo servidor Python, em porta fixa, que o
+ * usuario tinha que lembrar de iniciar num terminal separado -- dai todo o
+ * codigo que existia aqui para detectar "servidor nao encontrado" e ensinar o
+ * comando certo. Dentro do app isso nao pode acontecer: se a pagina carregou,
+ * o Python que raspa esta rodando.
+ *
+ * O que sobrou de logica real:
+ *
+ *   - "Coletar dados agora" na primeira vez; "Reiniciar coleta" (com
+ *     confirmacao) depois que ja existem dados;
+ *   - "Cancelar", que nao existia. Uma coleta completa sao centenas de
+ *     requisicoes e alguns minutos, e desistir no meio exigia fechar o
+ *     terminal;
+ *   - o baseline de `started_at`, que continua necessario: sem ele o primeiro
+ *     /api/status depois do clique pode devolver o resultado da coleta
+ *     ANTERIOR, e o polling recarregaria a pagina achando que a nova ja
+ *     terminou.
  */
 (function () {
-  const TRIGGER_BASE = "http://127.0.0.1:8787";
-  const POLL_INTERVAL_MS = 1500;
-  const DATA_PRODUCTS_PATH = "./data/products.json";
+  const POLL_INTERVAL_MS = 1200;
+  // Caminho de URL, nao de disco: o servidor do app mapeia /data/ para a
+  // pasta dados/ do usuario (ver appcore/server.py).
+  const DATA_PRODUCTS_PATH = "/data/products.json";
+  const LOG_LINES = 14;
 
   let pollHandle = null;
 
   /**
-   * Se ja existem dados coletados (data/products.json com produtos), o botao
-   * vira "Reiniciar coleta" -- clicar nele apaga tudo e comeca do zero, em vez
-   * de meramente atualizar por cima. Checado direto no arquivo (nao no estado
-   * em memoria do trigger_server, que reseta quando o servidor e reiniciado)
-   * para refletir o que realmente esta em disco.
+   * Ja existem dados coletados? Checado no arquivo, e nao no estado em memoria
+   * do processo -- este ultimo zera quando o app e reaberto, e o rotulo do
+   * botao ficaria dizendo "Coletar dados agora" sobre uma base cheia.
    */
   async function hasExistingData() {
     try {
@@ -42,52 +46,57 @@
     }
   }
 
-  function idleLabel(hasData) {
-    return hasData ? "Reiniciar coleta" : "Coletar dados agora";
-  }
+  const idleLabel = (hasData) => (hasData ? "Reiniciar coleta" : "Coletar dados agora");
 
   async function fetchStatus() {
-    try {
-      const res = await fetch(`${TRIGGER_BASE}/status`, { cache: "no-store" });
-      if (!res.ok) return null;
-      return await res.json();
-    } catch {
-      return null;
-    }
+    const state = await HWApp.api("/api/status");
+    return state && state.ok ? state : null;
   }
 
-  function renderIdle(refs, serverReachable, hasData) {
+  function setIndicator(refs, text, modifier) {
+    refs.indicator.textContent = text;
+    refs.indicator.className = modifier ? `scrape-indicator scrape-indicator--${modifier}` : "scrape-indicator";
+  }
+
+  function showLog(refs, state) {
+    const lines = state.log || [];
+    refs.log.hidden = lines.length === 0;
+    refs.log.textContent = lines.slice(-LOG_LINES).join("\n");
+    refs.log.scrollTop = refs.log.scrollHeight;
+  }
+
+  function renderIdle(refs, hasData) {
     refs.btn.disabled = false;
     refs.btn.textContent = idleLabel(hasData);
-    refs.indicator.textContent = "";
-    refs.indicator.className = "scrape-indicator";
+    refs.cancel.hidden = true;
+    setIndicator(refs, "", null);
     refs.log.hidden = true;
-    refs.help.hidden = serverReachable;
   }
 
   function renderRunning(refs, state) {
     refs.btn.disabled = true;
     refs.btn.textContent = "Coletando...";
-    refs.indicator.textContent = "rodando";
-    refs.indicator.className = "scrape-indicator scrape-indicator--running";
-    refs.help.hidden = true;
-    refs.log.hidden = false;
-    refs.log.textContent = (state.log || []).slice(-12).join("\n");
-    refs.log.scrollTop = refs.log.scrollHeight;
+    refs.cancel.hidden = false;
+    refs.cancel.disabled = Boolean(state.cancelling);
+    refs.cancel.textContent = state.cancelling ? "Cancelando..." : "Cancelar";
+    setIndicator(refs, state.cancelling ? "cancelando" : "rodando", "running");
+    showLog(refs, state);
   }
 
   async function renderFinished(refs, state) {
     refs.btn.disabled = false;
     refs.btn.textContent = idleLabel(await hasExistingData());
-    refs.log.hidden = false;
-    refs.log.textContent = (state.log || []).slice(-12).join("\n");
+    refs.cancel.hidden = true;
+    showLog(refs, state);
 
     if (state.error) {
-      refs.indicator.textContent = "erro";
-      refs.indicator.className = "scrape-indicator scrape-indicator--error";
+      setIndicator(refs, "erro na coleta", "error");
+    } else if (state.cancelled) {
+      // Cancelar nao grava nada, entao a base anterior segue valida -- dizer
+      // isso aqui evita a duvida de "perdi os dados?".
+      setIndicator(refs, "cancelado -- dados anteriores mantidos", null);
     } else if (state.result) {
-      refs.indicator.textContent = `concluido -- ${state.result.total_products} produtos`;
-      refs.indicator.className = "scrape-indicator scrape-indicator--ok";
+      setIndicator(refs, `concluido -- ${state.result.total_products} produtos`, "ok");
     }
   }
 
@@ -99,19 +108,15 @@
   }
 
   /**
-   * Tenta capturar o `started_at` da execucao que ACABAMOS de disparar,
-   * repetindo /status ate ve-la "running" (o thread de fundo grava isso sob
-   * lock antes de qualquer outra coisa, entao normalmente aparece ja na
-   * primeira tentativa). Sem isso, se o POST /scrape nao chegou a iniciar uma
-   * nova coleta de verdade (servidor desatualizado, erro, etc.), a primeira
-   * leitura de /status pode ainda trazer o `result` de uma coleta ANTERIOR --
-   * e o polling abaixo confundiria isso com "a coleta que acabei de pedir ja
-   * terminou", recarregando a pagina sem os dados terem mudado de fato.
+   * Tenta capturar o `started_at` da execucao que acabamos de disparar,
+   * repetindo /api/status ate ve-la "running" (o worker grava isso sob lock
+   * antes de qualquer outra coisa, entao normalmente aparece ja na primeira
+   * tentativa). Ver o comentario do cabecalho para o porque.
    */
   async function captureRunBaseline() {
     for (let i = 0; i < 5; i++) {
-      const s = await fetchStatus();
-      if (s && s.running) return s.started_at;
+      const state = await fetchStatus();
+      if (state && state.running) return state.started_at;
       await new Promise((resolve) => setTimeout(resolve, 150));
     }
     return null; // nao deu para confirmar -- segue sem a garantia extra
@@ -127,91 +132,90 @@
         renderRunning(refs, state);
         return;
       }
-      // so trata como "terminou" se for a MESMA execucao que baselineStartedAt
-      // identificou (ou se nao foi possivel capturar um baseline) -- evita
-      // reagir a um resultado antigo que ja estava ali antes deste clique.
       if (baselineStartedAt != null && state.started_at !== baselineStartedAt) return;
       renderFinished(refs, state);
       stopPolling();
-      if (!notified && (state.result || state.error)) {
+      if (!notified && (state.result || state.error || state.cancelled)) {
         notified = true;
         onFinishedOnce(state);
       }
     }, POLL_INTERVAL_MS);
   }
 
-  async function handleClick(refs) {
+  /** Recarrega so quando a coleta gravou dados novos de verdade. */
+  function reloadIfChanged(state) {
+    if (state.result) setTimeout(() => window.location.reload(), 1000);
+  }
+
+  async function handleStart(refs) {
     const isReset = await hasExistingData();
     if (isReset) {
       const confirmed = window.confirm(
-        "Isso vai apagar todos os dados coletados atualmente (data/products.json) e iniciar uma nova coleta do zero. Continuar?"
+        "Isso vai coletar tudo de novo do zero e substituir a base atual quando terminar. " +
+          "Suas revisoes e entradas de benchmark nao sao afetadas. Continuar?"
       );
       if (!confirmed) return;
     }
 
-    const query = isReset ? "?reset=1" : "";
     refs.btn.disabled = true;
     refs.btn.textContent = "Iniciando...";
-    let res;
-    try {
-      res = await fetch(`${TRIGGER_BASE}/scrape${query}`, { method: "POST" });
-    } catch {
-      refs.btn.disabled = false;
-      refs.btn.textContent = idleLabel(isReset);
-      refs.help.hidden = false;
-      return;
-    }
-    if (!res.ok) {
-      // endpoint nao respondeu como esperado (ex: servidor rodando uma versao
-      // antiga do trigger_server.py, sem suporte a "?reset=1") -- avisa em vez
-      // de seguir como se a coleta tivesse comecado.
+    const res = await HWApp.api(`/api/scrape${isReset ? "?reset=1" : ""}`, { method: "POST" });
+    if (!res || !res.ok) {
       refs.btn.disabled = false;
       refs.btn.textContent = idleLabel(isReset);
       refs.log.hidden = false;
-      refs.log.textContent =
-        `[erro] POST /scrape${query} respondeu HTTP ${res.status}. O servidor de coleta ` +
-        `provavelmente esta rodando uma versao antiga -- pare-o (Ctrl+C) e rode ` +
-        `"python trigger_server.py" de novo.`;
+      refs.log.textContent = `[erro] nao foi possivel iniciar a coleta${res ? ` (HTTP ${res.status})` : ""}.`;
       return;
     }
 
-    const baselineStartedAt = await captureRunBaseline();
-    startPolling(refs, baselineStartedAt, (state) => {
-      if (state.result) {
-        // recarrega a pagina para reprocessar o pipeline com os dados novos
-        setTimeout(() => window.location.reload(), 1200);
-      }
-    });
+    startPolling(refs, await captureRunBaseline(), reloadIfChanged);
+  }
+
+  async function handleCancel(refs) {
+    refs.cancel.disabled = true;
+    refs.cancel.textContent = "Cancelando...";
+    await HWApp.api("/api/cancel", { method: "POST" });
   }
 
   async function initScrapeControl() {
     const refs = {
+      panel: document.getElementById("scrape-panel"),
       btn: document.getElementById("scrape-btn"),
+      cancel: document.getElementById("scrape-cancel"),
       indicator: document.getElementById("scrape-indicator"),
       log: document.getElementById("scrape-log"),
-      help: document.getElementById("scrape-help"),
+      outside: document.getElementById("scrape-outside-app"),
     };
     if (!refs.btn) return;
 
-    refs.btn.addEventListener("click", () => handleClick(refs));
+    if (!HWApp.isApp()) {
+      // Pagina aberta fora do aplicativo (depuracao de CSS num servidor
+      // estatico, por exemplo): sem processo Python, nao ha coleta possivel.
+      // Esconder o painel inteiro seria pior -- o usuario procuraria o botao.
+      refs.panel.hidden = false;
+      refs.btn.hidden = true;
+      refs.cancel.hidden = true;
+      refs.outside.hidden = false;
+      return;
+    }
+
+    refs.btn.addEventListener("click", () => handleStart(refs));
+    refs.cancel.addEventListener("click", () => handleCancel(refs));
 
     const initial = await fetchStatus();
     if (!initial) {
-      renderIdle(refs, false, await hasExistingData());
+      renderIdle(refs, await hasExistingData());
       return;
     }
     if (initial.running) {
+      // Ja estava rodando quando a pagina abriu (um F5 no meio da coleta):
+      // nao ha baseline desta sessao para comparar, so observa ate terminar.
       renderRunning(refs, initial);
-      // ja estava rodando quando a pagina abriu (ex: outra aba disparou) --
-      // nao ha um "baseline" desta pagina para comparar, so observa o que
-      // aparecer quando terminar.
-      startPolling(refs, null, (state) => {
-        if (state.result) setTimeout(() => window.location.reload(), 1200);
-      });
-    } else if (initial.result || initial.error) {
+      startPolling(refs, null, reloadIfChanged);
+    } else if (initial.result || initial.error || initial.cancelled) {
       await renderFinished(refs, initial);
     } else {
-      renderIdle(refs, true, await hasExistingData());
+      renderIdle(refs, await hasExistingData());
     }
   }
 

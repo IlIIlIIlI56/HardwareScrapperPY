@@ -1,0 +1,19 @@
+# Dependencias do aplicativo. Instale com:
+#     python -m pip install -r requirements.txt
+#
+# O build do executavel portatil (build.ps1) faz isso sozinho, num venv proprio,
+# e nao precisa que nada disto esteja instalado no Python do sistema.
+
+# --- coleta ---
+requests>=2.31
+beautifulsoup4>=4.12
+
+# --- janela nativa ---
+# Usa o WebView2 (o motor do Edge), que ja vem em qualquer Windows 10/11
+# atualizado -- por isso o app nao carrega um navegador inteiro junto, como um
+# Electron faria. pythonnet e a ponte com as bibliotecas .NET do WebView2 e vem
+# como dependencia do pywebview.
+pywebview>=5.3
+
+# --- empacotamento (so para gerar a pasta portatil) ---
+pyinstaller>=6.10

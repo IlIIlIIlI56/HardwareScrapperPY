@@ -2,27 +2,27 @@
  * Tema claro/escuro.
  *
  * Tres estados possiveis, na mesma ordem de precedencia que o CSS usa:
- *   "light" / "dark" -> escolha explicita, gravada em localStorage e refletida
+ *   "light" / "dark" -> escolha explicita, gravada pelo HWStore e refletida
  *                       no atributo data-theme do <html> (vence o sistema);
  *   "system"         -> sem data-theme, o CSS segue prefers-color-scheme.
  *
  * Este arquivo e carregado no <head>, ANTES do <body>, de proposito: aplicar o
  * data-theme so depois que a pagina pintou causaria um flash branco em quem
- * usa tema escuro. Por isso ele nao depende de nenhum outro modulo e nao toca
- * no DOM alem do elemento raiz -- a ligacao com o botao acontece depois, em
- * initThemeToggle(), chamada quando o <header> ja existe.
+ * usa tema escuro. Por isso ele so toca no elemento raiz -- a ligacao com o
+ * botao acontece depois, em initThemeToggle(), quando o <header> ja existe.
+ *
+ * O unico modulo de que depende e js/app-bridge.js, carregado logo acima dele
+ * no <head>: dentro do aplicativo a preferencia mora em dados/decisoes.json, e
+ * nao no localStorage, que ali seria apagado a cada abertura (a porta do
+ * servidor local muda, e com ela a origem da pagina).
  */
 (function () {
   const STORAGE_KEY = "hw-theme-v1";
   const ORDER = ["system", "light", "dark"];
 
   function stored() {
-    try {
-      const v = localStorage.getItem(STORAGE_KEY);
-      return ORDER.includes(v) ? v : "system";
-    } catch {
-      return "system"; // localStorage bloqueado (modo privado, politica do navegador)
-    }
+    const value = HWStore.getString(STORAGE_KEY);
+    return ORDER.includes(value) ? value : "system";
   }
 
   function apply(mode) {
@@ -33,12 +33,8 @@
 
   function set(mode) {
     if (!ORDER.includes(mode)) mode = "system";
-    try {
-      if (mode === "system") localStorage.removeItem(STORAGE_KEY);
-      else localStorage.setItem(STORAGE_KEY, mode);
-    } catch {
-      /* sem persistencia: o tema ainda vale para esta aba */
-    }
+    if (mode === "system") HWStore.remove(STORAGE_KEY);
+    else HWStore.setString(STORAGE_KEY, mode);
     apply(mode);
     return mode;
   }

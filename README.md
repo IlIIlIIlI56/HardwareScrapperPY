@@ -1,25 +1,105 @@
 # Builds de Custo-Beneficio — Comprasparaguai Informatica
 
-Ferramenta que raspa os precos da categoria Informatica (componentes de PC) da
+Aplicativo portatil para Windows que raspa os precos da categoria Informatica (componentes de PC) da
 [comprasparaguai.com.br](https://www.comprasparaguai.com.br/informatica/), cruza com uma base de
 performance de hardware e monta automaticamente ate 7 builds completas de PC, cada uma ancorada
 no item "TOP Custo-Beneficio" de uma categoria (CPU, Placa-Mae, RAM, GPU, Fonte, Armazenamento).
 A build de melhor custo-beneficio geral e destacada no topo.
 
 Toda a analise (extracao de specs, calculo de performance/preco, escolha das pecas, montagem das
-builds) e feita por codigo -- Python no scraper, JavaScript puro na pagina. Nenhuma etapa e manual.
+builds) e feita por codigo -- Python na coleta, JavaScript puro na interface. Nenhuma etapa e manual.
 A revisao humana existe so para **corrigir dados de entrada** que o regex nao conseguiu extrair do
 nome do anuncio; quem decide se um item pontua continua sendo o mesmo codigo, sempre.
 
-## Estrutura
+## Como usar
+
+Copie a pasta `HardwareScrapper` para onde quiser e execute **`HardwareScrapper.exe`**. E so isso:
+nao ha instalador, nao ha Python para instalar, nada e gravado no registro nem em `%APPDATA%`.
+
+Na primeira abertura o app cria uma pasta **`dados`** ao lado do executavel e a janela abre vazia,
+com o botao **"Coletar dados agora"** em destaque. A coleta percorre as seis categorias de
+componentes, mostra o progresso ao vivo e recarrega a tela sozinha quando termina -- sao algumas
+centenas de requisicoes com um pequeno intervalo entre paginas, entao leva alguns minutos. Da para
+**cancelar** no meio: nada e gravado, e a base anterior fica intacta.
+
+Depois que ja existem dados, o mesmo botao vira **"Reiniciar coleta"**, que refaz tudo do zero.
+
+```
+HardwareScrapper/
+├── HardwareScrapper.exe      <- duplo clique
+├── _internal/                  Python, bibliotecas e a interface, empacotados
+└── dados/                      criada no primeiro uso -- e tudo o que e SEU
+    ├── products.json             produtos coletados
+    ├── benchmarks.json           base de performance (semeada, depois sua)
+    ├── decisoes.json             suas revisoes, apelidos e ajustes
+    ├── exportacoes/              backups e CSVs gerados pela aba de backup
+    └── perfil-janela/            cache da janela
+```
+
+**A pasta `dados` e o backup.** Copiar a pasta `HardwareScrapper` inteira leva junto os precos
+coletados e toda a curadoria -- para outra maquina, para um pendrive, para onde for. Nada fica para
+tras, porque nada e gravado fora dela.
+
+### Requisitos
+
+Windows 10 ou 11 com o **WebView2 Runtime**, que ja vem instalado por padrao desde 2021 (e o mesmo
+motor do Edge). Se por acaso faltar, o app abre a interface numa janela do Edge em modo aplicativo e
+continua funcionando igual. Nenhuma outra dependencia.
+
+## Gerar o executavel
+
+So e necessario para quem vai modificar o projeto -- quem so quer usar recebe a pasta pronta.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File build.ps1
+```
+
+O script cria um ambiente virtual isolado em `.venv-build`, instala as dependencias, gera o icone e
+empacota tudo em `dist/HardwareScrapper/`. Use `-Clean` para refazer do zero.
+
+O ambiente separado existe para o build nao depender do que por acaso esteja instalado no Python do
+sistema: o PyInstaller empacota exatamente as bibliotecas que enxerga, entao um ambiente sujo vira um
+executavel inflado -- ou, pior, um que funciona na maquina de quem compilou e falha na de destino.
+
+## Rodar pelo codigo-fonte
+
+Para desenvolver nao e preciso empacotar a cada mudanca:
+
+```bash
+python -m pip install -r requirements.txt
+python app.py                # abre a janela, lendo os arquivos direto do repositorio
+python app.py --debug        # o mesmo, com o DevTools da janela habilitado
+python app.py --headless     # so o servidor local; imprime a URL para abrir num navegador
+```
+
+`--headless` e o modo mais confortavel para mexer em CSS e JavaScript: a pagina roda num navegador
+de verdade, com DevTools completo, falando com o mesmo servidor local que o app usa.
+
+Rodando do codigo-fonte, a pasta `dados/` e criada na raiz do projeto -- mesma logica, mesmo
+comportamento, sem um "modo de desenvolvimento" separado.
+
+## Estrutura do projeto
 
 ```
 HardwareScrapperPY/
-├── index.html               <- pagina principal: builds (abrir com Live Server)
+├── app.py                   <- ponto de entrada: prepara dados/, sobe o servidor, abre a janela
+├── build.ps1                   gera dist/HardwareScrapper/ (a pasta portatil)
+├── HardwareScrapper.spec       receita do PyInstaller
+├── requirements.txt
+├── appcore/
+│   ├── paths.py               recursos (so leitura) x dados do usuario (escrita)
+│   ├── server.py              servidor local: interface + API, na mesma origem
+│   └── scrape_job.py          a coleta em segundo plano, com cancelamento
+├── assets/
+│   ├── make_icon.py           gera o icone por codigo, sem dependencias
+│   └── icon.ico
+├── index.html               <- pagina principal: builds
 ├── catalogo.html            <- pagina secundaria: base de dados / revisao / backup
 ├── css/style.css              design system: preto e branco + verde-eco, tema claro/escuro
 ├── js/
-│   ├── theme.js               tema claro/escuro (carregado no <head>, evita flash)
+│   ├── app-bridge.js          ponte com o Python: API, HWStore, exportacoes
+│   ├── app-chrome.js          rodape do app: versao e acesso a pasta de dados
+│   ├── theme.js               tema claro/escuro (carregado no head, evita flash)
 │   ├── format.js              formatacao de preco, score, data, bytes
 │   ├── ui.js                  helpers de DOM, icones SVG, miniaturas, toasts, modal
 │   ├── matcher.js             normalizacao e casamento model_key <-> base de benchmarks
@@ -27,103 +107,75 @@ HardwareScrapperPY/
 │   ├── builder.js             algoritmo de montagem das builds
 │   ├── render.js              renderizacao da UI de builds
 │   ├── overrides.js           persistencia: decisoes, benchmarks, apelidos, ajustes, backup
-│   ├── scrape-control.js      botao "Coletar dados agora" (fala com trigger_server.py)
+│   ├── scrape-control.js      painel "Coletar dados agora"
 │   ├── app.js                 orquestracao da pagina de builds
 │   ├── catalog-state.js       estado + pontuacao em lote + esquemas de formulario
 │   ├── review.js              painel de revisao de um produto
 │   ├── benchdb.js             aba "Base de performance": navegar/editar benchmarks e ajustes
 │   ├── backup.js              aba "Backup e exportacao"
 │   └── catalog.js             orquestracao da pagina de base de dados
-├── data/
-│   ├── products.json          gerado pelo scraper
-│   └── benchmarks.json        base de referencia de performance (CPU/GPU/chipsets/parametros)
+├── data/                       SEMENTE que acompanha o app -- nao e onde voce le/escreve
+│   └── benchmarks.json           base de performance, copiada para dados/ no primeiro uso
+├── dados/                      seus dados (criada no primeiro uso; fora do controle de versao)
 └── scraper/
     ├── scrape_comprasparaguai.py
-    ├── trigger_server.py      servidor local que liga o botao "Coletar dados agora" ao scraper
     ├── spec_extractor.py      extracao de specs por regex a partir do nome do produto
     ├── reextract_specs.py     reaplica a extracao sobre dados ja coletados, sem rede
     └── requirements.txt
 ```
 
-## 1) Instalar as dependencias do scraper (uma vez)
+### Por que `data/` e `dados/` sao pastas diferentes
+
+Um app portatil tem duas arvores de arquivos que nao podem ser a mesma. `data/` sao os arquivos que
+**acompanham o programa** e podem ser substituidos a cada atualizacao; `dados/` e o que **pertence a
+quem usa** e precisa sobreviver a elas. Na primeira abertura, o que estiver faltando em `dados/` e
+copiado de `data/` -- e nunca o contrario, entao uma versao nova do app jamais sobrescreve um
+`benchmarks.json` que voce ja editou.
+
+## Como a coleta funciona por dentro
+
+Um navegador nao pode executar um script Python (nao existe API JS para rodar processos locais), e a
+versao anterior desta ferramenta resolvia isso pedindo ao usuario que mantivesse **dois** processos
+de pe: o Live Server do VSCode servindo os arquivos, e um `trigger_server.py` numa segunda janela de
+terminal atendendo o botao de coleta. Eram tres coisas para acertar antes de ver qualquer build, e o
+botao falhava com "servidor nao encontrado" toda vez que o segundo terminal era esquecido.
+
+O aplicativo e um processo so. Ele sobe um servidor local que serve **a interface e a API na mesma
+origem**, e a coleta roda numa thread dele -- se a janela abriu, o Python que raspa esta rodando. A
+porta e sorteada pelo sistema a cada abertura, entao duas copias do app nunca brigam por ela.
+
+Esse servidor escuta apenas em `127.0.0.1` e exige um token, sorteado a cada execucao e entregue so
+para a propria pagina. Sem isso, qualquer site aberto no computador poderia varrer as portas locais e
+disparar coletas ou descobrir o caminho dos seus arquivos.
+
+### Linha de comando (depuracao)
+
+Os scripts do scraper continuam funcionando sozinhos, para testar uma mudanca no regex sem abrir a
+janela. Eles escrevem na mesma pasta `dados/` que o app le:
 
 ```bash
-cd HardwareScrapperPY/scraper
-pip install -r requirements.txt
-```
-
-## 2) Abrir a pagina
-
-Abra `index.html` com a extensao **Live Server** do VSCode (botao "Go Live" ou clique direito ->
-"Open with Live Server"). A pagina le `data/products.json` e `data/benchmarks.json` via `fetch`,
-por isso precisa ser servida por um servidor local -- abrir o arquivo direto pelo `file://` pode
-bloquear o `fetch` dependendo do navegador.
-
-Use a navegacao no topo para ir a **Base de dados** (`catalogo.html`) -- veja a secao abaixo.
-O botao redondo ao lado da navegacao alterna **tema claro/escuro**; sem escolha explicita, a pagina
-segue o tema do sistema operacional.
-
-## 3) Coletar/atualizar os dados
-
-Um navegador nao consegue executar um script Python sozinho (nao existe API JS para rodar
-processos locais) -- por isso a coleta tem dois caminhos:
-
-**Pelo botao "Coletar dados agora" (recomendado):** abra um segundo terminal e rode
-
-```bash
-cd HardwareScrapperPY/scraper
-python trigger_server.py
-```
-
-e deixe essa janela aberta. Ela sobe um servidor local minimo (so biblioteca padrao do Python, sem
-dependencias novas) em `http://127.0.0.1:8787`, que so aceita conexoes da propria maquina. Com ele
-rodando, o botao no topo de `index.html` dispara a coleta, mostra o progresso ao vivo e recarrega a
-pagina automaticamente quando termina. Se o botao mostrar "servidor nao encontrado", e porque esse
-terminal nao esta rodando.
-
-Na primeira vez (sem nenhum dado ainda), o botao mostra "Coletar dados agora". Depois que
-`data/products.json` ja tem produtos, o mesmo botao vira **"Reiniciar coleta"**: clicar nele pede
-confirmacao e, se confirmado, apaga `data/products.json` e coleta tudo de novo do zero. Se a nova
-coleta falhar no meio do caminho, os dados antigos ja terao sido apagados (o log mostra
-`[reiniciar] dados anteriores apagados`); rode a coleta de novo para preencher o arquivo outra vez.
-
-> **Importante:** `trigger_server.py` e um processo Python de vida longa -- ele NAO recarrega o
-> proprio codigo sozinho. Depois de atualizar os arquivos do projeto (`git pull`, uma correcao,
-> etc.), pare o terminal onde ele esta rodando (`Ctrl+C`) e rode `python trigger_server.py` de
-> novo antes de usar o botao.
-
-**Pela linha de comando (alternativa/avancado):**
-
-```bash
-cd HardwareScrapperPY/scraper
-python scrape_comprasparaguai.py
+python scraper/scrape_comprasparaguai.py
 
 # so algumas categorias, para testar rapido
-python scrape_comprasparaguai.py --categories cpu gpu --max-pages 3
+python scraper/scrape_comprasparaguai.py --categories cpu gpu --max-pages 3
 
 # delay maior entre paginas (mais educado com o servidor)
-python scrape_comprasparaguai.py --delay 1.0
+python scraper/scrape_comprasparaguai.py --delay 1.0
 ```
 
-Os dois caminhos percorrem `/processador/`, `/placa-mae/`, `/memoria-ram/`, `/placa-de-video/`,
-`/fonte/` e `/hd-ssd/`, extraem nome/preco/specs de cada produto e sobrescrevem
-`data/products.json`. Uma coleta completa faz algumas centenas de requisicoes com um pequeno delay
-entre paginas -- leva alguns minutos.
+### Reaplicar a extracao de specs sem raspar de novo
 
-### 3b) Reaplicar a extracao de specs sem raspar de novo
-
-Nome e descricao de cada produto ja estao salvos em `data/products.json` -- as specs sao derivadas
+Nome e descricao de cada produto ja estao salvos em `dados/products.json` -- as specs sao derivadas
 deles por regex. Quando `spec_extractor.py` melhora, nao e preciso refazer a coleta inteira:
 
 ```bash
-cd HardwareScrapperPY/scraper
-python reextract_specs.py --dry-run   # mostra o que mudaria, sem gravar
-python reextract_specs.py             # mostra e pergunta antes de gravar
+python scraper/reextract_specs.py --dry-run   # mostra o que mudaria, sem gravar
+python scraper/reextract_specs.py             # mostra e pergunta antes de gravar
 ```
 
 O script lista campo a campo o que muda, separa "campos preenchidos que antes estavam vazios" de
 "campos que ficaram vazios" (esse segundo grupo indica regressao numa regra nova) e grava um
-backup em `data/products.json.bak` antes de escrever.
+backup em `dados/products.json.bak` antes de escrever.
 
 ## Como funciona o pipeline
 
@@ -132,9 +184,9 @@ backup em `data/products.json.bak` antes de escrever.
 2. **Extracao de specs (regex, Python):** a partir do nome do produto (unico dado estruturado
    disponivel), extrai soquete, chipset, capacidade, velocidade, wattagem, selo 80 PLUS,
    interface de armazenamento etc. Ver `scraper/spec_extractor.py`.
-3. **Pontuacao de performance (JavaScript, no navegador):**
+3. **Pontuacao de performance (JavaScript, na janela do app):**
    - **CPU/GPU:** a `model_key` extraida (ex: `i5-12400`, `rtx 4060`) e casada contra
-     `data/benchmarks.json`, que traz indices de performance aproximados inspirados em agregadores
+     `dados/benchmarks.json`, que traz indices de performance aproximados inspirados em agregadores
      publicos (PassMark CPU Mark e PassMark G3D). Ver "Casamento de modelos" abaixo.
    - **RAM:** capacidade x velocidade (MT/s, ja comparavel entre geracoes DDR2/3/4/5 -- largura de
      banda = MT/s x 8 bytes, independente da geracao) x um fator de latencia real. Quando o anuncio
@@ -249,7 +301,7 @@ spec desligava silenciosamente a protecao contra erro de preco naquele item.
 
 ### Aba "Base de performance"
 
-Navegador e editor de `data/benchmarks.json`. Antes, a base curada era invisivel pela interface: so
+Navegador e editor de `dados/benchmarks.json`. Antes, a base curada era invisivel pela interface: so
 dava para ver o que o usuario tinha cadastrado por cima dela.
 
 - **Tabela** com processadores, placas de video e chipsets, marcando a origem de cada linha:
@@ -273,20 +325,24 @@ pegar erro de digitacao, nao para julgar hardware.
 
 ### Aba "Backup e exportacao"
 
-Tudo vive no `localStorage` do navegador, o que e comodo (nao exige backend) e fragil (limpar os
-dados do site apaga meses de curadoria). Quatro saidas:
+Tudo vive em `dados/decisoes.json`. Quatro saidas:
 
-- **Baixar backup (.json)** -- formato desta pagina, versionado (`schema_version: 2`), para
+- **Gerar backup (.json)** -- formato desta pagina, versionado (`schema_version: 2`), para
   restaurar ou mesclar depois.
-- **Exportar benchmarks.json mesclado** -- um `data/benchmarks.json` COMPLETO com suas entradas,
+- **Exportar benchmarks.json mesclado** -- um `benchmarks.json` COMPLETO com suas entradas,
   edicoes, apelidos (convertidos em entradas reais, marcadas com `aliased_from`) e ajustes ja
   aplicados. **Este era o caminho que faltava na curadoria**: sem ele, o trabalho de cadastrar
-  dezenas de modelos ficava preso no navegador -- sobrevivia a um F5, mas nao a uma troca de maquina
-  nem virava parte do projeto. Substitua o arquivo do repositorio por ele e a curadoria passa a
-  valer para qualquer maquina.
+  dezenas de modelos ficava preso na gaveta de decisoes, sem nunca virar a base propriamente dita.
+  Copie-o por cima de `dados/benchmarks.json` e a curadoria passa a valer mesmo depois de um
+  "apagar todas as decisoes", e ja numa instalacao nova.
 - **Exportar catalogo (.csv)** -- a lista pontuada inteira (separador `;` e BOM UTF-8, abre direto
   no Excel em portugues), para conferir numeros numa planilha.
 - **Apagar todas as decisoes** -- reset explicito, atras de confirmacao.
+
+Dentro do aplicativo esses arquivos nao sao "baixados": a janela nao tem barra de downloads, entao
+eles sao gravados em `dados/exportacoes/` e o botao **"Abrir pasta de exportacoes"**, ao lado, leva
+voce ate la. Um download comum deixaria a pasta de Downloads -- fora da pasta portatil, que e
+justamente de onde a curadoria nao deveria escapar.
 
 **A importacao deixou de ser um merge cego.** A versao anterior mesclava dando prioridade ao arquivo
 e so avisava "importado: N itens" -- se o arquivo fosse antigo, ele sobrescrevia revisoes locais mais
@@ -295,7 +351,7 @@ sem gravar nada), uma tela mostra **novos / conflitos / ja iguais / invalidos** 
 sera tocado, e havendo conflito voce escolhe quem vence:
 
 - **o arquivo importado** (comportamento antigo, para quando o backup e mais recente);
-- **o que ja esta neste navegador** (so entram chaves novas; nada local se perde);
+- **o que ja esta gravado aqui** (so entram chaves novas; nada local se perde);
 - **substituir tudo pelo arquivo** (apaga as decisoes locais antes de importar).
 
 Entradas invalidas sao descartadas em qualquer modo, nunca gravadas. Backups no formato antigo (sem
@@ -303,7 +359,7 @@ Entradas invalidas sao descartadas em qualquer modo, nunca gravadas. Backups no 
 
 ### Onde as decisoes ficam salvas
 
-Duas chaves no `localStorage`, separadas de proposito:
+Em `dados/decisoes.json`, sob duas chaves separadas de proposito:
 
 | Chave | Conteudo | Por que separada |
 | --- | --- | --- |
@@ -311,19 +367,26 @@ Duas chaves no `localStorage`, separadas de proposito:
 | `hw-benchmark-overrides-v1` | conhecimento sobre hardware: entradas, apelidos, ajustes | vale para qualquer anuncio do mesmo modelo e sobrevive a uma nova coleta |
 
 As chaves seguem sendo `-v1` mesmo com o conteudo tendo ganhado campos novos: a leitura normaliza o
-que encontrar, entao uma gaveta gravada pela versao anterior da pagina continua sendo lida sem
-migracao nem perda de dados. A pagina de builds aplica tudo isso automaticamente a cada
-carregamento, antes de rodar o pipeline. Como e por navegador, limpar os dados do site reseta --
-por isso o backup.
+que encontrar, entao uma gaveta gravada por uma versao anterior continua sendo lida sem migracao nem
+perda de dados. A pagina de builds aplica tudo isso automaticamente a cada carregamento, antes de
+rodar o pipeline.
+
+**Por que um arquivo e nao o `localStorage`.** Ate a versao anterior essas duas chaves viviam no
+`localStorage`, que era a unica opcao num site estatico. Num aplicativo isso seria uma armadilha
+silenciosa: o motor da janela separa o `localStorage` **por origem**, e a origem inclui a porta --
+que o servidor local sorteia a cada abertura, justamente para nunca brigar por uma porta fixa. Meses
+de curadoria evaporariam a cada vez que o app fosse fechado e reaberto, sem erro nenhum na tela. Num
+arquivo dentro de `dados/`, elas ainda ganham o que importa num app portatil: viajam junto quando a
+pasta e copiada, entram no backup por um Ctrl+C na pasta, e nao esbarram na cota de ~5 MB.
 
 ## Atualizando a base de performance
 
-`data/benchmarks.json` traz valores de referencia aproximados (nao um scrape ao vivo -- os sites de
+`dados/benchmarks.json` traz valores de referencia aproximados (nao um scrape ao vivo -- os sites de
 benchmark carregam a tabela via JavaScript e nao expoem API publica estavel). Ha dois caminhos:
 
-- **pela interface**, na aba "Base de performance" -- o mais pratico, e o resultado pode voltar para
-  o repositorio pelo botao "Exportar benchmarks.json mesclado";
-- **editando o arquivo**, consultando:
+- **pela interface**, na aba "Base de performance" -- o mais pratico, e o resultado vira o proprio
+  arquivo pelo botao "Exportar benchmarks.json mesclado";
+- **editando o arquivo direto**, consultando:
   - CPU: https://www.cpubenchmark.net/cpu_list.php
   - GPU: https://www.videocardbenchmark.net/gpu_list.php
 

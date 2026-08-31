@@ -9,14 +9,14 @@ unica forma de aproveitar era rodar a coleta inteira de novo: centenas de
 requisicoes e alguns minutos, para recalcular algo que nao depende do site.
 Este script faz so o recalculo, em segundos, e mostra o que mudou.
 
-Uso:
-    cd scraper
-    python reextract_specs.py            # mostra o diff e pergunta antes de gravar
-    python reextract_specs.py --dry-run  # so mostra, nunca grava
-    python reextract_specs.py --yes      # grava sem perguntar
+Uso (a partir da pasta do aplicativo):
+    python scraper/reextract_specs.py            # mostra o diff e pergunta antes de gravar
+    python scraper/reextract_specs.py --dry-run  # so mostra, nunca grava
+    python scraper/reextract_specs.py --yes      # grava sem perguntar
 
-Um backup do arquivo anterior e gravado ao lado, como
-data/products.json.bak, antes de qualquer escrita.
+Opera sobre dados/products.json -- a mesma pasta de dados que a janela do app
+le, e nao mais uma copia separada em data/. Um backup do arquivo anterior e
+gravado ao lado, como dados/products.json.bak, antes de qualquer escrita.
 """
 
 import argparse
@@ -28,7 +28,14 @@ from pathlib import Path
 
 from spec_extractor import extract_specs
 
-PRODUCTS_PATH = Path(__file__).resolve().parent.parent / "data" / "products.json"
+# Rodado como script solto o pacote do app nao esta no sys.path -- sem isto
+# este script editaria um arquivo diferente do que a janela le.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from appcore import paths  # noqa: E402
+
+PRODUCTS_PATH = paths.products_path()
 
 
 def diff_specs(old, new):
@@ -42,7 +49,7 @@ def diff_specs(old, new):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Reextrai specs de data/products.json sem raspar de novo.")
+    parser = argparse.ArgumentParser(description="Reextrai specs de dados/products.json sem raspar de novo.")
     parser.add_argument("--dry-run", action="store_true", help="so mostra o que mudaria")
     parser.add_argument("--yes", "-y", action="store_true", help="grava sem pedir confirmacao")
     parser.add_argument("--limit", type=int, default=25, help="quantas mudancas listar (padrao: 25)")
@@ -100,7 +107,7 @@ def main():
         return 0
 
     if not args.yes:
-        answer = input(f"\nGravar as {len(changes)} mudancas em data/products.json? [s/N] ").strip().lower()
+        answer = input(f"\nGravar as {len(changes)} mudancas em dados/products.json? [s/N] ").strip().lower()
         if answer not in ("s", "sim", "y", "yes"):
             print("Cancelado -- nada foi gravado.")
             return 0

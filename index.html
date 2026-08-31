@@ -6,7 +6,20 @@
   <meta name="color-scheme" content="light dark" />
   <title>Builds de Custo-Beneficio — Comprasparaguai Informatica</title>
   <link rel="stylesheet" href="css/style.css" />
-  <!-- antes do <body>: aplicar o tema depois da pintura causaria um flash branco -->
+  <!--
+    /app-bootstrap.js e gerado pelo servidor local do aplicativo (appcore/server.py)
+    e entrega o token da sessao para a API. Ele e o primeiro de todos porque
+    app-bridge.js le esse token, e theme.js depende do HWStore que app-bridge.js
+    expoe -- e o tema tem que ser aplicado antes da primeira pintura, senao quem
+    usa tema escuro ve um flash branco.
+
+    Abrindo estes arquivos fora do app, /app-bootstrap.js responde 404,
+    HWApp.isApp() vira false e a interface se degrada sozinha: a coleta some da
+    tela, as decisoes voltam para o localStorage e as exportacoes voltam a ser
+    downloads do navegador.
+  -->
+  <script src="/app-bootstrap.js"></script>
+  <script src="js/app-bridge.js"></script>
   <script src="js/theme.js"></script>
 </head>
 <body>
@@ -51,23 +64,25 @@
   </header>
 
   <main class="container">
-    <section class="panel">
+    <section class="panel" id="scrape-panel">
       <h2>Coleta de dados</h2>
       <p class="panel-hint">
-        O navegador nao consegue rodar o scraper Python sozinho -- este botao fala com um pequeno
-        servidor local (<code>scraper/trigger_server.py</code>) que precisa estar rodando ao lado do
-        Live Server.
+        A coleta percorre as seis categorias de componentes no site de origem e reescreve
+        <code>dados/products.json</code>. Sao algumas centenas de requisicoes com um pequeno intervalo
+        entre paginas -- leva alguns minutos, e da para cancelar no meio sem perder a base atual.
       </p>
       <div class="scrape-control">
         <button id="scrape-btn" class="btn btn-primary">Coletar dados agora</button>
+        <button id="scrape-cancel" class="btn btn-ghost" hidden>Cancelar</button>
         <span id="scrape-indicator" class="scrape-indicator"></span>
       </div>
       <pre id="scrape-log" class="scrape-log" hidden></pre>
-      <div id="scrape-help" class="scrape-help" hidden>
-        <p>Servidor de coleta nao encontrado. Rode isto uma vez, num terminal, e deixe a janela aberta:</p>
-        <pre><code>cd scraper
-python trigger_server.py</code></pre>
-        <p>Depois clique em "Coletar dados agora" de novo.</p>
+      <div id="scrape-outside-app" class="scrape-help" hidden>
+        <p>
+          Esta pagina esta aberta fora do aplicativo, entao nao ha um processo Python para raspar os
+          precos -- a coleta so funciona pela janela do app. Os dados que ja estao em
+          <code>dados/</code> continuam sendo exibidos normalmente.
+        </p>
       </div>
     </section>
 
@@ -98,9 +113,9 @@ python trigger_server.py</code></pre>
     <section class="panel methodology">
       <h2>Metodologia</h2>
       <ul>
-        <li><strong>Coleta:</strong> <code>scraper/scrape_comprasparaguai.py</code> percorre as paginas de Processador, Placa-Mae, Memoria RAM, Placa de Video, Fonte e HD/SSD e salva em <code>data/products.json</code>.</li>
+        <li><strong>Coleta:</strong> <code>scraper/scrape_comprasparaguai.py</code> percorre as paginas de Processador, Placa-Mae, Memoria RAM, Placa de Video, Fonte e HD/SSD e salva em <code>dados/products.json</code>.</li>
         <li><strong>Especificacoes:</strong> extraidas por regex do nome de cada produto (soquete, chipset, capacidade, velocidade, wattagem, selo 80 PLUS, interface de armazenamento).</li>
-        <li><strong>Performance de CPU/GPU:</strong> casada com a base curada em <code>data/benchmarks.json</code> -- por chave exata, por apelido cadastrado por voce, ou por similaridade textual (que so aceita o par quando os numeros do modelo e os sufixos tipo Ti/XT/F sao identicos).</li>
+        <li><strong>Performance de CPU/GPU:</strong> casada com a base curada em <code>dados/benchmarks.json</code> -- por chave exata, por apelido cadastrado por voce, ou por similaridade textual (que so aceita o par quando os numeros do modelo e os sufixos tipo Ti/XT/F sao identicos).</li>
         <li><strong>Performance de RAM:</strong> capacidade x velocidade (MT/s, comparavel entre geracoes DDR2-5) x um fator de latencia real, calculado a partir do CAS Latency quando o anuncio informa (CL convertido para nanossegundos).</li>
         <li><strong>Performance de Fonte/Armazenamento/Placa-Mae:</strong> formula sobre as specs extraidas (wattagem x eficiencia, capacidade x interface, tier de chipset).</li>
         <li><strong>TOP Custo-Beneficio:</strong> maior indice desempenho/preco de cada categoria, ignorando o quartil mais fraco -- para nao eleger sempre a peca mais fraca e mais barata.</li>
@@ -112,7 +127,15 @@ python trigger_server.py</code></pre>
   </main>
 
   <footer class="site-footer">
-    <p>Gerado localmente a partir de dados publicos de precos. Nenhuma chamada de rede sai desta pagina — tudo roda sobre os arquivos em <code>data/</code>.</p>
+    <p>
+      Aplicativo portatil: tudo o que voce coleta e cura fica em <code>dados/</code>, ao lado do
+      executavel — copiar a pasta leva os dados junto. A analise roda inteira nesta maquina, sobre
+      os arquivos ja baixados; a unica hora em que o app acessa a internet e durante a coleta.
+    </p>
+    <p class="footer-actions">
+      <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de dados</button>
+      <span id="app-version" class="footer-version"></span>
+    </p>
   </footer>
 
   <script src="js/format.js"></script>
@@ -124,5 +147,6 @@ python trigger_server.py</code></pre>
   <script src="js/overrides.js"></script>
   <script src="js/scrape-control.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/app-chrome.js"></script>
 </body>
 </html>

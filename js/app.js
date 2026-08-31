@@ -31,7 +31,7 @@
     const buildsEl = document.getElementById("builds-container");
     const metaEl = document.getElementById("data-meta");
 
-    const statusLines = [{ text: "Carregando data/products.json e data/benchmarks.json...", level: "info" }];
+    const statusLines = [{ text: "Carregando dados/products.json e dados/benchmarks.json...", level: "info" }];
     HWRender.renderStatus(statusEl, statusLines);
 
     let productsData, benchmarks;
@@ -43,7 +43,7 @@
     } catch (err) {
       statusLines.push({ text: `Erro: ${err.message}`, level: "error" });
       statusLines.push({
-        text: 'Rode a coleta primeiro -- use o botao acima, ou "cd scraper && python scrape_comprasparaguai.py".',
+        text: 'Rode a coleta primeiro -- use o botao "Coletar dados agora" no topo desta pagina.',
         level: "warn",
       });
       HWRender.renderStatus(statusEl, statusLines);
@@ -55,6 +55,11 @@
       text: `${productsData.total_products} produtos carregados (coleta de ${HWFormat.fmtDate(productsData.scraped_at)}).`,
       level: "ok",
     });
+
+    metaEl.textContent = productsData.total_products
+      ? `${productsData.total_products} produtos · coleta de ${HWFormat.fmtDate(productsData.scraped_at)} · ` +
+        `fonte: ${productsData.source}`
+      : "nenhum dado coletado ainda -- use o botao \"Coletar dados agora\" acima";
 
     const { added, ignored } = HWOverrides.overrideCounts();
     if (added || ignored) {
@@ -110,10 +115,6 @@
     });
     HWRender.renderStatus(statusEl, statusLines);
     HWRender.renderBuilds(buildsEl, builds);
-
-    metaEl.textContent =
-      `${productsData.total_products} produtos · coleta de ${HWFormat.fmtDate(productsData.scraped_at)} · ` +
-      `fonte: ${productsData.source}`;
   }
 
   main().catch((err) => {

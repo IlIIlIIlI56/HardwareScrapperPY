@@ -1,13 +1,12 @@
 /**
  * Aba "Backup e exportacao".
  *
- * Todas as decisoes vivem no localStorage, o que e comodo (nao exige backend)
- * e fragil (limpar os dados do site apaga meses de curadoria). Esta tela e o
- * caminho de saida e de volta desses dados, com quatro saidas em vez da unica
- * que existia antes:
+ * Todas as decisoes vivem numa gaveta so (dados/decisoes.json dentro do app),
+ * separada dos arquivos coletados. Esta tela e o caminho de saida e de volta
+ * desses dados, com quatro saidas em vez da unica que existia antes:
  *
  *   backup .json        formato desta pagina, para restaurar/mesclar depois;
- *   benchmarks.json     data/benchmarks.json COMPLETO com as suas entradas ja
+ *   benchmarks.json     dados/benchmarks.json COMPLETO com as suas entradas ja
  *                       aplicadas -- o unico jeito de a curadoria sair do
  *                       navegador e virar parte do repositorio;
  *   catalogo .csv       a lista pontuada inteira, para conferir numeros numa
@@ -24,16 +23,25 @@
 (function () {
   const { el, elHtml, clear, icon, toast, openModal } = window.HWUi;
 
-  function triggerDownload(filename, content, type = "application/json") {
-    const blob = new Blob([content], { type });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+  /**
+   * Entrega um arquivo gerado aqui ao usuario e avisa ONDE ele foi parar.
+   *
+   * Dentro do aplicativo isso nao e um download: a janela e um WebView2 sem
+   * barra de downloads, entao um <a download> depositaria o arquivo em
+   * Downloads -- fora da pasta portatil, que e justamente o lugar de onde a
+   * curadoria nao deveria escapar. HWApp.saveFile grava em
+   * dados/exportacoes/ e devolve o nome final; o botao "Abrir pasta de
+   * exportacoes", ao lado, leva o usuario ate la. Fora do app, o download
+   * comum do navegador continua valendo (ver js/app-bridge.js).
+   */
+  async function saveExport(filename, content, type, title, message) {
+    const outcome = await HWApp.saveFile(filename, content, type);
+    if (outcome.mode === "app") {
+      toast(title, `${message} Salvo em dados/exportacoes/${outcome.name}.`, "ok", 9000);
+    } else {
+      toast(title, message, "ok");
+    }
+    return outcome;
   }
 
   const stamp = () => new Date().toISOString().slice(0, 10);
@@ -88,8 +96,13 @@
           .join(";")
       );
     }
-    triggerDownload(`hw-catalogo-${stamp()}.csv`, "﻿" + lines.join("\r\n"), "text/csv;charset=utf-8");
-    toast("CSV gerado", `${HWCat.state.products.length} produtos exportados.`, "ok");
+    saveExport(
+      `hw-catalogo-${stamp()}.csv`,
+      "﻿" + lines.join("\r\n"),
+      "text/csv;charset=utf-8",
+      "CSV gerado",
+      `${HWCat.state.products.length} produtos exportados.`
+    );
   }
 
   /* ------------------------------------------------------ importacao ----- */
@@ -218,7 +231,7 @@
       el(
         "p",
         "panel-hint",
-        "Suas decisoes e entradas de benchmark ficam so no localStorage deste navegador -- nao alteram data/products.json nem data/benchmarks.json. Limpar os dados do site apaga tudo, entao mantenha um backup."
+        "Suas decisoes e entradas de benchmark ficam em dados/decisoes.json -- nao alteram dados/products.json nem dados/benchmarks.json. Elas viajam junto quando voce copia a pasta do app; um backup aqui protege contra apagar a pasta por engano."
       )
     );
 
@@ -235,11 +248,16 @@
     const bar = el("div", "toolbar");
 
     const exportBtn = elHtml("button", "btn btn-primary", icon("download"));
-    exportBtn.appendChild(document.createTextNode("Baixar backup (.json)"));
+    exportBtn.appendChild(document.createTextNode("Gerar backup (.json)"));
     exportBtn.addEventListener("click", () => {
       const data = HWOverrides.exportAllData();
-      triggerDownload(`hw-database-backup-${stamp()}.json`, JSON.stringify(data, null, 2));
-      toast("Backup baixado", `${data.counts.products} decisoes e ${bench.total} itens de benchmark.`, "ok");
+      saveExport(
+        `hw-database-backup-${stamp()}.json`,
+        JSON.stringify(data, null, 2),
+        "application/json",
+        "Backup gerado",
+        `${data.counts.products} decisoes e ${bench.total} itens de benchmark.`
+      );
     });
     bar.appendChild(exportBtn);
 
@@ -275,7 +293,7 @@
       el(
         "p",
         "panel-hint",
-        "Gera um data/benchmarks.json completo com as suas entradas, edicoes e ajustes ja aplicados. Substitua o arquivo do projeto por ele para que a curadoria pare de depender deste navegador e valha para qualquer maquina."
+        "Gera um benchmarks.json completo com as suas entradas, edicoes e ajustes ja aplicados. Copie-o por cima de dados/benchmarks.json para a curadoria virar a base do app -- assim ela sobrevive a um \"apagar todas as decisoes\" e ja vale numa instalacao nova."
       )
     );
 
@@ -285,12 +303,12 @@
     mergeBtn.disabled = !HWCat.state.benchmarks;
     mergeBtn.addEventListener("click", () => {
       const merged = HWOverrides.buildMergedBenchmarksFile(HWCat.state.benchmarks);
-      triggerDownload("benchmarks.json", JSON.stringify(merged, null, 2));
-      toast(
+      saveExport(
+        "benchmarks.json",
+        JSON.stringify(merged, null, 2),
+        "application/json",
         "benchmarks.json gerado",
-        "Substitua data/benchmarks.json por este arquivo. Depois voce pode remover os overrides locais com seguranca.",
-        "ok",
-        9000
+        "Copie-o por cima de dados/benchmarks.json para a curadoria virar a base do app."
       );
     });
     bar2.appendChild(mergeBtn);
@@ -299,6 +317,15 @@
     csvBtn.appendChild(document.createTextNode("Exportar catalogo (.csv)"));
     csvBtn.addEventListener("click", exportCatalogCsv);
     bar2.appendChild(csvBtn);
+
+    // Num app portatil nao ha caixa de dialogo de download dizendo onde o
+    // arquivo caiu -- sem este botao o usuario ficaria procurando.
+    if (HWApp.isApp()) {
+      const folderBtn = elHtml("button", "btn btn-ghost", icon("folder"));
+      folderBtn.appendChild(document.createTextNode("Abrir pasta de exportacoes"));
+      folderBtn.addEventListener("click", () => HWApp.openFolder("exports"));
+      bar2.appendChild(folderBtn);
+    }
     container.appendChild(bar2);
 
     container.appendChild(el("hr", "divider"));
@@ -311,17 +338,17 @@
     resetBtn.addEventListener("click", () => {
       openModal({
         title: "Apagar todas as decisoes?",
-        subtitle: "Isso limpa as duas gavetas do localStorage desta pagina. Nao da para desfazer.",
+        subtitle: "Isso limpa as duas gavetas de decisoes do app. Nao da para desfazer.",
         render: (body) => {
           body.appendChild(
             el(
               "p",
               null,
               `Serao apagadas ${counts.added} revisoes, ${counts.ignored} itens ignorados e ${bench.total} itens de benchmark ` +
-                `(entradas, apelidos e ajustes). Os arquivos em data/ nao sao tocados.`
+                `(entradas, apelidos e ajustes). Os arquivos em dados/ nao sao tocados.`
             )
           );
-          body.appendChild(el("p", "decision-note", "Baixe um backup antes se houver qualquer duvida."));
+          body.appendChild(el("p", "decision-note", "Gere um backup antes se houver qualquer duvida."));
         },
         actions: [
           { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },

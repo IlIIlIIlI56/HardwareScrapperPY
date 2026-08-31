@@ -6,6 +6,9 @@
   <meta name="color-scheme" content="light dark" />
   <title>Base de Dados — Builds de Custo-Beneficio</title>
   <link rel="stylesheet" href="css/style.css" />
+  <!-- ver o comentario sobre a ordem destes tres em index.html -->
+  <script src="/app-bootstrap.js"></script>
+  <script src="js/app-bridge.js"></script>
   <script src="js/theme.js"></script>
 </head>
 <body>
@@ -94,7 +97,16 @@
   </main>
 
   <footer class="site-footer">
-    <p>Decisoes de revisao ficam salvas no localStorage deste navegador — nao alteram <code>data/products.json</code> nem <code>data/benchmarks.json</code>. Limpar os dados do site reseta as decisoes.</p>
+    <p>
+      Decisoes de revisao ficam em <code>dados/decisoes.json</code> — nao alteram
+      <code>dados/products.json</code> nem <code>dados/benchmarks.json</code>. Elas acompanham a pasta
+      do app quando voce a copia; a aba <strong>Backup e exportacao</strong> e o caminho para tira-las
+      de la.
+    </p>
+    <p class="footer-actions">
+      <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de dados</button>
+      <span id="app-version" class="footer-version"></span>
+    </p>
   </footer>
 
   <script src="js/format.js"></script>
@@ -107,5 +119,6 @@
   <script src="js/benchdb.js"></script>
   <script src="js/backup.js"></script>
   <script src="js/catalog.js"></script>
+  <script src="js/app-chrome.js"></script>
 </body>
 </html>

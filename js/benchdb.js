@@ -1,5 +1,5 @@
 /**
- * Aba "Base de performance": navegador e editor de data/benchmarks.json.
+ * Aba "Base de performance": navegador e editor de dados/benchmarks.json.
  *
  * Antes, a base curada era invisivel pela interface -- so dava para ver o que o
  * usuario tinha cadastrado por cima dela. Isso deixava tres coisas impossiveis
@@ -34,9 +34,9 @@
 
   /**
    * Junta base curada + overrides numa lista unica, marcando a origem:
-   *   base    veio so de data/benchmarks.json;
+   *   base    veio so de dados/benchmarks.json;
    *   editada existe nos dois -- o usuario corrigiu um valor da base;
-   *   manual  so existe no localStorage (peca que faltava na base).
+   *   manual  so existe nas suas decisoes (peca que faltava na base).
    */
   function mergedRows(section) {
     const base = HWCat.state.benchmarks[section] || {};
@@ -90,7 +90,7 @@
         // voltou ao valor da base: descarta o override em vez de gravar uma
         // "edicao" identica ao arquivo, que so poluiria o backup.
         HWOverrides.clearBenchmarkOverride(section, row.key);
-        toast("Override removido", `"${row.key}" voltou ao valor de data/benchmarks.json.`, "ok");
+        toast("Override removido", `"${row.key}" voltou ao valor de dados/benchmarks.json.`, "ok");
         HWCat.refresh("benchmarks");
         return;
       }
@@ -364,7 +364,7 @@
     reset.disabled = counts.tuning === 0;
     reset.addEventListener("click", () => {
       HWOverrides.clearTuning();
-      toast("Ajustes restaurados", "Os parametros voltaram aos valores de data/benchmarks.json.", "ok");
+      toast("Ajustes restaurados", "Os parametros voltaram aos valores de dados/benchmarks.json.", "ok");
       HWCat.refresh("benchmarks");
     });
     footer.appendChild(reset);
@@ -390,7 +390,7 @@
       el(
         "p",
         "panel-hint",
-        "A base curada de data/benchmarks.json mais as suas alteracoes. Editar um score aqui grava um override no navegador -- o arquivo do repositorio nunca e alterado."
+        "A base curada de dados/benchmarks.json mais as suas alteracoes. Editar um score aqui grava um override nas suas decisoes -- o arquivo em si nunca e alterado. Use \"Exportar benchmarks.json mesclado\", na aba de backup, para tornar as alteracoes permanentes."
       )
     );
     head.appendChild(headText);

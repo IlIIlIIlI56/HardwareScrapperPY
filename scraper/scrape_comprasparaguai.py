@@ -4,15 +4,18 @@ Scraper da categoria Informatica (componentes de PC) da comprasparaguai.com.br.
 Percorre as paginas de listagem de cada categoria de componente, extrai
 nome, preco (USD/BRL), numero de ofertas, imagem e link de cada produto,
 enriquece cada item com specs extraidas via regex (spec_extractor.py) e
-salva tudo em ../data/products.json.
+salva tudo em dados/products.json (a pasta de dados do aplicativo).
 
-Uso:
-    python scrape_comprasparaguai.py
-    python scrape_comprasparaguai.py --categories cpu gpu --max-pages 5
-    python scrape_comprasparaguai.py --delay 1.0 --output ../data/products.json
+Normalmente quem chama isto e o proprio app, pelo botao "Coletar dados agora".
+A linha de comando continua existindo para depuracao -- rodar so uma categoria,
+aumentar o delay, escrever num arquivo de teste:
 
-O arquivo gerado e consumido inteiramente pelo front-end (js/app.js) via
-fetch local -- nenhum scraping acontece no navegador.
+    python scraper/scrape_comprasparaguai.py
+    python scraper/scrape_comprasparaguai.py --categories cpu gpu --max-pages 5
+    python scraper/scrape_comprasparaguai.py --delay 1.0 --output teste.json
+
+O arquivo gerado e consumido inteiramente pelo front-end (js/app.js) via fetch
+no servidor local do app -- nenhum scraping acontece na janela.
 """
 
 import argparse
@@ -29,6 +32,14 @@ import requests
 from bs4 import BeautifulSoup
 
 from spec_extractor import extract_specs, normalize
+
+# Rodado como script solto (`python scraper/scrape_comprasparaguai.py`) o pacote
+# do app nao esta no sys.path -- sem isto o CLI gravaria num lugar diferente do
+# que a janela le, e a coleta "sumiria".
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from appcore import paths  # noqa: E402
 
 BASE_URL = "https://www.comprasparaguai.com.br"
 
@@ -148,7 +159,11 @@ def parse_products_from_html(html, category, base_url=BASE_URL):
     return products
 
 
-def scrape_category(session, category, max_pages, delay):
+class ScrapeCancelled(Exception):
+    """Levantada quando `should_stop()` pede parada no meio da coleta."""
+
+
+def scrape_category(session, category, max_pages, delay, should_stop=None):
     slug = CATEGORY_SLUGS[category]
     print(f"\n== {CATEGORY_LABELS_PT[category]}  (/{slug}/) ==")
 
@@ -158,6 +173,9 @@ def scrape_category(session, category, max_pages, delay):
     effective_cap = min(max_pages, HARD_PAGE_CAP) if max_pages else HARD_PAGE_CAP
 
     while page <= effective_cap:
+        if should_stop and should_stop():
+            print(f"  [cancelado] parando em {CATEGORY_LABELS_PT[category]}, pagina {page}.")
+            raise ScrapeCancelled(category)
         url = f"{BASE_URL}/{slug}/" if page == 1 else f"{BASE_URL}/{slug}/?page={page}"
         html = fetch_page(session, url)
         if html is None:
@@ -189,14 +207,19 @@ def scrape_category(session, category, max_pages, delay):
     return all_products
 
 
-DEFAULT_OUTPUT = str(Path(__file__).resolve().parent.parent / "data" / "products.json")
+DEFAULT_OUTPUT = str(paths.products_path())
 
 
-def run_scrape(categories=None, max_pages=None, delay=0.6, output_path=None):
+def run_scrape(categories=None, max_pages=None, delay=0.6, output_path=None, should_stop=None):
     """
-    Nucleo do scraper, reutilizavel tanto pelo CLI (main(), abaixo) quanto
-    pelo trigger_server.py (que expoe um botao "Coletar dados agora" na
-    pagina). Devolve o dict que tambem e salvo em products.json.
+    Nucleo do scraper, reutilizavel tanto pelo CLI (main(), abaixo) quanto pelo
+    app (appcore/scrape_job.py, por tras do botao "Coletar dados agora").
+    Devolve o dict que tambem e salvo em products.json.
+
+    `should_stop` e um callable sem argumentos consultado entre paginas: quando
+    devolve True a coleta e abortada com ScrapeCancelled e NADA e gravado -- um
+    products.json com metade das categorias seria pior que o arquivo anterior,
+    porque uma build precisa das seis.
     """
     categories = categories or list(CATEGORY_SLUGS.keys())
     max_pages = max_pages or HARD_PAGE_CAP
@@ -207,7 +230,7 @@ def run_scrape(categories=None, max_pages=None, delay=0.6, output_path=None):
     all_products = []
     counts_by_category = {}
     for category in categories:
-        products = scrape_category(session, category, max_pages, delay)
+        products = scrape_category(session, category, max_pages, delay, should_stop=should_stop)
         all_products.extend(products)
         counts_by_category[category] = len(products)
 

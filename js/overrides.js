@@ -1,9 +1,14 @@
 /**
- * Camada de persistencia das decisoes do usuario. Como a pagina e 100%
- * estatica (sem backend), tudo vive no localStorage do navegador -- persiste
- * entre visitas na mesma maquina, mas nunca altera data/products.json nem
- * data/benchmarks.json. Usada por app.js (aplica as decisoes antes de pontuar)
- * e pelas telas da pagina Base de Dados (leem/gravam).
+ * Camada de persistencia das decisoes do usuario. Nunca altera
+ * dados/products.json nem dados/benchmarks.json: as decisoes ficam numa gaveta
+ * a parte e sao aplicadas por cima, a cada carregamento. Usada por app.js
+ * (aplica as decisoes antes de pontuar) e pelas telas da pagina Base de Dados
+ * (leem e gravam).
+ *
+ * ONDE elas ficam e responsabilidade de HWStore (js/app-bridge.js): dentro do
+ * aplicativo, no arquivo dados/decisoes.json; numa pagina aberta fora dele, no
+ * localStorage, como sempre foi. Este arquivo nao precisa saber a diferenca --
+ * os dois lados oferecem a mesma API sincrona.
  *
  * Duas gavetas separadas, por motivos diferentes:
  *
@@ -25,45 +30,28 @@ const BENCHMARK_OVERRIDES_KEY = "hw-benchmark-overrides-v1";
 const EXPORT_SCHEMA_VERSION = 2;
 
 /* ==========================================================================
-   armazenamento cru (com o unico erro de localStorage que importa: cota)
+   armazenamento cru -- delegado a HWStore (js/app-bridge.js)
    ========================================================================== */
 
 function readJson(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return fallback;
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === "object" ? parsed : fallback;
-  } catch {
-    return fallback;
-  }
+  return HWStore.get(key, fallback);
 }
 
 /**
- * O localStorage tem cota (~5MB) e lanca QuotaExceededError quando estoura --
- * silenciar isso seria o pior caso possivel aqui: o usuario veria a tela
- * atualizar como se a decisao tivesse sido salva e a perderia no F5. Entao
- * traduzimos para um Error com mensagem acionavel e deixamos subir.
+ * Uma escrita que falha e deixada subir de proposito. Silencia-la seria o pior
+ * caso possivel: o usuario veria a tela atualizar como se a decisao tivesse
+ * sido salva, e a perderia no F5. HWStore ja traduz a falha (disco, cota do
+ * localStorage) numa mensagem acionavel.
  */
 function writeJson(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (err) {
-    const isQuota =
-      err && (err.name === "QuotaExceededError" || err.name === "NS_ERROR_DOM_QUOTA_REACHED" || err.code === 22);
-    throw new Error(
-      isQuota
-        ? "Armazenamento do navegador cheio -- baixe um backup e remova decisoes antigas antes de continuar."
-        : `Nao foi possivel salvar no navegador: ${err && err.message ? err.message : err}`
-    );
-  }
+  HWStore.set(key, value);
 }
 
-/** Tamanho aproximado (em bytes UTF-16) das duas gavetas -- mostrado na UI de backup. */
+/** Tamanho aproximado das duas gavetas -- mostrado na UI de backup. */
 function storageInfo() {
-  const a = localStorage.getItem(OVERRIDES_KEY) || "";
-  const b = localStorage.getItem(BENCHMARK_OVERRIDES_KEY) || "";
-  return { productBytes: a.length * 2, benchmarkBytes: b.length * 2, totalBytes: (a.length + b.length) * 2 };
+  const productBytes = HWStore.sizeOf(OVERRIDES_KEY);
+  const benchmarkBytes = HWStore.sizeOf(BENCHMARK_OVERRIDES_KEY);
+  return { productBytes, benchmarkBytes, totalBytes: productBytes + benchmarkBytes };
 }
 
 /* ==========================================================================
@@ -373,7 +361,7 @@ function clearBenchmarkAlias(section, fromKey) {
  * Ajustes dos parametros globais do modelo de pontuacao (latencia de
  * referencia da RAM, multiplicadores de eficiencia de fonte e de interface de
  * armazenamento, velocidade maxima de RAM por soquete). Antes so davam para
- * mudar editando data/benchmarks.json na mao -- o que some num `git pull` e
+ * mudar editando dados/benchmarks.json na mao -- o que some num `git pull` e
  * nao da para experimentar rapido. `group` e o nome do bloco em
  * benchmarks.json; passar null como valor volta ao padrao do arquivo.
  */
@@ -436,11 +424,11 @@ function applyBenchmarkOverrides(benchmarks) {
 }
 
 /**
- * Monta o conteudo de um data/benchmarks.json COMPLETO ja com as entradas e
+ * Monta o conteudo de um dados/benchmarks.json COMPLETO ja com as entradas e
  * ajustes do usuario aplicados, pronto para substituir o arquivo do repositorio.
  *
  * Isto fecha o unico caminho que faltava na curadoria: sem ele, o trabalho de
- * cadastrar dezenas de modelos ficava preso no localStorage de um navegador --
+ * cadastrar dezenas de modelos ficava preso na gaveta de decisoes --
  * sobrevivia a um F5, mas nao a uma troca de maquina nem virava parte do
  * projeto para as proximas pessoas. Apelidos viram entradas de verdade (copia
  * do alvo), ja que o arquivo nao tem um conceito de apelido.
@@ -476,7 +464,7 @@ function exportAllData() {
   return {
     schema_version: EXPORT_SCHEMA_VERSION,
     app: "HardwareScrapperPY",
-    source: "Base de Dados (localStorage)",
+    source: `Base de Dados (${HWStore.describe()})`,
     exported_at: new Date().toISOString(),
     counts: { products: Object.keys(products).length, ...benchmarkCounts() },
     product_overrides: products,
@@ -660,8 +648,8 @@ function applyImport(data, mode = "incoming") {
 
 /** Apaga as duas gavetas -- so chamado atras de uma confirmacao explicita na UI. */
 function resetAll() {
-  localStorage.removeItem(OVERRIDES_KEY);
-  localStorage.removeItem(BENCHMARK_OVERRIDES_KEY);
+  HWStore.remove(OVERRIDES_KEY);
+  HWStore.remove(BENCHMARK_OVERRIDES_KEY);
   overridesCache = null;
   benchmarkCache = null;
 }

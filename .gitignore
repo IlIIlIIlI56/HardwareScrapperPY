@@ -1,5 +1,17 @@
 __pycache__/
 *.py[cod]
 
+# Pasta de dados do usuario: produtos coletados, benchmarks curados,
+# exportacoes e o perfil da janela. E criada ao lado do executavel na primeira
+# abertura e semeada a partir de data/ -- e o conteudo dela e de quem usa o
+# app, nao do repositorio.
+dados/
+
 # backup automatico do reextract_specs.py
 data/products.json.bak
+dados/products.json.bak
+
+# artefatos do empacotamento (build.ps1 refaz os tres do zero)
+build/
+dist/
+.venv-build/

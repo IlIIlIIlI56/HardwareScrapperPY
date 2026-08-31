@@ -1328,6 +1328,25 @@ a.top-chip:hover {
   border-top: 1px solid var(--border-soft);
 }
 
+/*
+ * Rodape do aplicativo: acesso a pasta de dados e a versao. So aparece dentro
+ * do app (js/app-chrome.js tira o `hidden`) -- num navegador comum nao ha
+ * pasta nenhuma para abrir.
+ */
+.footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.footer-version {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+  opacity: 0.75;
+}
+
 /* ========================================================== catalogo ==== */
 
 .catalog-summary {
