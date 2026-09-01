@@ -30,8 +30,7 @@ import webbrowser
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from appcore import paths, server as server_module
-from appcore.scrape_job import ScrapeJob
+from appcore import bootstrap, paths
 
 APP_VERSION = "1.0.0"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
@@ -57,22 +56,6 @@ def _tab_title_for_url(url):
 def _sync_window_title(window):
     tab = _tab_title_for_url(window.get_current_url())
     window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
-
-
-def load_scraper():
-    """
-    Importa scraper/scrape_comprasparaguai.py. Os arquivos de scraper/ se
-    importam entre si por nome solto (`from spec_extractor import ...`), entao
-    a pasta precisa estar no sys.path -- transforma-los num pacote quebraria a
-    execucao deles pela linha de comando, que continua sendo o caminho de
-    depuracao.
-    """
-    scraper_dir = str(paths.scraper_dir())
-    if scraper_dir not in sys.path:
-        sys.path.insert(0, scraper_dir)
-    import scrape_comprasparaguai
-
-    return scrape_comprasparaguai
 
 
 def open_window(url, debug=False):
@@ -132,14 +115,9 @@ def main():
                         help="habilita o DevTools na janela")
     args = parser.parse_args()
 
-    seeded = paths.ensure_user_data()
+    app_server, url, seeded = bootstrap.start_backend(APP_VERSION)
     if seeded:
         print(f"Primeira execucao: {', '.join(seeded)} copiados para {paths.data_dir()}")
-
-    scraper = load_scraper()
-    job = ScrapeJob(scraper, paths.products_path())
-    app_server = server_module.AppServer(job, version=APP_VERSION)
-    url = app_server.start()
 
     print(f"{WINDOW_TITLE} v{APP_VERSION}")
     print(f"  interface: {url}")

@@ -258,5 +258,6 @@
     version: config ? config.version : null,
     dataDir: config ? config.dataDir : null,
     exportsDir: config ? config.exportsDir : null,
+    canOpenFolder: Boolean(config && config.canOpenFolder),
   };
 })();

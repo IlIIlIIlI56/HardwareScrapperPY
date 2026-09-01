@@ -31,6 +31,27 @@ DATA_DIR_NAME = "dados"
 EXPORTS_DIR_NAME = "exportacoes"
 WEBVIEW_PROFILE_DIR_NAME = "perfil-janela"
 
+# Override explicito para plataformas onde nem "executavel do PyInstaller" nem
+# "__file__ do modo script" apontam para pastas utilizaveis -- caso do
+# Android/Chaquopy, onde os recursos somente-leitura vivem numa arvore que
+# pode ser recriada a cada atualizacao do app, e os dados do usuario por isso
+# precisam de um caminho estavel escolhido por quem embarca o app (ver
+# appcore/android_entry.py). Nunca chamado no build Windows, entao o
+# comportamento abaixo fica inalterado la.
+_data_dir_override = None
+_resource_dir_override = None
+
+
+def configure(data_dir=None, resource_dir=None):
+    """Deixa o host do app (ex.: o lado Android/Kotlin) fixar explicitamente
+    onde ficam os recursos somente-leitura e os dados do usuario, em vez de
+    depender da deteccao por `sys.frozen`/`__file__` abaixo."""
+    global _data_dir_override, _resource_dir_override
+    if data_dir is not None:
+        _data_dir_override = Path(data_dir)
+    if resource_dir is not None:
+        _resource_dir_override = Path(resource_dir)
+
 
 def is_frozen():
     """True quando rodando a partir do executavel gerado pelo PyInstaller."""
@@ -39,6 +60,8 @@ def is_frozen():
 
 def resource_dir():
     """Raiz dos arquivos somente-leitura que acompanham o app."""
+    if _resource_dir_override is not None:
+        return _resource_dir_override
     if is_frozen():
         # _MEIPASS existe nos dois modos do PyInstaller: em --onedir aponta
         # para _internal/, em --onefile para a pasta temporaria extraida.
@@ -58,6 +81,8 @@ def app_dir():
 
 
 def data_dir():
+    if _data_dir_override is not None:
+        return _data_dir_override
     return app_dir() / DATA_DIR_NAME
 
 
@@ -111,12 +136,24 @@ def ensure_user_data():
     return seeded
 
 
+def can_reveal():
+    """Se este SO tem como abrir uma pasta num gerenciador de arquivos (so o
+    Windows, por enquanto -- ver reveal())."""
+    return sys.platform == "win32"
+
+
 def reveal(path):
     """
     Abre um caminho no Explorer. Usado pelos botoes "abrir pasta" -- sem eles o
     usuario de um app portatil nao tem como saber onde as exportacoes foram
     parar, ja que nao houve uma caixa de dialogo de download.
+
+    Fora do Windows nao ha um Explorer para abrir (no Android, por exemplo,
+    esse botao fica oculto na interface -- ver appcore/server.py:bootstrap_js
+    e js/app-chrome.js), entao so tenta a chamada quando can_reveal() e True.
     """
+    if not can_reveal():
+        return False
     path = Path(path)
     if not path.exists():
         return False

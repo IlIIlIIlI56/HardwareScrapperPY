@@ -160,6 +160,7 @@ class AppServer:
             "appDir": str(paths.app_dir()),
             "dataDir": str(self.data_root),
             "exportsDir": str(self.exports_root),
+            "canOpenFolder": paths.can_reveal(),
         }
         return (
             "/* gerado por appcore/server.py a cada execucao -- nao editar */\n"

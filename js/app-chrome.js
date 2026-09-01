@@ -19,7 +19,7 @@
   if (versionEl) versionEl.textContent = `v${HWApp.version}`;
 
   const folderBtn = document.getElementById("open-data-folder");
-  if (folderBtn) {
+  if (folderBtn && HWApp.canOpenFolder) {
     folderBtn.hidden = false;
     folderBtn.title = HWApp.dataDir;
     folderBtn.addEventListener("click", () => HWApp.openFolder("data"));

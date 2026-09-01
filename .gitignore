@@ -15,3 +15,11 @@ dados/products.json.bak
 build/
 dist/
 .venv-build/
+
+# artefatos do projeto Android (Android Studio/Gradle refazem do zero)
+android/build/
+android/app/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/.cxx/

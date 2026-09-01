@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sem barra de acao: a interface (index.html/catalogo.html/build.html)
+         ja tem seu proprio cabecalho, igual na janela do Windows. -->
+    <style name="Theme.HardwareScrapper" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>
