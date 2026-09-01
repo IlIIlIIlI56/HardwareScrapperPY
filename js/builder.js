@@ -167,7 +167,7 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
   }
 
   if (!items.cpu || !items.motherboard) {
-    notes.push("Nao foi possivel encontrar CPU + Placa-Mae compativeis no catalogo raspado.");
+    notes.push("Não foi possível encontrar CPU + Placa-Mãe compatíveis no catálogo raspado.");
   }
 
   // 2) RAM -- precisa bater com o tipo de memoria da placa-mae escolhida, e
@@ -188,7 +188,7 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
     // bem mais rapida do que a plataforma escolhida depois dela aproveita.
     if (recommendedRamMhz && anchorItem.specs.speed_mhz > recommendedRamMhz * 1.15) {
       notes.push(
-        `RAM roda a ${anchorItem.specs.speed_mhz}MHz, acima do que essa plataforma costuma aproveitar (~${recommendedRamMhz}MHz) -- a velocidade extra pode ficar sem uso.`
+        `RAM roda a ${anchorItem.specs.speed_mhz}MHz, acima do que essa plataforma costuma aproveitar (~${recommendedRamMhz}MHz) — a velocidade extra pode ficar sem uso.`
       );
     }
   } else if (!ramType) {
@@ -203,22 +203,22 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
     );
     items.ram = item;
     if (wasFallback) {
-      notes.push(`Nenhuma RAM ${ramType} identificada com confianca no catalogo -- verifique compatibilidade antes de comprar.`);
+      notes.push(`Nenhuma RAM ${ramType} identificada com confiança no catálogo — verifique compatibilidade antes de comprar.`);
     }
   }
-  if (!items.ram) notes.push("Nenhuma memoria RAM compativel encontrada.");
+  if (!items.ram) notes.push("Nenhuma memória RAM compatível encontrada.");
 
   // 3) GPU -- sem restricao de compatibilidade dura, so faixa de preco/tier
   if (anchorCategory !== "gpu") {
     items.gpu = pickCompatible(byCategory.gpu, tierTarget, () => true);
   }
-  if (!items.gpu) notes.push("Nenhuma GPU disponivel na categoria.");
+  if (!items.gpu) notes.push("Nenhuma GPU disponível na categoria.");
 
   // 4) Armazenamento -- sem restricao dura
   if (anchorCategory !== "storage") {
     items.storage = pickCompatible(byCategory.storage, tierTarget, () => true);
   }
-  if (!items.storage) notes.push("Nenhum SSD/HD disponivel na categoria.");
+  if (!items.storage) notes.push("Nenhum SSD/HD disponível na categoria.");
 
   // 5) Fonte -- precisa suportar a wattagem estimada de CPU+GPU com folga
   const minWattage = recommendedWattage(items.cpu, items.gpu);
@@ -234,10 +234,10 @@ function assembleBuild(anchorCategory, anchorItem, byCategory, benchmarks) {
   // para alimentar -- e pode nao dar conta da dupla escolhida depois.
   if (items.psu && items.psu.specs.wattage && items.psu.specs.wattage < minWattage) {
     notes.push(
-      `Fonte de ${items.psu.specs.wattage}W abaixo do recomendado para esta combinacao (>= ${minWattage}W).`
+      `Fonte de ${items.psu.specs.wattage}W abaixo do recomendado para esta combinação (>= ${minWattage}W).`
     );
   }
-  if (!items.psu) notes.push("Nenhuma fonte compativel encontrada.");
+  if (!items.psu) notes.push("Nenhuma fonte compatível encontrada.");
 
   const complete = CATEGORY_ORDER.every((cat) => !!items[cat]);
   if (!complete) return { anchorCategory, complete: false, notes };

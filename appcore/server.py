@@ -225,7 +225,7 @@ class AppServer:
         num estado inconsistente pela metade.
         """
         if self.job.snapshot()["running"]:
-            raise ValueError("nao e possivel resetar com uma coleta em andamento -- cancele-a primeiro")
+            raise ValueError("não é possível resetar com uma coleta em andamento — cancele-a primeiro")
 
         removed = []
         for name in ("products.json", "benchmarks.json"):

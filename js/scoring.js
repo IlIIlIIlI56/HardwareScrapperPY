@@ -34,12 +34,12 @@ const REASON = {
 };
 
 const REASON_TEXT = {
-  [REASON.NO_PRICE]: "Anuncio sem preco valido em USD.",
-  [REASON.MISSING_FIELDS]: "Faltam especificacoes que o nome do produto nao permitiu extrair.",
-  [REASON.NO_BENCHMARK]: "O modelo foi identificado, mas nao existe na base de performance.",
-  [REASON.UNKNOWN_CHIPSET]: "Chipset nao reconhecido e sem soquete identificado.",
-  [REASON.SODIMM]: "Memoria SO-DIMM (notebook) -- nao encaixa numa placa-mae desktop.",
-  [REASON.PRICE_OUTLIER]: "Indice desempenho/preco muito fora do padrao da categoria (provavel erro de preco na fonte).",
+  [REASON.NO_PRICE]: "Anúncio sem preço válido em USD.",
+  [REASON.MISSING_FIELDS]: "Faltam especificações que o nome do produto não permitiu extrair.",
+  [REASON.NO_BENCHMARK]: "O modelo foi identificado, mas não existe na base de performance.",
+  [REASON.UNKNOWN_CHIPSET]: "Chipset não reconhecido e sem soquete identificado.",
+  [REASON.SODIMM]: "Memória SO-DIMM (notebook) — não encaixa numa placa-mãe desktop.",
+  [REASON.PRICE_OUTLIER]: "Índice desempenho/preço muito fora do padrão da categoria (provável erro de preço na fonte).",
 };
 
 /** Campos que cada categoria precisa ter para o scorer conseguir rodar. */
@@ -265,7 +265,7 @@ function diagnoseUnscored(category, product, benchmarks) {
   if (category === "cpu" || category === "gpu") {
     return {
       code: REASON.NO_BENCHMARK,
-      message: `Modelo "${specs.model_key}" nao encontrado na base de performance.`,
+      message: `Modelo "${specs.model_key}" não encontrado na base de performance.`,
       missing: [],
       modelKey: specs.model_key,
     };
@@ -274,8 +274,8 @@ function diagnoseUnscored(category, product, benchmarks) {
     return {
       code: REASON.UNKNOWN_CHIPSET,
       message: specs.chipset
-        ? `Chipset "${specs.chipset}" nao esta na base e o anuncio nao traz soquete reconhecivel.`
-        : "Nem chipset nem soquete foram reconhecidos no nome do anuncio.",
+        ? `Chipset "${specs.chipset}" não está na base e o anúncio não traz soquete reconhecível.`
+        : "Nem chipset nem soquete foram reconhecidos no nome do anúncio.",
       missing: specs.chipset ? [] : ["Soquete ou chipset"],
     };
   }

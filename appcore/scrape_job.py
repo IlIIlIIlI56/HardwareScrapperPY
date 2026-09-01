@@ -132,7 +132,7 @@ class ScrapeJob:
                 return False
             self._state["cancelling"] = True
         self._cancel.set()
-        self._log("[cancelando] aguardando a pagina atual terminar...")
+        self._log("[cancelando] aguardando a página atual terminar...")
         return True
 
     # -------------------------------------------------------------- worker --
@@ -147,7 +147,7 @@ class ScrapeJob:
             # ele so anuncia a intencao. run_scrape sobrescreve products.json
             # inteiro no final, entao apagar antes so criaria uma janela em que
             # uma falha de rede custaria os dados antigos tambem.
-            self._log("[reiniciar] coletando tudo de novo do zero; os dados atuais so serao substituidos no fim.")
+            self._log("[reiniciar] coletando tudo de novo do zero; os dados atuais só serão substituídos no fim.")
 
         try:
             with contextlib.redirect_stdout(_LiveLogStream(self._log, sys.stdout)):
@@ -163,7 +163,7 @@ class ScrapeJob:
             }
         except self._scraper.ScrapeCancelled:
             cancelled = True
-            self._log("[cancelado] nada foi gravado -- os dados anteriores continuam intactos.")
+            self._log("[cancelado] nada foi gravado — os dados anteriores continuam intactos.")
         except Exception as exc:  # rede, parsing, disco: tudo vira mensagem na UI
             error = f"{type(exc).__name__}: {exc}"
             self._log(f"[erro] {error}")

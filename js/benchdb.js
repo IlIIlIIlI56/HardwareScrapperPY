@@ -23,7 +23,7 @@
 
   const SECTIONS = [
     { key: "cpu", label: "Processadores" },
-    { key: "gpu", label: "Placas de video" },
+    { key: "gpu", label: "Placas de vídeo" },
     { key: "chipsets", label: "Chipsets" },
     { key: "aliases", label: "Apelidos" },
   ];
@@ -138,12 +138,12 @@
     // `align` acompanha as colunas numericas do corpo da tabela, montado abaixo
     const headers =
       section === "chipsets"
-        ? [["Chipset"], ["Soquete"], ["Memoria"], ["Tier", "col-num"], ["RAM max (MHz)", "col-num"], ["Origem"], ["", "col-actions"]]
+        ? [["Chipset"], ["Soquete"], ["Memória"], ["Tier", "col-num"], ["RAM max (MHz)", "col-num"], ["Origem"], ["", "col-actions"]]
         : [
             ["Modelo"],
             ["Marca"],
             [section === "cpu" ? "Soquete" : "TDP (W)"],
-            [section === "cpu" ? "Nucleos" : "VRAM", "col-num"],
+            [section === "cpu" ? "Núcleos" : "VRAM", "col-num"],
             ["Score", "col-num"],
             ["Origem"],
             ["", "col-actions"],
@@ -192,7 +192,7 @@
         reset.addEventListener("click", () => {
           HWOverrides.clearBenchmarkOverride(section, row.key);
           toast(
-            row.origin === "edited" ? "Edicao revertida" : "Entrada removida",
+            row.origin === "edited" ? "Edição revertida" : "Entrada removida",
             row.origin === "edited" ? `"${row.key}" voltou ao valor do arquivo.` : `"${row.key}" saiu da base local.`,
             "ok"
           );
@@ -208,7 +208,7 @@
     container.appendChild(wrap);
 
     if (rows.length > MAX) {
-      container.appendChild(el("p", "decision-note", `Mostrando ${MAX} de ${rows.length} entradas -- refine a busca.`));
+      container.appendChild(el("p", "decision-note", `Mostrando ${MAX} de ${rows.length} entradas — refine a busca.`));
     }
     return rows.length;
   }
@@ -228,7 +228,7 @@
         el(
           "div",
           null,
-          "Apelidos aparecem aqui quando voce aponta um modelo do anuncio para uma entrada que ja existe na base, na revisao de um item pendente."
+          "Apelidos aparecem aqui quando você aponta um modelo do anúncio para uma entrada que já existe na base, na revisão de um item pendente."
         )
       );
       container.appendChild(empty);
@@ -239,7 +239,7 @@
     const table = el("table", "bench-table");
     const thead = el("thead");
     const hr = el("tr");
-    ["Secao", "Do anuncio", "Aponta para", "Criado em", ""].forEach((h, i) => {
+    ["Seção", "Do anúncio", "Aponta para", "Criado em", ""].forEach((h, i) => {
       const th = el("th", i === 4 ? "col-actions" : null, h);
       hr.appendChild(th);
     });
@@ -257,7 +257,7 @@
       const rm = el("button", "btn btn-sm btn-danger-ghost", "Remover");
       rm.addEventListener("click", () => {
         HWOverrides.clearBenchmarkAlias(section, from);
-        toast("Apelido removido", `"${from}" volta a nao ter correspondencia.`, "ok");
+        toast("Apelido removido", `"${from}" volta a não ter correspondência.`, "ok");
         HWCat.refresh("benchmarks");
       });
       actions.appendChild(rm);
@@ -274,32 +274,32 @@
   const TUNING_GROUPS = [
     {
       group: "ram_scoring",
-      title: "Latencia de RAM",
+      title: "Latência de RAM",
       note:
-        "O CL do anuncio vira latencia real (ns = CL x 2000 / MT/s) e e comparado com a referencia. Os limites min/max evitam que um CL lido errado do nome distorca o score.",
+        "O CL do anúncio vira latência real (ns = CL x 2000 / MT/s) e é comparado com a referência. Os limites min/max evitam que um CL lido errado do nome distorça o score.",
       keys: [
-        ["reference_latency_ns", "Latencia de referencia (ns)"],
-        ["min_latency_multiplier", "Multiplicador minimo"],
-        ["max_latency_multiplier", "Multiplicador maximo"],
+        ["reference_latency_ns", "Latência de referência (ns)"],
+        ["min_latency_multiplier", "Multiplicador mínimo"],
+        ["max_latency_multiplier", "Multiplicador máximo"],
       ],
     },
     {
       group: "psu_efficiency_multiplier",
-      title: "Eficiencia de fonte",
+      title: "Eficiência de fonte",
       note: "Multiplica a wattagem no score da fonte, por selo 80 PLUS.",
       keys: null, // derivado das chaves do arquivo
     },
     {
       group: "storage_interface_multiplier",
       title: "Interface de armazenamento",
-      note: "Multiplica a capacidade no score do armazenamento -- e o que faz um NVMe valer mais que um HDD do mesmo tamanho.",
+      note: "Multiplica a capacidade no score do armazenamento — é o que faz um NVMe valer mais que um HDD do mesmo tamanho.",
       keys: null,
     },
     {
       group: "socket_max_ram_mhz",
-      title: "RAM maxima por soquete",
+      title: "RAM máxima por soquete",
       note:
-        "Usado quando o chipset da placa-mae nao esta na base. O montador reduz o score de um kit mais rapido do que a plataforma aproveita.",
+        "Usado quando o chipset da placa-mãe não está na base. O montador reduz o score de um kit mais rápido do que a plataforma aproveita.",
       keys: null,
     },
   ];
@@ -333,7 +333,7 @@
         input.value = overridden ?? baseGroup[key] ?? "";
         input.placeholder = String(baseGroup[key] ?? "");
         if (overridden !== undefined) input.classList.add("changed");
-        input.title = `Padrao do arquivo: ${baseGroup[key] ?? "--"}`;
+        input.title = `Padrão do arquivo: ${baseGroup[key] ?? "--"}`;
 
         input.addEventListener("change", () => {
           const raw = input.value.trim();
@@ -360,16 +360,16 @@
     const counts = HWOverrides.benchmarkCounts();
     const footer = el("div", "toolbar");
     footer.style.marginTop = "14px";
-    const reset = el("button", "btn btn-danger-ghost btn-sm", "Restaurar todos os padroes");
+    const reset = el("button", "btn btn-danger-ghost btn-sm", "Restaurar todos os padrões");
     reset.disabled = counts.tuning === 0;
     reset.addEventListener("click", () => {
       HWOverrides.clearTuning();
-      toast("Ajustes restaurados", "Os parametros voltaram aos valores de dados/benchmarks.json.", "ok");
+      toast("Ajustes restaurados", "Os parâmetros voltaram aos valores de dados/benchmarks.json.", "ok");
       HWCat.refresh("benchmarks");
     });
     footer.appendChild(reset);
     footer.appendChild(
-      el("span", "decision-note", counts.tuning ? `${counts.tuning} parametro(s) alterado(s).` : "Nenhum parametro alterado.")
+      el("span", "decision-note", counts.tuning ? `${counts.tuning} parâmetro(s) alterado(s).` : "Nenhum parâmetro alterado.")
     );
     container.appendChild(footer);
   }
@@ -390,7 +390,7 @@
       el(
         "p",
         "panel-hint",
-        "A base curada de dados/benchmarks.json mais as suas alteracoes. Editar um score aqui grava um override nas suas decisoes -- o arquivo em si nunca e alterado. Use \"Exportar benchmarks.json mesclado\", na aba de backup, para tornar as alteracoes permanentes."
+        "A base curada de dados/benchmarks.json mais as suas alterações. Editar um score aqui grava um override nas suas decisões — o arquivo em si nunca é alterado. Use \"Exportar benchmarks.json mesclado\", na aba de backup, para tornar as alterações permanentes."
       )
     );
     head.appendChild(headText);
@@ -443,26 +443,26 @@
         render();
       });
       onlyCustom.appendChild(cb);
-      onlyCustom.appendChild(document.createTextNode("So minhas alteracoes"));
+      onlyCustom.appendChild(document.createTextNode("Só minhas alterações"));
       tools.appendChild(onlyCustom);
       container.appendChild(tools);
 
       const tableBox = el("div");
       const total = renderTable(tableBox, view.section);
       container.appendChild(tableBox);
-      container.appendChild(el("p", "decision-note", `${total} entrada(s) nesta secao.`));
+      container.appendChild(el("p", "decision-note", `${total} entrada(s) nesta seção.`));
     } else {
       renderAliases(container);
     }
 
     container.appendChild(el("hr", "divider"));
     const tuningHead = el("div");
-    tuningHead.appendChild(el("h2", null, "Ajustes do modelo de pontuacao"));
+    tuningHead.appendChild(el("h2", null, "Ajustes do modelo de pontuação"));
     tuningHead.appendChild(
       el(
         "p",
         "panel-hint",
-        "Parametros globais das formulas de RAM, fonte e armazenamento. Deixe em branco (ou digite o valor original) para voltar ao padrao do arquivo."
+        "Parâmetros globais das fórmulas de RAM, fonte e armazenamento. Deixe em branco (ou digite o valor original) para voltar ao padrão do arquivo."
       )
     );
     container.appendChild(tuningHead);

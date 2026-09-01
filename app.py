@@ -28,12 +28,35 @@ import sys
 import threading
 import webbrowser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from appcore import paths, server as server_module
 from appcore.scrape_job import ScrapeJob
 
 APP_VERSION = "1.0.0"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
+
+# Nome da janela no Windows: "HardwareScrapper - <aba atual>". O mapeamento e
+# pelo nome do arquivo HTML porque cada aba e uma pagina servida de verdade
+# (nao uma SPA), entao trocar de aba dispara um novo evento `loaded`.
+APP_NAME = "HardwareScrapper"
+TAB_TITLES = {
+    "index.html": "Análise",
+    "catalogo.html": "Base de dados",
+    "build.html": "Build",
+}
+
+
+def _tab_title_for_url(url):
+    if not url:
+        return None
+    page = urlsplit(url).path.rsplit("/", 1)[-1] or "index.html"
+    return TAB_TITLES.get(page)
+
+
+def _sync_window_title(window):
+    tab = _tab_title_for_url(window.get_current_url())
+    window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
 
 
 def load_scraper():
@@ -66,13 +89,14 @@ def open_window(url, debug=False):
     import webview
 
     window = webview.create_window(
-        WINDOW_TITLE,
+        APP_NAME,
         url,
         width=1360,
         height=900,
         min_size=(960, 640),
         confirm_close=False,
     )
+    window.events.loaded += _sync_window_title
     profile = paths.webview_profile_dir()
     profile.mkdir(parents=True, exist_ok=True)
     webview.start(private_mode=False, storage_path=str(profile), debug=debug)

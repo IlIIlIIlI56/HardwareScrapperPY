@@ -234,27 +234,27 @@ function saveBenchmarkOverrides(map) {
 
 const NUMERIC_LIMITS = {
   "cpu.score": { min: 1, max: 400000, label: "Score de CPU" },
-  "cpu.cores": { min: 1, max: 256, label: "Nucleos" },
+  "cpu.cores": { min: 1, max: 256, label: "Núcleos" },
   "gpu.score": { min: 1, max: 400000, label: "Score de GPU" },
   "gpu.tdp_w": { min: 1, max: 1000, label: "TDP" },
   "gpu.vram_default": { min: 1, max: 256, label: "VRAM" },
   "chipsets.tier": { min: 1, max: 4, label: "Tier" },
-  "chipsets.max_ram_mhz": { min: 400, max: 16000, label: "Velocidade maxima de RAM" },
+  "chipsets.max_ram_mhz": { min: 400, max: 16000, label: "Velocidade máxima de RAM" },
 };
 
 function checkNumber(errors, path, value, { required = false } = {}) {
   const limits = NUMERIC_LIMITS[path];
   if (value === null || value === undefined || value === "") {
-    if (required) errors.push(`${limits.label}: obrigatorio.`);
+    if (required) errors.push(`${limits.label}: obrigatório.`);
     return null;
   }
   const num = typeof value === "number" ? value : parseFloat(String(value).replace(",", "."));
   if (!Number.isFinite(num)) {
-    errors.push(`${limits.label}: precisa ser um numero.`);
+    errors.push(`${limits.label}: precisa ser um número.`);
     return null;
   }
   if (num < limits.min || num > limits.max) {
-    errors.push(`${limits.label}: fora da faixa plausivel (${limits.min}-${limits.max}).`);
+    errors.push(`${limits.label}: fora da faixa plausível (${limits.min}-${limits.max}).`);
     return null;
   }
   return num;
@@ -297,9 +297,9 @@ function validateBenchmarkEntry(section, input) {
       socket: src.socket ? String(src.socket).trim().toUpperCase() : null,
       max_ram_mhz: checkNumber(errors, "chipsets.max_ram_mhz", src.max_ram_mhz),
     };
-    if (!value.ram) errors.push("Tipo de memoria: obrigatorio (o montador precisa dele para casar a RAM).");
+    if (!value.ram) errors.push("Tipo de memória: obrigatório (o montador precisa dele para casar a RAM).");
   } else {
-    errors.push(`Secao desconhecida: ${section}`);
+    errors.push(`Seção desconhecida: ${section}`);
   }
 
   if (value) {
@@ -344,7 +344,7 @@ function setBenchmarkAlias(section, fromKey, targetKey) {
   const from = HWMatch.normalizeKey(fromKey);
   const target = section === "chipsets" ? String(targetKey).trim().toUpperCase() : HWMatch.normalizeKey(targetKey);
   if (!from || !target) throw new Error("Apelido precisa de origem e destino.");
-  if (from === target) throw new Error("O apelido nao pode apontar para ele mesmo.");
+  if (from === target) throw new Error("O apelido não pode apontar para ele mesmo.");
   const all = getBenchmarkOverrides();
   all.aliases[section][from] = { target, createdAt: new Date().toISOString() };
   saveBenchmarkOverrides(all);
@@ -374,7 +374,7 @@ function setTuning(group, key, value) {
   if (value === null || value === undefined || value === "") delete all.tuning[group][key];
   else {
     const num = typeof value === "number" ? value : parseFloat(String(value).replace(",", "."));
-    if (!Number.isFinite(num) || num <= 0) throw new Error("O ajuste precisa ser um numero maior que zero.");
+    if (!Number.isFinite(num) || num <= 0) throw new Error("O ajuste precisa ser um número maior que zero.");
     all.tuning[group][key] = num;
   }
   if (all.tuning[group] && Object.keys(all.tuning[group]).length === 0) delete all.tuning[group];
@@ -502,7 +502,7 @@ function sameValue(a, b) {
  */
 function analyzeImport(data) {
   if (!data || typeof data !== "object" || (!data.product_overrides && !data.benchmark_overrides)) {
-    throw new Error("Arquivo nao parece ser um backup desta pagina (faltam product_overrides / benchmark_overrides).");
+    throw new Error("Arquivo não parece ser um backup desta página (faltam product_overrides / benchmark_overrides).");
   }
 
   const localProducts = getOverrides();
@@ -529,7 +529,7 @@ function analyzeImport(data) {
   for (const [url, record] of Object.entries(incomingProducts)) {
     const clean = sanitizeProductRecord(record);
     if (!clean) {
-      push(report.invalid, "invalid", url, { reason: "registro de produto ilegivel" });
+      push(report.invalid, "invalid", url, { reason: "registro de produto ilegível" });
       continue;
     }
     const local = localProducts[url];

@@ -43,7 +43,7 @@
     } catch (err) {
       statusLines.push({ text: `Erro: ${err.message}`, level: "error" });
       statusLines.push({
-        text: 'Rode a coleta primeiro -- use o botao "Coletar dados agora" no topo desta pagina.',
+        text: 'Rode a coleta primeiro — use o botão "Coletar dados agora" no topo desta página.',
         level: "warn",
       });
       HWRender.renderStatus(statusEl, statusLines);
@@ -59,12 +59,12 @@
     metaEl.textContent = productsData.total_products
       ? `${productsData.total_products} produtos · coleta de ${HWFormat.fmtDate(productsData.scraped_at)} · ` +
         `fonte: ${productsData.source}`
-      : "nenhum dado coletado ainda -- use o botao \"Coletar dados agora\" acima";
+      : "nenhum dado coletado ainda — use o botão \"Coletar dados agora\" acima";
 
     const { added, ignored } = HWOverrides.overrideCounts();
     if (added || ignored) {
       statusLines.push({
-        text: `Decisoes manuais aplicadas: ${added} revisados, ${ignored} ignorados.`,
+        text: `Decisões manuais aplicadas: ${added} revisados, ${ignored} ignorados.`,
         level: "info",
       });
     }
@@ -74,8 +74,8 @@
       const bits = [];
       if (bench.cpu + bench.gpu + bench.chipsets) bits.push(`${bench.cpu + bench.gpu + bench.chipsets} entradas`);
       if (bench.aliases) bits.push(`${bench.aliases} apelidos`);
-      if (bench.tuning) bits.push(`${bench.tuning} ajustes de parametro`);
-      statusLines.push({ text: `Base de performance estendida pelo usuario: ${bits.join(", ")}.`, level: "info" });
+      if (bench.tuning) bits.push(`${bench.tuning} ajustes de parâmetro`);
+      statusLines.push({ text: `Base de performance estendida pelo usuário: ${bits.join(", ")}.`, level: "info" });
     }
     const effectiveBenchmarks = HWOverrides.applyBenchmarkOverrides(benchmarks);
 
@@ -97,7 +97,7 @@
     const emptyCats = HWBuilder.CATEGORY_ORDER.filter((cat) => scoredByCategory[cat].length === 0);
     if (emptyCats.length) {
       statusLines.push({
-        text: `Sem produtos pontuaveis em: ${emptyCats.map((c) => HWRender.CATEGORY_META[c].label).join(", ")}. Uma build precisa das seis categorias -- verifique se a coleta cobriu todas.`,
+        text: `Sem produtos pontuáveis em: ${emptyCats.map((c) => HWRender.CATEGORY_META[c].label).join(", ")}. Uma build precisa das seis categorias — verifique se a coleta cobriu todas.`,
         level: "error",
       });
       HWRender.renderStatus(statusEl, statusLines);
@@ -110,7 +110,7 @@
     HWRender.renderTopStrip(topStripEl, tops);
 
     statusLines.push({
-      text: `${builds.length} builds montadas e ranqueadas por indice de custo-beneficio.`,
+      text: `${builds.length} builds montadas e ranqueadas por índice de custo-benefício.`,
       level: "ok",
     });
     HWRender.renderStatus(statusEl, statusLines);

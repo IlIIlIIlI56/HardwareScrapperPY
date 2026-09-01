@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <title>Build — Builds de Custo-Beneficio</title>
+  <title>Build — Builds de Custo-Benefício</title>
   <link rel="stylesheet" href="css/style.css" />
   <!-- ver o comentario sobre a ordem destes tres em index.html -->
   <script src="/app-bootstrap.js"></script>
@@ -24,12 +24,12 @@
           </span>
           <div class="brand-text">
             <h1>Build</h1>
-            <div class="brand-sub">Monte sua propria configuracao</div>
+            <div class="brand-sub">Monte sua própria configuração</div>
           </div>
         </div>
         <div class="header-actions">
-          <nav class="site-nav" aria-label="Secoes">
-            <a href="index.html">Analise</a>
+          <nav class="site-nav" aria-label="Seções">
+            <a href="index.html">Análise</a>
             <a href="catalogo.html">Base de dados</a>
             <a href="build.html" class="active">Build</a>
           </nav>
@@ -50,8 +50,8 @@
         </div>
       </div>
       <p class="subtitle">
-        Escolha as pecas voce mesmo, uma categoria de cada vez. A lista de cada etapa ja vem filtrada
-        pelo que e compativel com o que voce ja escolheu -- soquete, tipo de memoria, wattagem da
+        Escolha as peças você mesmo, uma categoria de cada vez. A lista de cada etapa já vem filtrada
+        pelo que é compatível com o que você já escolheu — soquete, tipo de memória, wattagem da
         fonte. O filtro pode ser desligado, mas incompatibilidades reais continuam sinalizadas.
       </p>
       <p class="data-meta" id="data-meta">carregando metadados...</p>
@@ -62,7 +62,7 @@
     <section class="panel" id="pcb-empty-state" hidden>
       <div class="empty-state">
         <strong>Nenhum dado coletado ainda</strong>
-        <div>Va para a pagina <a href="index.html">Analise</a> e use "Coletar dados agora" antes de montar uma build.</div>
+        <div>Vá para a página <a href="index.html">Análise</a> e use "Coletar dados agora" antes de montar uma build.</div>
       </div>
     </section>
 
@@ -75,10 +75,10 @@
         </label>
       </div>
       <p class="panel-hint" id="pcb-compat-hint">
-        Cada etapa mostra so pecas compativeis com o que voce ja escolheu. Desligar o filtro libera
-        qualquer peca da categoria -- se a combinacao final tiver um problema real (soquete, memoria
-        ou fonte incompativel), a build atual mostra um aviso explicando exatamente qual. Memoria RAM
-        aceita ate 4 pentes e Armazenamento ate 2 unidades; as demais categorias sao uma peca so.
+        Cada etapa mostra só peças compatíveis com o que você já escolheu. Desligar o filtro libera
+        qualquer peça da categoria — se a combinação final tiver um problema real (soquete, memória
+        ou fonte incompatível), a build atual mostra um aviso explicando exatamente qual. Memória RAM
+        aceita até 4 pentes e Armazenamento até 2 unidades; as demais categorias são uma peça só.
       </p>
       <div class="pcb-steps" id="pcb-steps"></div>
       <div id="pcb-picker"></div>
@@ -93,7 +93,7 @@
       <h2>Builds salvas</h2>
       <p class="panel-hint">
         Cada build salva fica guardada em <code>dados/decisoes.json</code>, junto com o resto da sua
-        curadoria. "Baixar lista" gera um .txt com nome, preco e link de cada peca escolhida.
+        curadoria. "Baixar lista" gera um .txt com nome, preço e link de cada peça escolhida.
       </p>
       <div id="pcb-saved"></div>
     </section>
@@ -101,12 +101,12 @@
 
   <footer class="site-footer">
     <p>
-      Aplicativo portatil: tudo o que voce coleta e cura fica em <code>dados/</code>, ao lado do
-      executavel — copiar a pasta leva os dados junto. A analise roda inteira nesta maquina, sobre
-      os arquivos ja baixados; a unica hora em que o app acessa a internet e durante a coleta.
+      Aplicativo portátil: tudo o que você coleta e cura fica em <code>dados/</code>, ao lado do
+      executável — copiar a pasta leva os dados junto. A análise roda inteira nesta máquina, sobre
+      os arquivos já baixados; a única hora em que o app acessa a internet é durante a coleta.
     </p>
     <p class="footer-actions">
-      <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de dados</button>
+      <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de Dados</button>
       <span id="app-version" class="footer-version"></span>
     </p>
   </footer>

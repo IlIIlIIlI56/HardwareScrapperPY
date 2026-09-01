@@ -14,7 +14,7 @@
   const TABS = [
     { key: "products", label: "Produtos" },
     { key: "benchmarks", label: "Base de performance" },
-    { key: "backup", label: "Backup e exportacao" },
+    { key: "backup", label: "Backup e exportação" },
   ];
   let activeTab = "products";
 
@@ -93,7 +93,7 @@
     }
     if (entry && entry.scored && entry.performance && entry.performance.matchType === "alias") {
       const tag = el("span", "cat-badge", "apelido");
-      tag.title = `Apontado por voce para "${entry.performance.matchedKey}".`;
+      tag.title = `Apontado por você para "${entry.performance.matchedKey}".`;
       badges.appendChild(tag);
     }
     main.appendChild(badges);
@@ -116,7 +116,7 @@
     if (entry && entry.scored) {
       const score = el("div", "catalog-item-score");
       score.appendChild(elHtml("span", null, `Desempenho <b>${HWFormat.fmtScore(entry.perfScore)}</b>`));
-      score.appendChild(elHtml("span", null, `Indice de valor <b>${HWFormat.fmtScore(entry.valueRatio)}</b>`));
+      score.appendChild(elHtml("span", null, `Índice de valor <b>${HWFormat.fmtScore(entry.valueRatio)}</b>`));
       main.appendChild(score);
     } else if (entry && entry.reason && !isOpen) {
       main.appendChild(el("div", "catalog-item-score", entry.reason));
@@ -152,7 +152,7 @@
           HWOverrides.setOverride(product.url, "ignored");
           HWCat.refresh();
         } catch (err) {
-          toast("Nao foi possivel salvar", err.message, "error");
+          toast("Não foi possível salvar", err.message, "error");
         }
       });
       actions.appendChild(ignoreBtn);
@@ -171,7 +171,7 @@
           "span",
           "decision-note",
           `${record.decision === "added" ? "Revisado" : "Ignorado"} em ${HWFormat.fmtDate(record.updatedAt)}` +
-            (record.priceConfirmed ? " · preco confirmado" : "")
+            (record.priceConfirmed ? " · preço confirmado" : "")
         )
       );
     }
@@ -313,9 +313,9 @@
     ignoreAll.addEventListener("click", () => {
       openModal({
         title: `Ignorar ${rows.length} itens?`,
-        subtitle: "Vale so para os itens que o filtro atual esta mostrando.",
+        subtitle: "Vale só para os itens que o filtro atual está mostrando.",
         render: (body) => {
-          body.appendChild(el("p", null, "Eles saem do calculo de builds ate voce desfazer. Da para reverter item a item ou em lote depois."));
+          body.appendChild(el("p", null, "Eles saem do cálculo de builds até você desfazer. Dá para reverter item a item ou em lote depois."));
         },
         actions: [
           { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
@@ -326,10 +326,10 @@
               try {
                 const n = HWOverrides.setOverridesBulk(urls, "ignored");
                 close();
-                toast("Itens ignorados", `${n} itens saiu(ram) do calculo.`, "ok");
+                toast("Itens ignorados", `${n} itens saiu(ram) do cálculo.`, "ok");
                 HWCat.refresh();
               } catch (err) {
-                toast("Nao foi possivel salvar", err.message, "error", 9000);
+                toast("Não foi possível salvar", err.message, "error", 9000);
               }
             },
           },
@@ -339,10 +339,10 @@
     bar.appendChild(ignoreAll);
 
     if (withDecision) {
-      const undoAll = el("button", "btn btn-sm btn-danger-ghost", `Desfazer ${withDecision} decisao(oes)`);
+      const undoAll = el("button", "btn btn-sm btn-danger-ghost", `Desfazer ${withDecision} decisão(ões)`);
       undoAll.addEventListener("click", () => {
         const n = HWOverrides.clearOverridesBulk(urls);
-        toast("Decisoes desfeitas", `${n} itens voltaram ao pipeline automatico.`, "ok");
+        toast("Decisões desfeitas", `${n} itens voltaram ao pipeline automático.`, "ok");
         HWCat.refresh();
       });
       bar.appendChild(undoAll);
@@ -489,7 +489,7 @@
       const list = document.getElementById("catalog-list");
       const empty = el("div", "empty-state");
       empty.appendChild(el("strong", null, "Sem dados coletados"));
-      empty.appendChild(el("div", null, "Rode a coleta na pagina de Builds (ou pelo scraper) antes de usar esta tela."));
+      empty.appendChild(el("div", null, "Rode a coleta na página de Builds (ou pelo scraper) antes de usar esta tela."));
       list.appendChild(empty);
       return;
     }

@@ -55,9 +55,9 @@ CATEGORY_SLUGS = {
 
 CATEGORY_LABELS_PT = {
     "cpu": "Processador (CPU)",
-    "motherboard": "Placa-Mae",
-    "ram": "Memoria RAM",
-    "gpu": "Placa de Video (GPU)",
+    "motherboard": "Placa-Mãe",
+    "ram": "Memória RAM",
+    "gpu": "Placa de Vídeo (GPU)",
     "psu": "Fonte (PSU)",
     "storage": "Armazenamento (SSD/HD)",
 }
@@ -174,17 +174,17 @@ def scrape_category(session, category, max_pages, delay, should_stop=None):
 
     while page <= effective_cap:
         if should_stop and should_stop():
-            print(f"  [cancelado] parando em {CATEGORY_LABELS_PT[category]}, pagina {page}.")
+            print(f"  [cancelado] parando em {CATEGORY_LABELS_PT[category]}, página {page}.")
             raise ScrapeCancelled(category)
         url = f"{BASE_URL}/{slug}/" if page == 1 else f"{BASE_URL}/{slug}/?page={page}"
         html = fetch_page(session, url)
         if html is None:
-            print(f"  [erro] nao foi possivel obter a pagina {page}, parando categoria.")
+            print(f"  [erro] não foi possível obter a página {page}, parando categoria.")
             break
 
         products = parse_products_from_html(html, category)
         if not products:
-            print(f"  pagina {page}: sem produtos -> fim da paginacao.")
+            print(f"  página {page}: sem produtos -> fim da paginação.")
             break
 
         new_count = 0
@@ -194,10 +194,10 @@ def scrape_category(session, category, max_pages, delay, should_stop=None):
                 all_products.append(p)
                 new_count += 1
 
-        print(f"  pagina {page}: {len(products)} produtos ({new_count} novos)")
+        print(f"  página {page}: {len(products)} produtos ({new_count} novos)")
 
         if new_count == 0:
-            print("  nenhum produto novo -> assumindo fim da paginacao.")
+            print("  nenhum produto novo -> assumindo fim da paginação.")
             break
 
         page += 1

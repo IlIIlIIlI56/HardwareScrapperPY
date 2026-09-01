@@ -12,9 +12,9 @@
 (function () {
   const CATEGORY_META = {
     cpu: { label: "Processador", short: "CPU" },
-    motherboard: { label: "Placa-Mae", short: "MB" },
-    ram: { label: "Memoria RAM", short: "RAM" },
-    gpu: { label: "Placa de Video", short: "GPU" },
+    motherboard: { label: "Placa-Mãe", short: "MB" },
+    ram: { label: "Memória RAM", short: "RAM" },
+    gpu: { label: "Placa de Vídeo", short: "GPU" },
     psu: { label: "Fonte", short: "PSU" },
     storage: { label: "Armazenamento", short: "SSD" },
   };
@@ -75,7 +75,7 @@
 
     if (highlight) {
       const badge = elHtml("div", "best-badge", icon("award"));
-      badge.appendChild(document.createTextNode("Melhor custo-beneficio geral"));
+      badge.appendChild(document.createTextNode("Melhor custo-benefício geral"));
       card.appendChild(badge);
     }
 
@@ -93,7 +93,7 @@
     const metrics = el("div", "build-metrics");
     metrics.appendChild(metric("Total", HWFormat.fmtUsd(build.totalUsd)));
     metrics.appendChild(metric("Performance", HWFormat.fmtScore(build.performanceIndex)));
-    metrics.appendChild(metric("Indice de valor", HWFormat.fmtScore(build.valueIndex), true));
+    metrics.appendChild(metric("Índice de valor", HWFormat.fmtScore(build.valueIndex), true));
     card.appendChild(metrics);
 
     const partsList = el("div", "parts-list");
@@ -107,7 +107,7 @@
     totals.appendChild(el("span", "total-usd", HWFormat.fmtUsd(build.totalUsd)));
     if (build.totalBrl) totals.appendChild(el("span", "total-brl", HWFormat.fmtBrl(build.totalBrl)));
     footer.appendChild(totals);
-    footer.appendChild(el("div", "psu-note", `${build.anchorCategories.length} ancora(s) · fonte ${build.minWattage}W+`));
+    footer.appendChild(el("div", "psu-note", `${build.anchorCategories.length} âncora(s) · fonte ${build.minWattage}W+`));
     card.appendChild(footer);
 
     if (build.notes && build.notes.length) {

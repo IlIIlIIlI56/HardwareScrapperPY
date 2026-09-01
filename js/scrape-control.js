@@ -94,9 +94,9 @@
     } else if (state.cancelled) {
       // Cancelar nao grava nada, entao a base anterior segue valida -- dizer
       // isso aqui evita a duvida de "perdi os dados?".
-      setIndicator(refs, "cancelado -- dados anteriores mantidos", null);
+      setIndicator(refs, "cancelado — dados anteriores mantidos", null);
     } else if (state.result) {
-      setIndicator(refs, `concluido -- ${state.result.total_products} produtos`, "ok");
+      setIndicator(refs, `concluído — ${state.result.total_products} produtos`, "ok");
     }
   }
 
@@ -152,7 +152,7 @@
     if (isReset) {
       const confirmed = window.confirm(
         "Isso vai coletar tudo de novo do zero e substituir a base atual quando terminar. " +
-          "Suas revisoes e entradas de benchmark nao sao afetadas. Continuar?"
+          "Suas revisões e entradas de benchmark não são afetadas. Continuar?"
       );
       if (!confirmed) return;
     }
@@ -164,7 +164,7 @@
       refs.btn.disabled = false;
       refs.btn.textContent = idleLabel(isReset);
       refs.log.hidden = false;
-      refs.log.textContent = `[erro] nao foi possivel iniciar a coleta${res ? ` (HTTP ${res.status})` : ""}.`;
+      refs.log.textContent = `[erro] não foi possível iniciar a coleta${res ? ` (HTTP ${res.status})` : ""}.`;
       return;
     }
 

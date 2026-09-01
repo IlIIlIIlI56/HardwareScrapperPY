@@ -41,22 +41,22 @@
     resetBtn.addEventListener("click", () => {
       HWUi.openModal({
         title: "Resetar todos os dados?",
-        subtitle: "Essa acao nao pode ser desfeita.",
+        subtitle: "Essa ação não pode ser desfeita.",
         render: (body) => {
-          body.appendChild(HWUi.el("p", null, "Isto apaga tudo o que o aplicativo guardou ate agora:"));
+          body.appendChild(HWUi.el("p", null, "Isto apaga tudo o que o aplicativo guardou até agora:"));
           const list = document.createElement("ul");
           list.className = "reset-all-list";
           [
-            "Produtos coletados (dados/products.json) -- vai ser preciso coletar de novo.",
-            "Base de performance (dados/benchmarks.json) -- volta para a versao padrao que acompanha o app; edicoes ja mescladas no arquivo se perdem.",
-            "Toda a curadoria (dados/decisoes.json): revisoes de produtos, apelidos, ajustes de pontuacao e as builds manuais salvas na pagina Build.",
+            "Produtos coletados (dados/products.json) — vai ser preciso coletar de novo.",
+            "Base de performance (dados/benchmarks.json) — volta para a versão padrão que acompanha o app; edições já mescladas no arquivo se perdem.",
+            "Toda a curadoria (dados/decisoes.json): revisões de produtos, apelidos, ajustes de pontuação e as builds manuais salvas na página Build.",
           ].forEach((text) => {
             const item = document.createElement("li");
             item.textContent = text;
             list.appendChild(item);
           });
           body.appendChild(list);
-          body.appendChild(HWUi.el("p", "decision-note", "As exportacoes em dados/exportacoes/ nao sao afetadas."));
+          body.appendChild(HWUi.el("p", "decision-note", "As exportações em dados/exportacoes/ não são afetadas."));
         },
         actions: [
           { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
@@ -69,13 +69,13 @@
               if (res && res.ok) {
                 HWUi.toast(
                   "Dados resetados",
-                  "O aplicativo volta ao estado de primeira instalacao. Recarregando...",
+                  "O aplicativo volta ao estado de primeira instalação. Recarregando...",
                   "ok",
                   4000
                 );
                 setTimeout(() => window.location.reload(), 900);
               } else {
-                HWUi.toast("Nao foi possivel resetar", (res && res.error) || "Tente novamente.", "error", 8000);
+                HWUi.toast("Não foi possível resetar", (res && res.error) || "Tente novamente.", "error", 8000);
               }
             },
           },

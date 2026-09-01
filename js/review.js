@@ -30,29 +30,29 @@
     const code = entry && !entry.scored ? entry.reasonCode : null;
 
     if (status === "ignored") {
-      return { tone: "", text: "Item ignorado -- fica fora do calculo de builds mesmo que passe a pontuar. Voce pode revisar as specs e reincluir, ou desfazer a decisao." };
+      return { tone: "", text: "Item ignorado — fica fora do cálculo de builds mesmo que passe a pontuar. Você pode revisar as specs e reincluir, ou desfazer a decisão." };
     }
     if (code === REASON.PRICE_OUTLIER) {
       return {
         tone: "review-reason--warn",
         text:
-          "As especificacoes deste item sao validas e ele pontua normalmente, mas o indice desempenho/preco ficou muito fora do padrao da categoria (heuristica MAD em js/scoring.js) -- quase sempre sinal de erro de preco na fonte. " +
-          "Confira o anuncio: se o preco estiver certo, use \"Confirmar preco e incluir\"; se estiver errado, \"Ignorar item\".",
+          "As especificações deste item são válidas e ele pontua normalmente, mas o índice desempenho/preço ficou muito fora do padrão da categoria (heurística MAD em js/scoring.js) — quase sempre sinal de erro de preço na fonte. " +
+          "Confira o anúncio: se o preço estiver certo, use \"Confirmar preço e incluir\"; se estiver errado, \"Ignorar item\".",
       };
     }
     if (code === REASON.SODIMM) {
       return {
         tone: "review-reason--warn",
         text:
-          "Identificada como memoria SO-DIMM (formato de notebook) -- fisicamente incompativel com uma placa-mae desktop, entao fica de fora mesmo com capacidade e velocidade corretas. " +
-          "Se for falso positivo do regex (o anuncio e de uma DIMM de desktop), mude \"Formato\" para DIMM abaixo; se for mesmo de notebook, o certo e ignorar.",
+          "Identificada como memória SO-DIMM (formato de notebook) — fisicamente incompatível com uma placa-mãe desktop, então fica de fora mesmo com capacidade e velocidade corretas. " +
+          "Se for falso positivo do regex (o anúncio é de uma DIMM de desktop), mude \"Formato\" para DIMM abaixo; se for mesmo de notebook, o certo é ignorar.",
       };
     }
     if (code === REASON.NO_PRICE) {
-      return { tone: "review-reason--warn", text: "O anuncio nao trouxe um preco valido em USD -- sem preco nao ha indice de custo-beneficio para calcular. Nada a corrigir aqui alem de ignorar o item." };
+      return { tone: "review-reason--warn", text: "O anúncio não trouxe um preço válido em USD — sem preço não há índice de custo-benefício para calcular. Nada a corrigir aqui além de ignorar o item." };
     }
     if (code === REASON.NO_BENCHMARK) {
-      return { tone: "review-reason--info", text: `${entry.reason} Confira o modelo no formulario e, se estiver certo, use o bloco abaixo para apontar um apelido ou cadastrar o score.` };
+      return { tone: "review-reason--info", text: `${entry.reason} Confira o modelo no formulário e, se estiver certo, use o bloco abaixo para apontar um apelido ou cadastrar o score.` };
     }
     if (code === REASON.UNKNOWN_CHIPSET) {
       return { tone: "review-reason--info", text: entry.reason };
@@ -63,10 +63,10 @@
     if (status === "scored" || status === "added") {
       return {
         tone: "",
-        text: "Este item ja pontua. Use os campos abaixo para corrigir uma spec que o scraper leu errado no nome do anuncio -- o novo score aparece em tempo real antes de salvar.",
+        text: "Este item já pontua. Use os campos abaixo para corrigir uma spec que o scraper leu errado no nome do anúncio — o novo score aparece em tempo real antes de salvar.",
       };
     }
-    return { tone: "", text: (entry && entry.reason) || "Complete as especificacoes abaixo." };
+    return { tone: "", text: (entry && entry.reason) || "Complete as especificações abaixo." };
   }
 
   /* ------------------------------------------------- entrada de benchmark - */
@@ -138,7 +138,7 @@
       aliasBtn.addEventListener("click", () => {
         const idx = pick.input.selectedIndex - (pick.field.allowEmpty ? 1 : 0);
         if (idx < 0) {
-          toast("Escolha uma entrada", "Selecione para qual modelo da base este anuncio aponta.", "warn");
+          toast("Escolha uma entrada", "Selecione para qual modelo da base este anúncio aponta.", "warn");
           return;
         }
         try {
@@ -146,7 +146,7 @@
           toast("Apelido salvo", `"${rawKey}" agora usa a entrada "${suggestions[idx].key}".`, "ok");
           onSaved();
         } catch (err) {
-          toast("Nao foi possivel salvar", err.message, "error");
+          toast("Não foi possível salvar", err.message, "error");
         }
       });
       wrap.appendChild(aliasBtn);
@@ -175,22 +175,22 @@
     if (category === "cpu") {
       add("score", { label: "Score (PassMark CPU Mark aprox.)", type: "number" });
       add("socket", { label: "Soquete", type: "text", listId: "list-sockets" }, mergedSpecs.socket);
-      add("cores", { label: "Nucleos (opcional)", type: "number" });
+      add("cores", { label: "Núcleos (opcional)", type: "number" });
     } else if (category === "gpu") {
       add("score", { label: "Score (PassMark G3D aprox.)", type: "number" });
       add("tdp_w", { label: "TDP em W (opcional)", type: "number" });
-      add("vram_default", { label: "VRAM padrao em GB (opcional)", type: "number" }, mergedSpecs.vram_gb);
+      add("vram_default", { label: "VRAM padrão em GB (opcional)", type: "number" }, mergedSpecs.vram_gb);
     } else if (category === "motherboard") {
       add("tier", { label: "Tier (1=entrada .. 4=topo)", type: "select", options: ["1", "2", "3", "4"] });
       // sem valor inicial: o montador usa este campo para casar a RAM da build,
       // e um DDR3 assumido por ser a primeira opcao da lista seria pior do que
       // a validacao reclamando que falta escolher.
-      add("ram", { label: "Memoria suportada", type: "select", options: ["DDR3", "DDR4", "DDR5"], allowEmpty: true });
+      add("ram", { label: "Memória suportada", type: "select", options: ["DDR3", "DDR4", "DDR5"], allowEmpty: true });
       add("socket", { label: "Soquete", type: "text", listId: "list-sockets" }, mergedSpecs.socket);
-      add("max_ram_mhz", { label: "RAM maxima aproveitada (MHz)", type: "number" });
+      add("max_ram_mhz", { label: "RAM máxima aproveitada (MHz)", type: "number" });
     }
     // a proveniencia e opcional, mas e ela que torna a base auditavel depois
-    add("source", { label: "Fonte do numero (opcional)", type: "text" });
+    add("source", { label: "Fonte do número (opcional)", type: "text" });
     wrap.appendChild(grid);
 
     const saveBtn = el("button", "btn btn-primary", "Salvar na base de performance");
@@ -205,7 +205,7 @@
       if (category === "cpu" || category === "gpu") {
         if (!mergedSpecs.model_key) {
           msg.className = "decision-note decision-note--error";
-          msg.textContent = "Preencha o modelo no formulario acima antes de cadastrar o score.";
+          msg.textContent = "Preencha o modelo no formulário acima antes de cadastrar o score.";
           return;
         }
         key = HWMatch.normalizeKey(mergedSpecs.model_key);
@@ -216,7 +216,7 @@
       } else {
         if (!mergedSpecs.chipset) {
           msg.className = "decision-note decision-note--error";
-          msg.textContent = "Informe o chipset no formulario acima primeiro.";
+          msg.textContent = "Informe o chipset no formulário acima primeiro.";
           return;
         }
         key = String(mergedSpecs.chipset).trim().toUpperCase();
@@ -227,7 +227,7 @@
         HWOverrides.setBenchmarkOverride(category === "motherboard" ? "chipsets" : category, key, entry);
         msg.className = "decision-note decision-note--ok";
         msg.textContent = "Salvo. Reavaliando o item...";
-        toast("Entrada salva", `"${key}" agora vale para qualquer anuncio desse modelo.`, "ok");
+        toast("Entrada salva", `"${key}" agora vale para qualquer anúncio desse modelo.`, "ok");
         onSaved();
       } catch (err) {
         msg.className = "decision-note decision-note--error";
@@ -273,16 +273,16 @@
 
     const actions = el("div", "review-actions");
     const isOutlier = entry && entry.reasonCode === REASON.PRICE_OUTLIER;
-    const addBtn = el("button", "btn btn-primary", isOutlier ? "Confirmar preco e incluir" : "Salvar revisao");
+    const addBtn = el("button", "btn btn-primary", isOutlier ? "Confirmar preço e incluir" : "Salvar revisão");
     addBtn.disabled = true;
     const ignoreBtn = el("button", "btn btn-ghost", status === "ignored" ? "Manter ignorado" : "Ignorar item");
     actions.appendChild(addBtn);
     actions.appendChild(ignoreBtn);
     if (record) {
-      const undoBtn = el("button", "btn btn-danger-ghost", "Desfazer decisao");
+      const undoBtn = el("button", "btn btn-danger-ghost", "Desfazer decisão");
       undoBtn.addEventListener("click", () => {
         HWOverrides.clearOverride(product.url);
-        toast("Decisao desfeita", "O item voltou a ser avaliado so pelo pipeline automatico.", "ok");
+        toast("Decisão desfeita", "O item voltou a ser avaliado só pelo pipeline automático.", "ok");
         HWCat.refresh();
       });
       actions.appendChild(undoBtn);
@@ -335,8 +335,8 @@
       if (probe.ok) {
         preview.className = "review-preview ok";
         previewText.textContent =
-          `Pontuavel: desempenho ${HWFormat.fmtScore(probe.result.score)} · ` +
-          `indice de valor ${HWFormat.fmtScore(probe.ratio)} (desempenho por US$).`;
+          `Pontuável: desempenho ${HWFormat.fmtScore(probe.result.score)} · ` +
+          `índice de valor ${HWFormat.fmtScore(probe.ratio)} (desempenho por US$).`;
         addBtn.disabled = false;
         currentSpecs = edited;
       } else {
@@ -357,25 +357,25 @@
       try {
         HWOverrides.setOverride(product.url, "added", currentSpecs, { priceConfirmed: isOutlier });
         toast(
-          isOutlier ? "Preco confirmado" : "Revisao salva",
+          isOutlier ? "Preço confirmado" : "Revisão salva",
           isOutlier
-            ? "O item entra nas builds e fica isento do filtro de outlier de preco."
-            : "As specs corrigidas ja valem para o calculo das builds.",
+            ? "O item entra nas builds e fica isento do filtro de outlier de preço."
+            : "As specs corrigidas já valem para o cálculo das builds.",
           "ok"
         );
         HWCat.refresh();
       } catch (err) {
-        toast("Nao foi possivel salvar", err.message, "error", 9000);
+        toast("Não foi possível salvar", err.message, "error", 9000);
       }
     });
 
     ignoreBtn.addEventListener("click", () => {
       try {
         HWOverrides.setOverride(product.url, "ignored");
-        toast("Item ignorado", "Ele fica de fora das builds ate voce desfazer a decisao.", "ok");
+        toast("Item ignorado", "Ele fica de fora das builds até você desfazer a decisão.", "ok");
         HWCat.refresh();
       } catch (err) {
-        toast("Nao foi possivel salvar", err.message, "error", 9000);
+        toast("Não foi possível salvar", err.message, "error", 9000);
       }
     });
 

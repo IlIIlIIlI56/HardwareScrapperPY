@@ -149,21 +149,21 @@
     const ramList = items.ram || [];
 
     if (cpu && mobo && !cpuMoboCompatible(cpu, mobo)) {
-      msgs.push(`Soquete incompativel: CPU (${cpu.performance.socket}) e placa-mae (${mobo.performance.socket}) nao encaixam.`);
+      msgs.push(`Soquete incompatível: CPU (${cpu.performance.socket}) e placa-mãe (${mobo.performance.socket}) não encaixam.`);
     }
     if (mobo) {
       ramList.forEach((ram, idx) => {
         if (!ramMoboCompatible(ram, mobo)) {
-          const label = ramList.length > 1 ? `Memoria ${idx + 1}` : "Memoria";
+          const label = ramList.length > 1 ? `Memória ${idx + 1}` : "Memória";
           msgs.push(
-            `${label} incompativel: RAM ${ram.specs.ddr_gen} nao e suportada pela placa-mae escolhida (aceita ${mobo.performance.ramType}).`
+            `${label} incompatível: RAM ${ram.specs.ddr_gen} não é suportada pela placa-mãe escolhida (aceita ${mobo.performance.ramType}).`
           );
         }
       });
     }
     const ramGens = new Set(ramList.map((r) => r.specs && r.specs.ddr_gen).filter(Boolean));
     if (ramGens.size > 1) {
-      msgs.push(`Memorias de geracoes diferentes misturadas na mesma build: ${[...ramGens].join(", ")}.`);
+      msgs.push(`Memórias de gerações diferentes misturadas na mesma build: ${[...ramGens].join(", ")}.`);
     }
     if (psu && !psuSufficient(psu, cpu, gpu)) {
       const needed = HWBuilder.recommendedWattage(cpu, gpu);
@@ -235,8 +235,8 @@
     const cleared = cascadeClearIncompatible(category);
     if (cleared.length) {
       toast(
-        "Selecao ajustada",
-        `${cleared.join(", ")} deixou de ser compativel com a nova escolha e precisa ser selecionado(a) de novo.`,
+        "Seleção ajustada",
+        `${cleared.join(", ")} deixou de ser compatível com a nova escolha e precisa ser selecionado(a) de novo.`,
         "warn",
         7000
       );
@@ -280,12 +280,12 @@
       return;
     }
     openModal({
-      title: "Comecar uma build nova?",
-      subtitle: "As pecas escolhidas agora serao descartadas.",
-      render: (body) => body.appendChild(el("p", null, "Builds ja salvas na lista abaixo nao sao afetadas.")),
+      title: "Começar uma build nova?",
+      subtitle: "As peças escolhidas agora serão descartadas.",
+      render: (body) => body.appendChild(el("p", null, "Builds já salvas na lista abaixo não são afetadas.")),
       actions: [
         { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
-        { label: "Comecar de novo", className: "btn-danger-ghost", onClick: (close) => { resetDraft(); close(); } },
+        { label: "Começar de novo", className: "btn-danger-ghost", onClick: (close) => { resetDraft(); close(); } },
       ],
     });
   }
@@ -365,7 +365,7 @@
     const suggested = `Build ${Object.keys(state.saved).length + 1}`;
     openModal({
       title: "Salvar build",
-      subtitle: "De um nome para achar esta build depois, na lista de builds salvas.",
+      subtitle: "Dê um nome para achar esta build depois, na lista de builds salvas.",
       render: (body) => {
         body.appendChild(el("label", "visually-hidden", "Nome da build"));
         const input = document.createElement("input");
@@ -407,9 +407,9 @@
     if (!saved) return;
     openModal({
       title: `Excluir "${saved.name}"?`,
-      subtitle: "Nao da para desfazer.",
+      subtitle: "Não dá para desfazer.",
       render: (body) =>
-        body.appendChild(el("p", null, "As pecas em si continuam a venda normalmente -- so esta lista salva sera removida.")),
+        body.appendChild(el("p", null, "As peças em si continuam à venda normalmente — só esta lista salva será removida.")),
       actions: [
         { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
         {
@@ -420,7 +420,7 @@
             persistSaved();
             renderSaved();
             close();
-            toast("Build excluida", `"${saved.name}" foi removida.`, "ok");
+            toast("Build excluída", `"${saved.name}" foi removida.`, "ok");
           },
         },
       ],
@@ -464,7 +464,7 @@
       state.visibleLimit = PAGE_SIZE;
       persistDraft();
       renderAll();
-      toast("Build carregada", `"${saved.name}" foi carregada para edicao.`, "ok");
+      toast("Build carregada", `"${saved.name}" foi carregada para edição.`, "ok");
     };
 
     if (!STEP_ORDER.some((c) => (state.items[c] || []).length > 0)) {
@@ -473,9 +473,9 @@
     }
     openModal({
       title: "Substituir a build em andamento?",
-      subtitle: `As pecas escolhidas agora serao trocadas pelas de "${saved.name}".`,
+      subtitle: `As peças escolhidas agora serão trocadas pelas de "${saved.name}".`,
       render: (body) =>
-        body.appendChild(el("p", null, "A build em andamento ainda nao foi salva -- se quiser mante-la, salve-a antes de continuar.")),
+        body.appendChild(el("p", null, "A build em andamento ainda não foi salva — se quiser mantê-la, salve-a antes de continuar.")),
       actions: [
         { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
         { label: "Carregar", className: "btn-primary", onClick: (close) => { proceed(); close(); } },
@@ -498,7 +498,7 @@
     if (saved.totalBrl) totalBits.push(HWFormat.fmtBrl(saved.totalBrl));
     lines.push(`Total: ${totalBits.join(" / ")}`);
     if (saved.hadConflicts && saved.conflicts.length) {
-      lines.push("", "Atencao -- incompatibilidades detectadas no momento em que a build foi salva:");
+      lines.push("", "Atenção — incompatibilidades detectadas no momento em que a build foi salva:");
       saved.conflicts.forEach((c) => lines.push(`  - ${c}`));
     }
     return lines.join("\r\n");
@@ -567,7 +567,7 @@
 
     const alreadyIn = (state.items[category] || []).filter((p) => p.url === product.url).length;
     const metaBits = [describeSpecs(category, product.specs), `valor ${HWFormat.fmtScore(product.valueRatio)}`];
-    if (alreadyIn > 0) metaBits.push(alreadyIn > 1 ? `ja selecionada x${alreadyIn}` : "ja selecionada");
+    if (alreadyIn > 0) metaBits.push(alreadyIn > 1 ? `já selecionada x${alreadyIn}` : "já selecionada");
     main.appendChild(el("div", "pcb-picker-item-meta", metaBits.filter(Boolean).join(" · ")));
     row.appendChild(main);
 
@@ -608,7 +608,7 @@
     if (currentCount >= limit.max) {
       const full = el("div", "empty-state");
       full.appendChild(el("strong", null, `Limite de ${limit.max} ${meta.label.toLowerCase()} atingido`));
-      full.appendChild(el("div", null, "Remova uma peca desta categoria, na build atual abaixo, para adicionar outra no lugar."));
+      full.appendChild(el("div", null, "Remova uma peça desta categoria, na build atual abaixo, para adicionar outra no lugar."));
       container.appendChild(full);
       return;
     }
@@ -636,10 +636,10 @@
     const sortSelect = document.createElement("select");
     sortSelect.className = "select-inline";
     [
-      ["value", "Indice de valor"],
+      ["value", "Índice de valor"],
       ["perf", "Desempenho"],
-      ["price-asc", "Menor preco"],
-      ["price-desc", "Maior preco"],
+      ["price-asc", "Menor preço"],
+      ["price-desc", "Maior preço"],
       ["name", "Nome"],
     ].forEach(([value, label]) => {
       const opt = document.createElement("option");
@@ -668,14 +668,14 @@
 
     if (all.length === 0) {
       const empty = el("div", "empty-state");
-      empty.appendChild(el("strong", null, "Nenhuma peca compativel encontrada"));
+      empty.appendChild(el("strong", null, "Nenhuma peça compatível encontrada"));
       empty.appendChild(
         el(
           "div",
           null,
           state.compatFilterEnabled
-            ? 'Desligue "Filtrar por compatibilidade", no topo da secao, para ver todas as pecas desta categoria.'
-            : "Nao ha produtos pontuados nesta categoria com os dados atuais -- tente ajustar a busca ou revisar itens pendentes na Base de dados."
+            ? 'Desligue "Filtrar por compatibilidade", no topo da seção, para ver todas as peças desta categoria.'
+            : "Não há produtos pontuados nesta categoria com os dados atuais — tente ajustar a busca ou revisar itens pendentes na Base de dados."
         )
       );
       results.appendChild(empty);
@@ -709,7 +709,7 @@
       if (!category) {
         const done = el("div", "empty-state");
         done.appendChild(el("strong", null, "Build completa"));
-        done.appendChild(el("div", null, "Clique em qualquer etapa acima para adicionar ou trocar uma peca."));
+        done.appendChild(el("div", null, "Clique em qualquer etapa acima para adicionar ou trocar uma peça."));
         container.appendChild(done);
         return;
       }
@@ -779,7 +779,7 @@
       const isMulti = limit.max > 1;
 
       if (items.length === 0) {
-        list.appendChild(el("div", "pcb-current-row pcb-current-row--empty", `${meta.label}: nao selecionado`));
+        list.appendChild(el("div", "pcb-current-row pcb-current-row--empty", `${meta.label}: não selecionado`));
         return;
       }
       const hideChange = isMulti && items.length > 1;
@@ -802,7 +802,7 @@
     totals.appendChild(el("span", "total-usd", HWFormat.fmtUsd(totalUsd)));
     if (totalBrl) totals.appendChild(el("span", "total-brl", HWFormat.fmtBrl(totalBrl)));
     totals.appendChild(
-      el("span", "psu-note", `${filledCategories}/${STEP_ORDER.length} categorias preenchidas · ${flatItems.length} pecas`)
+      el("span", "psu-note", `${filledCategories}/${STEP_ORDER.length} categorias preenchidas · ${flatItems.length} peças`)
     );
     container.appendChild(totals);
 
@@ -821,7 +821,7 @@
     const canSave = filledCategories === STEP_ORDER.length;
     const saveBtn = el("button", "btn btn-primary", "Salvar build");
     saveBtn.disabled = !canSave;
-    saveBtn.title = canSave ? "" : "Escolha pelo menos uma peca de cada categoria antes de salvar.";
+    saveBtn.title = canSave ? "" : "Escolha pelo menos uma peça de cada categoria antes de salvar.";
     saveBtn.addEventListener("click", promptSaveCurrentBuild);
     actions.appendChild(saveBtn);
 
@@ -911,7 +911,7 @@
     }
 
     if (!productsData.total_products) {
-      metaEl.textContent = 'nenhum dado coletado ainda -- use o botao "Coletar dados agora" na pagina Analise';
+      metaEl.textContent = 'nenhum dado coletado ainda — use o botão "Coletar dados agora" na página Análise';
       emptyPanel.hidden = false;
       return;
     }
@@ -943,7 +943,7 @@
       if (droppedAny) {
         toast(
           "Build em andamento atualizada",
-          "Uma ou mais pecas escolhidas nao estao mais no catalogo atual e precisam ser trocadas.",
+          "Uma ou mais peças escolhidas não estão mais no catálogo atual e precisam ser trocadas.",
           "warn",
           8000
         );

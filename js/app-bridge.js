@@ -149,7 +149,7 @@
     try {
       requestSync("POST", "/api/state", memory);
     } catch (err) {
-      throw new Error(`Nao foi possivel gravar em dados/decisoes.json: ${err.message}`);
+      throw new Error(`Não foi possível gravar em dados/decisoes.json: ${err.message}`);
     }
   }
 
@@ -185,8 +185,8 @@
           err && (err.name === "QuotaExceededError" || err.name === "NS_ERROR_DOM_QUOTA_REACHED" || err.code === 22);
         throw new Error(
           isQuota
-            ? "Armazenamento do navegador cheio -- gere um backup e remova decisoes antigas antes de continuar."
-            : `Nao foi possivel salvar: ${err && err.message ? err.message : err}`
+            ? "Armazenamento do navegador cheio — gere um backup e remova decisões antigas antes de continuar."
+            : `Não foi possível salvar: ${err && err.message ? err.message : err}`
         );
       }
     },

@@ -14,9 +14,9 @@
 
   const CATEGORIES = [
     { key: "cpu", label: "Processador" },
-    { key: "motherboard", label: "Placa-Mae" },
-    { key: "ram", label: "Memoria RAM" },
-    { key: "gpu", label: "Placa de Video" },
+    { key: "motherboard", label: "Placa-Mãe" },
+    { key: "ram", label: "Memória RAM" },
+    { key: "gpu", label: "Placa de Vídeo" },
     { key: "psu", label: "Fonte" },
     { key: "storage", label: "Armazenamento" },
   ];
@@ -31,10 +31,10 @@
   ];
 
   const SORTS = [
-    { key: "value", label: "Melhor indice de valor" },
+    { key: "value", label: "Melhor índice de valor" },
     { key: "perf", label: "Maior desempenho" },
-    { key: "price-asc", label: "Menor preco" },
-    { key: "price-desc", label: "Maior preco" },
+    { key: "price-asc", label: "Menor preço" },
+    { key: "price-desc", label: "Maior preço" },
     { key: "name", label: "Nome (A-Z)" },
   ];
 
@@ -64,7 +64,7 @@
       { key: "capacity_gb", label: "Capacidade (GB)", type: "number" },
       { key: "speed_mhz", label: "Velocidade (MHz)", type: "number" },
       { key: "cas_latency", label: "CAS Latency / CL (opcional)", type: "number" },
-      { key: "ddr_gen", label: "Geracao", type: "select", options: ["DDR2", "DDR3", "DDR4", "DDR5"], allowEmpty: true },
+      { key: "ddr_gen", label: "Geração", type: "select", options: ["DDR2", "DDR3", "DDR4", "DDR5"], allowEmpty: true },
       { key: "form_factor", label: "Formato", type: "select", options: ["DIMM", "SODIMM"] },
     ],
     gpu: [
@@ -93,30 +93,30 @@
     cpu: [
       { key: "brand", label: "Marca", type: "select", options: ["Intel", "AMD"], field: "specs.brand" },
       { key: "socket", label: "Soquete", type: "select", field: "performance.socket" },
-      { key: "cores_min", label: "Nucleos (minimo)", type: "number-min", field: "performance.cores" },
+      { key: "cores_min", label: "Núcleos (mínimo)", type: "number-min", field: "performance.cores" },
     ],
     motherboard: [
       { key: "socket", label: "Soquete", type: "select", field: "performance.socket" },
       { key: "ram_type", label: "Tipo de RAM", type: "select", options: ["DDR3", "DDR4", "DDR5"], field: "performance.ramType" },
-      { key: "tier_min", label: "Tier (minimo)", type: "number-min", field: "performance.tier" },
+      { key: "tier_min", label: "Tier (mínimo)", type: "number-min", field: "performance.tier" },
     ],
     ram: [
-      { key: "speed_min", label: "Velocidade minima (MHz)", type: "number-min", field: "specs.speed_mhz" },
-      { key: "capacity_min", label: "Capacidade minima (GB)", type: "number-min", field: "specs.capacity_gb" },
-      { key: "ddr_gen", label: "Geracao", type: "select", options: ["DDR2", "DDR3", "DDR4", "DDR5"], field: "specs.ddr_gen" },
-      { key: "cl_max", label: "CAS Latency maxima", type: "number-max", field: "specs.cas_latency" },
+      { key: "speed_min", label: "Velocidade mínima (MHz)", type: "number-min", field: "specs.speed_mhz" },
+      { key: "capacity_min", label: "Capacidade mínima (GB)", type: "number-min", field: "specs.capacity_gb" },
+      { key: "ddr_gen", label: "Geração", type: "select", options: ["DDR2", "DDR3", "DDR4", "DDR5"], field: "specs.ddr_gen" },
+      { key: "cl_max", label: "CAS Latency máxima", type: "number-max", field: "specs.cas_latency" },
     ],
     gpu: [
       { key: "brand", label: "Marca", type: "select", options: ["NVIDIA", "AMD", "Intel"], field: "specs.brand" },
-      { key: "vram_min", label: "VRAM minima (GB)", type: "number-min", field: "performance.vramGb" },
+      { key: "vram_min", label: "VRAM mínima (GB)", type: "number-min", field: "performance.vramGb" },
     ],
     psu: [
-      { key: "wattage_min", label: "Wattagem minima (W)", type: "number-min", field: "specs.wattage" },
+      { key: "wattage_min", label: "Wattagem mínima (W)", type: "number-min", field: "specs.wattage" },
       { key: "efficiency", label: "Selo 80 PLUS", type: "select", options: EFFICIENCY_OPTIONS, field: "specs.efficiency" },
     ],
     storage: [
       { key: "interface", label: "Interface", type: "select", options: INTERFACE_OPTIONS, field: "specs.interface" },
-      { key: "capacity_min", label: "Capacidade minima (GB)", type: "number-min", field: "specs.capacity_gb" },
+      { key: "capacity_min", label: "Capacidade mínima (GB)", type: "number-min", field: "specs.capacity_gb" },
     ],
   };
 

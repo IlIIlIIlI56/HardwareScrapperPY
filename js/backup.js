@@ -65,12 +65,12 @@
       "categoria",
       "nome",
       "status",
-      "preco_usd",
-      "preco_brl",
+      "preço_usd",
+      "preço_brl",
       "ofertas",
       "desempenho",
-      "indice_valor",
-      "motivo_exclusao",
+      "índice_valor",
+      "motivo_exclusão",
       "specs",
       "url",
     ];
@@ -107,7 +107,7 @@
 
   /* ------------------------------------------------------ importacao ----- */
 
-  const KIND_LABEL = { new: "novo", conflict: "conflito", same: "igual", invalid: "invalido" };
+  const KIND_LABEL = { new: "novo", conflict: "conflito", same: "igual", invalid: "inválido" };
 
   function diffRow(kind, label, detail) {
     const row = el("li", "diff-row");
@@ -129,7 +129,7 @@
     let mode = "incoming";
 
     openModal({
-      title: "Confirmar importacao",
+      title: "Confirmar importação",
       subtitle: report.exportedAt
         ? `Backup gerado em ${HWFormat.fmtDate(report.exportedAt)} (formato v${report.schemaVersion}).`
         : `Formato v${report.schemaVersion}.`,
@@ -137,17 +137,17 @@
         const grid = el("div", "summary-grid");
         grid.appendChild(summaryCell("Novos", report.counts.new || 0));
         grid.appendChild(summaryCell("Conflitos", report.counts.conflict || 0));
-        grid.appendChild(summaryCell("Ja iguais", report.counts.same || 0));
-        grid.appendChild(summaryCell("Invalidos", report.counts.invalid || 0));
+        grid.appendChild(summaryCell("Já iguais", report.counts.same || 0));
+        grid.appendChild(summaryCell("Inválidos", report.counts.invalid || 0));
         body.appendChild(grid);
 
         if (report.counts.conflict) {
           body.appendChild(el("h3", null, "Nos conflitos, o que vale?"));
           const list = el("div", "radio-list");
           [
-            ["incoming", "O arquivo importado", "Sobrescreve a decisao local. Use quando o backup for mais recente."],
-            ["local", "O que ja esta neste navegador", "So entram chaves novas; nada do que voce fez aqui e perdido."],
-            ["replace", "Substituir tudo pelo arquivo", "Apaga todas as decisoes locais antes de importar. Nao da para desfazer."],
+            ["incoming", "O arquivo importado", "Sobrescreve a decisão local. Use quando o backup for mais recente."],
+            ["local", "O que já está neste navegador", "Só entram chaves novas; nada do que você fez aqui é perdido."],
+            ["replace", "Substituir tudo pelo arquivo", "Apaga todas as decisões locais antes de importar. Não dá para desfazer."],
           ].forEach(([value, title, desc]) => {
             const option = el("label", "radio-option");
             const radio = document.createElement("input");
@@ -167,7 +167,7 @@
         }
 
         const sections = [
-          ["Decisoes de produto", report.products],
+          ["Decisões de produto", report.products],
           ["Entradas de benchmark", report.benchmarks],
           ["Apelidos", report.aliases],
           ["Ajustes do modelo", report.tuning],
@@ -179,12 +179,12 @@
           body.appendChild(el("h3", null, `${title} (${relevant.length})`));
           const list = el("ul", "diff-list");
           relevant.slice(0, 40).forEach((r) => list.appendChild(diffRow(r.kind, r.label, r.reason)));
-          if (relevant.length > 40) list.appendChild(el("li", "decision-note", `+ ${relevant.length - 40} nao listados.`));
+          if (relevant.length > 40) list.appendChild(el("li", "decision-note", `+ ${relevant.length - 40} não listados.`));
           body.appendChild(list);
         }
 
         if (!report.products.length && !report.benchmarks.length && !report.aliases.length && !report.tuning.length) {
-          body.appendChild(el("div", "empty-state", "O arquivo nao trouxe nenhuma entrada aproveitavel."));
+          body.appendChild(el("div", "empty-state", "O arquivo não trouxe nenhuma entrada aproveitável."));
         }
       },
       actions: [
@@ -198,7 +198,7 @@
               close();
               toast(
                 "Backup importado",
-                `${result.applied.products} decisoes, ${result.applied.benchmarks} entradas, ` +
+                `${result.applied.products} decisões, ${result.applied.benchmarks} entradas, ` +
                   `${result.applied.aliases} apelidos e ${result.applied.tuning} ajustes aplicados` +
                   (result.skippedInvalid ? ` · ${result.skippedInvalid} descartados` : "") +
                   ".",
@@ -207,7 +207,7 @@
               );
               HWCat.refresh("import");
             } catch (err) {
-              toast("Falha na importacao", err.message, "error", 10000);
+              toast("Falha na importação", err.message, "error", 10000);
             }
           },
         },
@@ -226,12 +226,12 @@
     const bench = HWOverrides.benchmarkCounts();
     const usage = HWOverrides.storageInfo();
 
-    container.appendChild(el("h2", null, "Backup e exportacao"));
+    container.appendChild(el("h2", null, "Backup e exportação"));
     container.appendChild(
       el(
         "p",
         "panel-hint",
-        "Suas decisoes e entradas de benchmark ficam em dados/decisoes.json -- nao alteram dados/products.json nem dados/benchmarks.json. Elas viajam junto quando voce copia a pasta do app; um backup aqui protege contra apagar a pasta por engano."
+        "Suas decisões e entradas de benchmark ficam em dados/decisoes.json — não alteram dados/products.json nem dados/benchmarks.json. Elas viajam junto quando você copia a pasta do app; um backup aqui protege contra apagar a pasta por engano."
       )
     );
 
@@ -241,7 +241,7 @@
     grid.appendChild(summaryCell("Entradas de bench.", bench.cpu + bench.gpu + bench.chipsets));
     grid.appendChild(summaryCell("Apelidos", bench.aliases));
     grid.appendChild(summaryCell("Ajustes", bench.tuning));
-    grid.appendChild(summaryCell("Espaco usado", HWFormat.fmtBytes(usage.totalBytes)));
+    grid.appendChild(summaryCell("Espaço usado", HWFormat.fmtBytes(usage.totalBytes)));
     container.appendChild(grid);
 
     /* ---- backup desta pagina ---- */
@@ -256,7 +256,7 @@
         JSON.stringify(data, null, 2),
         "application/json",
         "Backup gerado",
-        `${data.counts.products} decisoes e ${bench.total} itens de benchmark.`
+        `${data.counts.products} decisões e ${bench.total} itens de benchmark.`
       );
     });
     bar.appendChild(exportBtn);
@@ -288,12 +288,12 @@
     container.appendChild(el("hr", "divider"));
 
     /* ---- exportacoes derivadas ---- */
-    container.appendChild(el("h3", null, "Levar a curadoria para o repositorio"));
+    container.appendChild(el("h3", null, "Levar a curadoria para o repositório"));
     container.appendChild(
       el(
         "p",
         "panel-hint",
-        "Gera um benchmarks.json completo com as suas entradas, edicoes e ajustes ja aplicados. Copie-o por cima de dados/benchmarks.json para a curadoria virar a base do app -- assim ela sobrevive a um \"apagar todas as decisoes\" e ja vale numa instalacao nova."
+        "Gera um benchmarks.json completo com as suas entradas, edições e ajustes já aplicados. Copie-o por cima de dados/benchmarks.json para a curadoria virar a base do app — assim ela sobrevive a um \"apagar todas as decisões\" e já vale numa instalação nova."
       )
     );
 
@@ -314,7 +314,7 @@
     bar2.appendChild(mergeBtn);
 
     const csvBtn = elHtml("button", "btn", icon("download"));
-    csvBtn.appendChild(document.createTextNode("Exportar catalogo (.csv)"));
+    csvBtn.appendChild(document.createTextNode("Exportar catálogo (.csv)"));
     csvBtn.addEventListener("click", exportCatalogCsv);
     bar2.appendChild(csvBtn);
 
@@ -322,7 +322,7 @@
     // arquivo caiu -- sem este botao o usuario ficaria procurando.
     if (HWApp.isApp()) {
       const folderBtn = elHtml("button", "btn btn-ghost", icon("folder"));
-      folderBtn.appendChild(document.createTextNode("Abrir pasta de exportacoes"));
+      folderBtn.appendChild(document.createTextNode("Abrir pasta de exportações"));
       folderBtn.addEventListener("click", () => HWApp.openFolder("exports"));
       bar2.appendChild(folderBtn);
     }
@@ -333,22 +333,22 @@
     /* ---- reset ---- */
     const dangerBar = el("div", "toolbar");
     const resetBtn = elHtml("button", "btn btn-danger-ghost", icon("trash"));
-    resetBtn.appendChild(document.createTextNode("Apagar todas as decisoes"));
+    resetBtn.appendChild(document.createTextNode("Apagar todas as decisões"));
     resetBtn.disabled = counts.total === 0 && bench.total === 0;
     resetBtn.addEventListener("click", () => {
       openModal({
-        title: "Apagar todas as decisoes?",
-        subtitle: "Isso limpa as duas gavetas de decisoes do app. Nao da para desfazer.",
+        title: "Apagar todas as decisões?",
+        subtitle: "Isso limpa as duas gavetas de decisões do app. Não dá para desfazer.",
         render: (body) => {
           body.appendChild(
             el(
               "p",
               null,
-              `Serao apagadas ${counts.added} revisoes, ${counts.ignored} itens ignorados e ${bench.total} itens de benchmark ` +
-                `(entradas, apelidos e ajustes). Os arquivos em dados/ nao sao tocados.`
+              `Serão apagadas ${counts.added} revisões, ${counts.ignored} itens ignorados e ${bench.total} itens de benchmark ` +
+                `(entradas, apelidos e ajustes). Os arquivos em dados/ não são tocados.`
             )
           );
-          body.appendChild(el("p", "decision-note", "Gere um backup antes se houver qualquer duvida."));
+          body.appendChild(el("p", "decision-note", "Gere um backup antes se houver qualquer dúvida."));
         },
         actions: [
           { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
@@ -358,7 +358,7 @@
             onClick: (close) => {
               HWOverrides.resetAll();
               close();
-              toast("Decisoes apagadas", "A pagina voltou ao resultado do pipeline automatico puro.", "ok");
+              toast("Decisões apagadas", "A página voltou ao resultado do pipeline automático puro.", "ok");
               HWCat.refresh("reset");
             },
           },
