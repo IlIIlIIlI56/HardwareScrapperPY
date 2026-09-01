@@ -147,16 +147,7 @@
     if (state.result) setTimeout(() => window.location.reload(), 1000);
   }
 
-  async function handleStart(refs) {
-    const isReset = await hasExistingData();
-    if (isReset) {
-      const confirmed = window.confirm(
-        "Isso vai coletar tudo de novo do zero e substituir a base atual quando terminar. " +
-          "Suas revisões e entradas de benchmark não são afetadas. Continuar?"
-      );
-      if (!confirmed) return;
-    }
-
+  async function runScrape(refs, isReset) {
     refs.btn.disabled = true;
     refs.btn.textContent = "Iniciando...";
     const res = await HWApp.api(`/api/scrape${isReset ? "?reset=1" : ""}`, { method: "POST" });
@@ -169,6 +160,49 @@
     }
 
     startPolling(refs, await captureRunBaseline(), reloadIfChanged);
+  }
+
+  /**
+   * Modal customizado em vez de `window.confirm()`: a WebView do Android so
+   * mostra dialogos nativos de JS (confirm/alert/prompt) se o app anfitriao
+   * registrar um WebChromeClient para eles, o que o MainActivity.kt nao faz --
+   * sem isso `confirm()` e descartado na hora, sempre devolvendo `false`, e o
+   * botao parece simplesmente nao fazer nada. `HWUi.openModal` e HTML/CSS
+   * comum, entao funciona identico em qualquer WebView (e e o mesmo padrao ja
+   * usado pelos outros dialogos de confirmacao do app -- ver app-chrome.js e
+   * pc-builder.js).
+   */
+  async function handleStart(refs) {
+    const isReset = await hasExistingData();
+    if (!isReset) {
+      await runScrape(refs, false);
+      return;
+    }
+
+    HWUi.openModal({
+      title: "Reiniciar a coleta?",
+      subtitle: "Isso vai coletar tudo de novo do zero.",
+      render: (body) => {
+        body.appendChild(
+          HWUi.el(
+            "p",
+            null,
+            "A base atual só é substituída quando a coleta nova terminar com sucesso. Suas revisões e entradas de benchmark não são afetadas."
+          )
+        );
+      },
+      actions: [
+        { label: "Cancelar", className: "btn-ghost", onClick: (close) => close() },
+        {
+          label: "Reiniciar coleta",
+          className: "btn-primary",
+          onClick: (close) => {
+            close();
+            runScrape(refs, true);
+          },
+        },
+      ],
+    });
   }
 
   async function handleCancel(refs) {
