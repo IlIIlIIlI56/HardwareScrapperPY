@@ -24,6 +24,11 @@ android/.idea/
 android/local.properties
 android/app/.cxx/
 
+# segredos de assinatura da release Android -- NUNCA versionar. A keystore em
+# si fica fora do repo (C:\Users\ratan\.android-keystores\), este arquivo so
+# tem o caminho e as senhas para o build.gradle.kts ler.
+android/keystore.properties
+
 # metadados de IDE (IntelliJ/Android Studio/PyCharm) -- so aparecem se alguem
 # abrir a raiz do repo como projeto em vez de so android/; regeneraveis, e
 # especificos de cada maquina (caminhos de SDK, cache de dispositivos, etc.)

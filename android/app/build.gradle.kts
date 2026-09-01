@@ -1,8 +1,22 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // Sem plugin Kotlin separado: AGP 9.0+ compila .kt nativamente (built-in
     // Kotlin support), e o plugin classico nao e mais compativel com isso.
     id("com.chaquo.python")
+}
+
+// Segredos da assinatura de release NUNCA ficam no build.gradle.kts nem no
+// git -- vem de android/keystore.properties (ignorado pelo git), que por sua
+// vez aponta para a keystore de verdade fora do repositorio. Sem esse
+// arquivo (num clone novo, por exemplo), a assinatura de release fica
+// ausente e so a build debug funciona -- nao trava o projeto inteiro.
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val hasReleaseSigning = keystorePropertiesFile.exists()
+if (hasReleaseSigning) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
 }
 
 android {
@@ -13,8 +27,8 @@ android {
         applicationId = "com.eemovel.hardwarescrapper"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         ndk {
             // Python 3.14 do Chaquopy so existe para estes dois -- armeabi-v7a
@@ -23,9 +37,23 @@ android {
         }
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 
