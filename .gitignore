@@ -23,3 +23,9 @@ android/.gradle/
 android/.idea/
 android/local.properties
 android/app/.cxx/
+
+# metadados de IDE (IntelliJ/Android Studio/PyCharm) -- so aparecem se alguem
+# abrir a raiz do repo como projeto em vez de so android/; regeneraveis, e
+# especificos de cada maquina (caminhos de SDK, cache de dispositivos, etc.)
+.idea/
+*.iml
