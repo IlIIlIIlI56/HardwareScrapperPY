@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   O backend Python embarcado so escuta em loopback (ver appcore/server.py) e
-  fala HTTP puro, igual ao desktop -- sem isto o Android bloquearia a WebView
+  fala HTTP puro, igual ao desktop; sem isto o Android bloquearia a WebView
   de carregar http://127.0.0.1 a partir do Android 9 (API 28) em diante.
 -->
 <network-security-config>
