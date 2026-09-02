@@ -21,9 +21,9 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
 
@@ -38,7 +38,7 @@ jobs:
           if ($version -eq "${{ github.ref_name }}") { $version = "dev" }
           Compress-Archive -Path "dist/HardwareScrapper" -DestinationPath "HardwareScrapper-$version-windows.zip" -CompressionLevel Optimal
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: windows-zip
           path: HardwareScrapper-*-windows.zip
@@ -46,16 +46,16 @@ jobs:
   android:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           # Tem que bater com chaquopy.defaultConfig.version em
           # android/app/build.gradle.kts -- Chaquopy usa este Python do
@@ -93,7 +93,7 @@ jobs:
           if [ "$version" = "$GITHUB_REF_NAME" ]; then version="dev"; fi
           cp android/app/build/outputs/apk/release/app-release.apk "HardwareScrapper-$version-android.apk"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: android-apk
           path: HardwareScrapper-*-android.apk
@@ -106,17 +106,17 @@ jobs:
     needs: [windows, android]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: windows-zip
           path: .
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: android-apk
           path: .
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           name: HardwareScrapper ${{ github.ref_name }}
           generate_release_notes: true
