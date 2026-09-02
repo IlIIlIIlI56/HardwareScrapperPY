@@ -543,6 +543,14 @@ code, kbd, samp, pre {
   flex-shrink: 0;
 }
 
+/* Seta do botao que abre um menu suspenso: menor e mais discreta que o icone de
+   assunto do botao, que fica com os 15px acima. */
+.btn .btn-caret {
+  width: 12px;
+  height: 12px;
+  opacity: 0.75;
+}
+
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent);
@@ -2195,6 +2203,108 @@ a.top-chip:hover {
   height: 2px;
   border-radius: 2px 2px 0 0;
   background: var(--accent);
+}
+
+/* ==================================================== menu suspenso ===== */
+
+/* O wrapper existe so para dar containing block ao .menu absoluto -- mesmo
+   motivo e mesmo par de propriedades de .file-btn. openMenu() aplica esta
+   classe sozinho no elemento que recebe o menu. */
+.menu-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+/* z-index 50: acima do .site-header (40), para um menu que abre para cima perto
+   do topo nao ficar sob o cabecalho sticky; abaixo do .modal-backdrop (100) e da
+   .toast-stack (200), para um modal ou o toast de confirmacao nunca ficarem
+   escondidos atras de um menu.
+
+   Fundo em --bg-panel e nao --bg-elevated: no tema claro o --bg-elevated e mais
+   ESCURO que o --bg-panel do card atras dele, e um menu flutuante mais escuro
+   que a superficie de baixo le como "afundado" -- o contrario do que ele e. E a
+   mesma receita do .modal: --bg-panel + --border + sombra. */
+.menu {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 5px);
+  left: 0;
+  /* a primeira linha e o fallback: uma WebView antiga que nao entenda max()
+     descarta a segunda e fica com a largura fixa, em vez de perder o min-width
+     inteiro e encolher o menu ate o texto. */
+  min-width: 196px;
+  min-width: max(100%, 196px);
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  animation: pop-in 0.18s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.menu--up  { top: auto; bottom: calc(100% + 5px); }
+.menu--end { left: auto; right: 0; }
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.79rem;
+  font-weight: 540;
+  line-height: 1.4;
+  text-align: left;
+  white-space: nowrap;
+  padding: 7px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+/* Mesma receita de .modal-close:hover -- a superficie de hover da interface
+   inteira e --bg-hover. O anel de foco vem da regra global de :focus-visible. */
+.menu-item:hover:not(:disabled),
+.menu-item:focus-visible {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.menu-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.menu-item svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.menu-item:hover:not(:disabled) svg,
+.menu-item:focus-visible svg {
+  color: var(--text);
+}
+
+/* Ultimo recurso do "copiar": o texto num campo para o usuario copiar a mao. */
+.copy-fallback-area {
+  width: 100%;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 9px 11px;
+  resize: vertical;
 }
 
 /* ============================================================ modal ===== */

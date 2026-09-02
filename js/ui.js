@@ -63,6 +63,9 @@
     filter: '<path d="M3 5h18l-7 8v6l-4 2v-8Z"/>',
     zap: '<path d="M13 2 3 14h8l-1 8 10-12h-8Z"/>',
     folder: '<path d="M4 20a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2Z"/>',
+    share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>',
+    copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+    chevron: '<path d="m6 9 6 6 6-6"/>',
   };
 
   /** SVG inline de 24x24 com stroke em currentColor -- acompanha o tema sozinho. */
@@ -233,6 +236,9 @@
    * um usuario tenta por reflexo. Devolve uma funcao que fecha o modal.
    */
   function openModal({ title, subtitle, render, actions = [] }) {
+    // Um modal aberto a partir de um item de menu (ou de um botao ao lado de um
+    // menu aberto) nao deve deixar o dropdown pendurado atras do backdrop.
+    closeAnyMenu();
     const backdrop = el("div", "modal-backdrop");
     const modal = el("div", "modal");
     modal.setAttribute("role", "dialog");
@@ -288,6 +294,288 @@
     return close;
   }
 
+  // ------------------------------------------------------------------- menu --
+
+  /*
+   * Dropdown ancorado num botao. E o primeiro overlay desse tipo no projeto (os
+   * outros eram modal e toast), entao ele segue de proposito o mesmo contrato de
+   * saidas do openModal: Esc, clique fora e foco devolvido a quem abriu.
+   *
+   * Ancoragem `absolute` dentro de um wrapper `position: relative` (a classe
+   * .menu-anchor, aplicada aqui mesmo), e nao `fixed` calculado por
+   * getBoundingClientRect: nenhum ancestral dos cards tem `overflow: hidden`
+   * para clipar o menu, e ficando no fluxo do wrapper ele acompanha o scroll de
+   * graca -- um menu `fixed` precisaria de listeners de scroll, de resize e do
+   * visualViewport (por causa do teclado) so para nao descolar do botao.
+   *
+   * O clique fora e um listener de `pointerdown` no document, em captura, e NAO
+   * um backdrop invisivel como o do modal. Um backdrop de tela cheia engoliria
+   * o arrasto do dedo no Android: com o menu aberto, a pagina simplesmente
+   * pararia de rolar. O modal pode se dar esse luxo porque ele QUER travar a
+   * pagina; um dropdown nao.
+   *
+   * `pointerdown` (em vez de `click`) cobre mouse e toque num handler so e
+   * dispara no toque real, sem os ~300ms que um `mousedown` sintetizado pode
+   * levar -- e sem o vaivem de fechar no pointerdown para reabrir no click,
+   * porque o proprio botao conta como "dentro" (ver onOutside).
+   */
+
+  let activeMenu = null; // { trigger, menu, close }
+  let menuSeq = 0;
+
+  function closeAnyMenu() {
+    if (activeMenu) activeMenu.close();
+  }
+
+  function isMenuOpenFor(trigger) {
+    return Boolean(activeMenu && activeMenu.trigger === trigger);
+  }
+
+  /**
+   * openMenu({ trigger, anchor, label, items, align })
+   *
+   *   trigger  o <button> que abriu -- recebe aria-expanded e o foco de volta;
+   *   anchor   elemento que vira o containing block (ganha .menu-anchor);
+   *            padrao: trigger.parentElement;
+   *   label    aria-label do role="menu";
+   *   items    [{ label, iconName, onClick, disabled }];
+   *   align    "start" (padrao) | "end" -- alinhamento horizontal preferido.
+   *
+   * Devolve a funcao que fecha o menu. `onClick` NAO recebe um `close` (ao
+   * contrario do openModal): o menu ja se fechou antes de o handler rodar.
+   */
+  function openMenu({ trigger, anchor = trigger.parentElement, label, items, align = "start" }) {
+    closeAnyMenu(); // um por vez: abrir este fecha o que estiver aberto
+
+    const menu = el("div", "menu");
+    menu.id = `menu-${++menuSeq}`;
+    menu.setAttribute("role", "menu");
+    if (label) menu.setAttribute("aria-label", label);
+
+    const itemEls = items.map((item) => {
+      const button = elHtml("button", "menu-item", item.iconName ? icon(item.iconName) : "");
+      button.type = "button";
+      button.setAttribute("role", "menuitem");
+      // tabindex -1 + navegacao por setas e o padrao ARIA de menu: o Tab sai do
+      // menu em vez de caminhar item por item dentro dele.
+      button.tabIndex = -1;
+      button.disabled = Boolean(item.disabled);
+      button.appendChild(el("span", null, item.label));
+      button.addEventListener("click", () => {
+        // fecha ANTES de agir: varias acoes redesenham a lista inteira, e fazer
+        // isso com o menu ainda no DOM deixaria um no orfao por cima do
+        // resultado -- e o close() seguinte mexeria em DOM ja destruido.
+        close();
+        item.onClick();
+      });
+      menu.appendChild(button);
+      return button;
+    });
+
+    const enabled = () => itemEls.filter((b) => !b.disabled);
+
+    function focusAt(index) {
+      const list = enabled();
+      if (list.length) list[(index + list.length) % list.length].focus();
+    }
+
+    function moveFocus(step) {
+      const list = enabled();
+      if (!list.length) return;
+      const current = list.indexOf(document.activeElement);
+      focusAt(current < 0 ? 0 : current + step);
+    }
+
+    function close() {
+      if (!activeMenu || activeMenu.menu !== menu) return; // ja fechado
+      activeMenu = null;
+      document.removeEventListener("pointerdown", onOutside, true);
+      document.removeEventListener("keydown", onKey, true);
+      const focusWasInside = menu.contains(document.activeElement);
+      menu.remove();
+      if (trigger.isConnected) {
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.removeAttribute("aria-controls");
+        // Devolve o foco so se ele ainda estava dentro do menu: caso contrario
+        // roubaria o foco de onde o usuario acabou de clicar. E o botao pode ter
+        // sido destruido por um redesenho enquanto o menu estava aberto -- dai o
+        // isConnected.
+        if (focusWasInside) trigger.focus();
+      }
+    }
+
+    function onOutside(event) {
+      const target = event.target;
+      // O botao conta como "dentro": senao o pointerdown fecharia o menu e o
+      // click seguinte, no mesmo botao, o reabriria -- ele piscaria em vez de
+      // alternar. Quem alterna e o handler do botao, via isMenuOpenFor().
+      if (menu.contains(target) || trigger.contains(target)) return;
+      close();
+    }
+
+    function onKey(event) {
+      if (event.key === "Escape") {
+        // stopPropagation para um menu aberto DENTRO de um modal nao fechar o
+        // modal junto.
+        event.stopPropagation();
+        close();
+      } else if (event.key === "Tab") {
+        close();
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        moveFocus(1);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        moveFocus(-1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        focusAt(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        focusAt(-1);
+      }
+    }
+
+    anchor.classList.add("menu-anchor");
+    // medido escondido para nao piscar na posicao errada antes do flip
+    menu.style.visibility = "hidden";
+    anchor.appendChild(menu);
+
+    const menuBox = menu.getBoundingClientRect();
+    const triggerBox = trigger.getBoundingClientRect();
+    // Abre para cima quando nao cabe embaixo E cabe em cima -- o caso comum na
+    // tela curta de um celular, ja que "Builds salvas" e o ultimo painel da
+    // pagina. A decisao nao e re-medida no scroll: sendo absoluto, o menu nunca
+    // descola do botao; no pior caso a pagina rola para revelar o resto.
+    if (menuBox.height + 12 > window.innerHeight - triggerBox.bottom && triggerBox.top > menuBox.height + 12) {
+      menu.classList.add("menu--up");
+    }
+    // Alinha pela direita quando o menu vazaria a borda -- acontece no celular,
+    // onde .pcb-saved-actions quebra linha e o botao fica perto da margem.
+    if (align === "end" || menuBox.right > window.innerWidth - 10) {
+      menu.classList.add("menu--end");
+    }
+    menu.style.visibility = "";
+
+    trigger.setAttribute("aria-expanded", "true");
+    trigger.setAttribute("aria-controls", menu.id);
+    document.addEventListener("pointerdown", onOutside, true);
+    document.addEventListener("keydown", onKey, true);
+
+    activeMenu = { trigger, menu, close };
+    focusAt(0);
+    return close;
+  }
+
+  // -------------------------------------------------------------- clipboard --
+
+  /**
+   * Copia texto para a area de transferencia, degradando em tres niveis.
+   *
+   * Vive aqui, e nao em app-bridge.js, porque e capacidade do NAVEGADOR e nao
+   * do processo Python: funciona igual dentro do aplicativo e numa aba aberta
+   * fora dele. Tambem nao passa pelo Kotlin -- seria uma segunda ponte nativa
+   * para nenhum ganho, ja que `http://127.0.0.1` e "potentially trustworthy
+   * origin" pela spec e portanto contexto seguro sem HTTPS.
+   *
+   *   1. navigator.clipboard.writeText -- o caminho normal. Ainda assim REJEITA
+   *      quando a janela nao esta em foco (comum com a janela do pywebview atras
+   *      de outra) e nao existe em WebView de sistema muito antiga.
+   *   2. execCommand('copy') sobre um <textarea> temporario. Depreciado, mas e o
+   *      que ainda funciona sem contexto seguro e sem foco perfeito.
+   *   3. modal com o texto ja selecionado, para copiar a mao.
+   *
+   * Devolve true se copiou. No false o modal do nivel 3 JA foi aberto, entao
+   * quem chamou nao deve empilhar um toast de erro em cima.
+   *
+   * Para quem chama: monte a string ANTES de qualquer await. Um await entre o
+   * clique e a copia pode custar o "user gesture" e transformar o nivel 1 numa
+   * rejeicao silenciosa.
+   */
+  async function copyToClipboard(text) {
+    const value = String(text == null ? "" : text);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return true;
+      } catch {
+        /* sem foco, sem permissao ou sem contexto seguro -- vai para o nivel 2 */
+      }
+    }
+    if (copyViaTextarea(value)) return true;
+
+    showCopyFallback(value);
+    return false;
+  }
+
+  function copyViaTextarea(value) {
+    const area = document.createElement("textarea");
+    area.value = value;
+    // readOnly + inputMode "none" evitam a WebView do Android abrir o teclado
+    // virtual ao focar o campo (o usuario veria o teclado subir e descer sem
+    // motivo). O campo continua selecionavel: readonly nao impede selecao.
+    area.readOnly = true;
+    area.inputMode = "none";
+    area.tabIndex = -1;
+    area.setAttribute("aria-hidden", "true");
+    // position:fixed de 1x1 com opacity 0 -- e nao left:-9999px, nem
+    // display:none: `fixed` no canto da viewport nao aumenta a area rolavel
+    // (nada de scroll-jump), e `opacity` mantem o campo RENDERIZADO, o que
+    // display/visibility nao fazem. Sem renderizacao nao ha selecao, e sem
+    // selecao o execCommand copiaria string vazia.
+    area.style.cssText =
+      "position:fixed;top:0;left:0;width:1px;height:1px;padding:0;border:0;margin:0;opacity:0;pointer-events:none;";
+
+    const previouslyFocused = document.activeElement;
+    document.body.appendChild(area);
+    let copied = false;
+    try {
+      area.focus({ preventScroll: true });
+      area.select();
+      area.setSelectionRange(0, value.length); // WebKit ignora o select() sozinho
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    } finally {
+      area.remove();
+      // O menu acabou de devolver o foco ao botao que o abriu; roubar esse foco
+      // aqui quebraria a navegacao por teclado.
+      if (previouslyFocused && previouslyFocused.isConnected && previouslyFocused.focus) {
+        previouslyFocused.focus({ preventScroll: true });
+      }
+    }
+    return copied;
+  }
+
+  /**
+   * Nivel 3: mostra o texto num campo ja selecionado para o usuario copiar a
+   * mao. Sem isto a acao terminaria num beco sem saida -- um "nao foi possivel
+   * copiar" e nada mais.
+   */
+  function showCopyFallback(value) {
+    openModal({
+      title: "Copiar a lista",
+      subtitle: "Esta janela não liberou o acesso à área de transferência.",
+      render: (body) => {
+        body.appendChild(el("p", null, "O texto já está selecionado — use Ctrl+C (ou toque e segure › Copiar)."));
+        const area = el("textarea", "copy-fallback-area");
+        area.value = value;
+        area.readOnly = true;
+        area.rows = 12;
+        area.spellcheck = false;
+        body.appendChild(area);
+        // openModal ainda vai focar o rodape depois deste render -- selecionar
+        // antes disso seria desfeito na hora.
+        requestAnimationFrame(() => {
+          area.focus();
+          area.select();
+        });
+      },
+      actions: [{ label: "Fechar", className: "btn-ghost", onClick: (close) => close() }],
+    });
+  }
+
   // ------------------------------------------------------------------ misc --
 
   /** Adia f() ate `ms` sem novas chamadas -- usado na busca, que re-pontua tudo. */
@@ -316,6 +604,10 @@
     fmtCapacity,
     toast,
     openModal,
+    openMenu,
+    closeAnyMenu,
+    isMenuOpenFor,
+    copyToClipboard,
     debounce,
     initThemeToggleAndNav,
     CATEGORY_ABBR,

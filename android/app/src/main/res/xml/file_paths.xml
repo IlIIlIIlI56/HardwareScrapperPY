@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Escopo do FileProvider declarado no AndroidManifest.xml: apenas a subpasta
+    de compartilhamento dentro do cacheDir.
+
+    Deliberadamente estreito. Um files-path abriria tambem filesDir/dados, que
+    guarda products.json, decisoes.json e o resto da curadoria do usuario, e
+    nada disso tem motivo para ser alcancavel por um content:// entregue a
+    outro aplicativo.
+
+    cache-path e o Context.getCacheDir(); "compartilhar/" casa com o SHARE_DIR
+    de MainActivity.kt. Se um dos dois mudar sem o outro, getUriForFile lanca
+    IllegalArgumentException, e esse e o primeiro par a conferir quando o
+    compartilhamento parar de funcionar.
+-->
+<paths>
+    <cache-path name="compartilhar" path="compartilhar/" />
+</paths>

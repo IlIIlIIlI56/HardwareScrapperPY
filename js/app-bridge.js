@@ -74,6 +74,58 @@
     return { mode: "download" };
   }
 
+  /* ------------------------------------------------- ponte do Android ---- */
+
+  /**
+   * Ponte injetada pelo Kotlin (addJavascriptInterface(..., "HWAndroid")), que
+   * so existe na casca Android. Consultada por funcao a cada uso, e nao
+   * capturada num booleano no carregamento: o WebView injeta o objeto antes de
+   * qualquer script rodar, mas depender dessa ordem seria fragilidade de graca.
+   */
+  function androidBridge() {
+    const bridge = window.HWAndroid;
+    return bridge && typeof bridge.shareTextFile === "function" ? bridge : null;
+  }
+
+  /** Se esta plataforma tem um menu nativo de compartilhamento de arquivo. */
+  function canShareFile() {
+    return androidBridge() !== null;
+  }
+
+  /**
+   * Entrega um arquivo de texto gerado pela pagina pelo caminho que faz sentido
+   * na plataforma.
+   *
+   * No Android o filesDir do app e privado: gravar em dados/exportacoes/ ali
+   * produz um arquivo que NENHUM gerenciador de arquivos alcanca -- o usuario
+   * pediria "baixar" e nao acharia nada depois. O caminho util la e o menu de
+   * compartilhamento do sistema, que deixa ele escolher o destino (WhatsApp,
+   * Drive, e-mail). Nas outras plataformas nada muda: delega para o saveFile de
+   * sempre, que grava em dados/exportacoes/ dentro do app ou baixa pelo
+   * navegador fora dele.
+   *
+   * E um wrapper por composicao, de proposito: saveFile continua servindo os
+   * backups e CSVs da Base de dados sem nenhuma mudanca de comportamento.
+   *
+   * Devolve { mode: "share" } | { mode: "app", path, name } |
+   *         { mode: "download" } | { mode: "error", error }.
+   */
+  async function shareFile(filename, content, { mimeType = "text/plain", subject = null } = {}) {
+    const bridge = androidBridge();
+    if (!bridge) return saveFile(filename, content, `${mimeType};charset=utf-8`);
+
+    let failure = "ponte indisponível";
+    try {
+      // Contrato do lado Kotlin: "" quer dizer que deu certo, e qualquer outra
+      // string e a mensagem do erro. Um booleano esconderia o motivo justamente
+      // no caso em que o usuario precisa dele (cache cheio, nome recusado).
+      failure = String(bridge.shareTextFile(filename, content, mimeType, subject || filename) || "");
+    } catch (err) {
+      failure = (err && err.message) || String(err);
+    }
+    return failure ? { mode: "error", error: failure } : { mode: "share" };
+  }
+
   /** Abre uma das pastas do app no Explorer ("exports", "data" ou "app"). */
   function openFolder(target = "exports") {
     return api("/api/open", { method: "POST", body: { target } });
@@ -253,6 +305,8 @@
     isApp,
     api,
     saveFile,
+    shareFile,
+    canShareFile,
     openFolder,
     quit,
     version: config ? config.version : null,

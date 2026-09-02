@@ -483,7 +483,12 @@
     });
   }
 
-  function buildTxtContent(saved) {
+  /**
+   * `eol` existe porque os dois destinos querem coisas diferentes: o .txt vai
+   * ser aberto no Bloco de Notas (CRLF) e a area de transferencia quer LF -- e o
+   * proprio navegador quem normaliza para o formato do sistema na hora de colar.
+   */
+  function buildTxtContent(saved, eol = "\r\n") {
     const lines = [`Build: ${saved.name}`, `Gerada em: ${HWFormat.fmtDate(saved.createdAt)}`, ""];
     STEP_ORDER.forEach((cat) => {
       const list = toArray(saved.items[cat]);
@@ -501,16 +506,43 @@
       lines.push("", "Atenção — incompatibilidades detectadas no momento em que a build foi salva:");
       saved.conflicts.forEach((c) => lines.push(`  - ${c}`));
     }
-    return lines.join("\r\n");
+    return lines.join(eol);
   }
 
-  async function downloadSavedBuild(id) {
+  /**
+   * Entrega a lista como arquivo. O destino depende da plataforma -- ver
+   * HWApp.shareFile: no Android abre o menu de compartilhamento do sistema, no
+   * Windows grava em dados/exportacoes/, e fora do app e um download comum.
+   */
+  async function exportSavedBuild(id) {
     const saved = state.saved[id];
     if (!saved) return;
     const filename = `${slugify(saved.name)}.txt`;
-    const outcome = await HWApp.saveFile(filename, buildTxtContent(saved), "text/plain;charset=utf-8");
-    if (outcome.mode === "app") toast("Lista gerada", `Salva em dados/exportacoes/${outcome.name}.`, "ok", 8000);
-    else toast("Lista baixada", `${filename} baixado.`, "ok");
+    const outcome = await HWApp.shareFile(filename, buildTxtContent(saved), {
+      mimeType: "text/plain",
+      subject: saved.name,
+    });
+    if (outcome.mode === "share") {
+      toast("Escolha onde enviar", `${filename} está pronto no menu de compartilhamento.`, "ok");
+    } else if (outcome.mode === "app") {
+      toast("Lista gerada", `Salva em dados/exportacoes/${outcome.name}.`, "ok", 8000);
+    } else if (outcome.mode === "download") {
+      toast("Lista baixada", `${filename} baixado.`, "ok");
+    } else {
+      toast("Não foi possível gerar a lista", outcome.error || "Tente novamente.", "error", 8000);
+    }
+  }
+
+  async function copySavedBuild(id) {
+    const saved = state.saved[id];
+    if (!saved) return;
+    // Montado ANTES do await: um await entre o clique e a copia pode custar o
+    // "user gesture" e fazer a API de clipboard rejeitar em silencio.
+    const text = buildTxtContent(saved, "\n");
+    const copied = await HWUi.copyToClipboard(text);
+    // No false o copyToClipboard ja abriu o modal com o texto pre-selecionado --
+    // um toast de erro em cima disso seria ruido.
+    if (copied) toast("Lista copiada", `"${saved.name}" foi copiada para a área de transferência.`, "ok");
   }
 
   /* ============================================================ render ==== */
@@ -831,6 +863,38 @@
     container.appendChild(actions);
   }
 
+  /**
+   * Rotulo da acao de arquivo. No Android ela nao "baixa" nada: abre o menu de
+   * compartilhamento do sistema, porque a pasta privada do app nao serve de
+   * destino -- nenhum gerenciador de arquivos a alcanca. Chamar isso de "baixar"
+   * ali faria o usuario procurar o arquivo em Downloads para sempre.
+   */
+  function fileActionLabel() {
+    return HWApp.canShareFile() ? "Enviar lista (.txt)" : "Baixar Lista (.txt)";
+  }
+
+  function openShareMenu(trigger, anchor, saved) {
+    // Clicar de novo no botao fecha, em vez de reabrir -- ver o comentario de
+    // onOutside em js/ui.js.
+    if (HWUi.isMenuOpenFor(trigger)) {
+      HWUi.closeAnyMenu();
+      return;
+    }
+    HWUi.openMenu({
+      trigger,
+      anchor,
+      label: `Compartilhar "${saved.name}"`,
+      items: [
+        {
+          label: fileActionLabel(),
+          iconName: HWApp.canShareFile() ? "share" : "download",
+          onClick: () => exportSavedBuild(saved.id),
+        },
+        { label: "Copiar para Clipboard", iconName: "copy", onClick: () => copySavedBuild(saved.id) },
+      ],
+    });
+  }
+
   function renderSavedCard(saved) {
     const card = el("div", "pcb-saved-card");
 
@@ -845,13 +909,24 @@
     card.appendChild(head);
 
     const actions = el("div", "pcb-saved-actions");
-    const downloadBtn = el("button", "btn btn-primary btn-sm", "Baixar lista (.txt)");
-    downloadBtn.addEventListener("click", () => downloadSavedBuild(saved.id));
+
+    const shareWrap = el("span", "menu-anchor");
+    const shareBtn = elHtml(
+      "button",
+      "btn btn-primary btn-sm",
+      `<span>Compartilhar</span>${icon("share")}${icon("chevron", "btn-caret")}`
+    );
+    shareBtn.type = "button";
+    shareBtn.setAttribute("aria-haspopup", "menu");
+    shareBtn.setAttribute("aria-expanded", "false");
+    shareBtn.addEventListener("click", () => openShareMenu(shareBtn, shareWrap, saved));
+    shareWrap.appendChild(shareBtn);
+
     const loadBtn = el("button", "btn btn-ghost btn-sm", "Carregar para editar");
     loadBtn.addEventListener("click", () => loadSavedIntoDraft(saved.id));
     const deleteBtn = el("button", "btn btn-danger-ghost btn-sm", "Excluir");
     deleteBtn.addEventListener("click", () => confirmDeleteSaved(saved.id));
-    actions.appendChild(downloadBtn);
+    actions.appendChild(shareWrap);
     actions.appendChild(loadBtn);
     actions.appendChild(deleteBtn);
     card.appendChild(actions);
@@ -860,6 +935,10 @@
   }
 
   function renderSaved() {
+    // O clear() abaixo destroi os cards inteiros. Sem isto, um menu aberto
+    // viraria um no orfao com dois listeners vivos em document apontando para
+    // DOM destruido, e o Esc tentaria devolver o foco a um botao inexistente.
+    HWUi.closeAnyMenu();
     const container = document.getElementById("pcb-saved");
     clear(container);
     const builds = Object.values(state.saved).sort((a, b) => b.createdAt.localeCompare(a.createdAt));

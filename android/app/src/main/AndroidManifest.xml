@@ -22,5 +22,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            FileProvider: a unica forma de entregar a outro app um arquivo que
+            vive no cacheDir/filesDir privado. Um Uri file:// direto lanca
+            FileUriExposedException desde a API 24 (que e o nosso minSdk); o
+            caminho certo e um content:// com permissao temporaria.
+
+            exported="false" + grantUriPermissions="true": nenhum app pode
+            consultar o provider por conta propria, o acesso vem SO do
+            FLAG_GRANT_READ_URI_PERMISSION que o proprio Intent carrega, e morre
+            quando o destino termina.
+
+            ${applicationId} e substituido pelo AGP, entao a authority acompanha
+            qualquer suffix de build type sem duplicar a string. O Kotlin monta
+            "$packageName.fileprovider", que resolve para o mesmo valor.
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>
