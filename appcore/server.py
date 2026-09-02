@@ -205,7 +205,12 @@ class AppServer:
             # caso normal, e o segundo nao deve apagar o primeiro.
             stamp = datetime.now(timezone.utc).strftime("%H%M%S")
             destination = self.exports_root / f"{destination.stem}-{stamp}{destination.suffix}"
-        destination.write_text(content, encoding="utf-8")
+        # newline="" desliga a traducao de fim de linha do modo texto do Python.
+        # Sem isso, no Windows cada "\n" gravado vira "\r\n" -- e o conteudo que
+        # a pagina manda ja usa "\r\n" (a lista .txt de uma build e o CSV do
+        # catalogo), entao o arquivo saia com "\r\r\n" em cada quebra.
+        with destination.open("w", encoding="utf-8", newline="") as handle:
+            handle.write(content)
         return destination
 
     def reset_all(self):
