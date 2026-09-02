@@ -40,7 +40,11 @@ android {
     signingConfigs {
         if (hasReleaseSigning) {
             create("release") {
-                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                // rootProject.file (nao file()) para um caminho relativo em
+                // keystore.properties resolver a partir de android/, nao de
+                // android/app/ -- e o que o workflow de CI usa (a keystore
+                // decodificada vai para android/release.jks).
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
                 storePassword = keystoreProperties.getProperty("storePassword")
                 keyAlias = keystoreProperties.getProperty("keyAlias")
                 keyPassword = keystoreProperties.getProperty("keyPassword")
@@ -79,13 +83,18 @@ android {
 chaquopy {
     defaultConfig {
         // Python embarcado no APK: mesma serie que o app Windows ja roda
-        // (`python app.py` nesta maquina usa 3.14). Chaquopy tambem precisa
-        // de um Python desta versao DISPONIVEL NA MAQUINA DE BUILD (nao no
-        // celular) para resolver os pacotes do pip abaixo. O launcher `py`
-        // fica no PATH do usuario, mas nao no PATH que o processo do Gradle
-        // enxerga -- por isso o caminho absoluto do interpretador.
+        // (`python app.py` usa 3.14). Chaquopy tambem precisa de um Python
+        // desta versao DISPONIVEL NA MAQUINA DE BUILD (nao no celular) para
+        // resolver os pacotes do pip abaixo -- por padrao ele tenta
+        // "py -3.14", depois "python" no PATH, o que basta no runner Linux
+        // do CI (actions/setup-python coloca o Python certo la). Nesta
+        // maquina Windows especifica isso falhava (nem "py" nem "python" no
+        // PATH que o processo do Gradle enxerga), entao so aqui forcamos o
+        // caminho absoluto do interpretador.
         version = "3.14"
-        buildPython("C:/Users/ratan/AppData/Local/Python/pythoncore-3.14-64/python.exe")
+        if (System.getProperty("os.name").lowercase().contains("windows")) {
+            buildPython("C:/Users/ratan/AppData/Local/Python/pythoncore-3.14-64/python.exe")
+        }
 
         pip {
             // Pacotes puro-Python (scraper usa o "html.parser" do stdlib,

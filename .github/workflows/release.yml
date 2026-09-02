@@ -1,0 +1,125 @@
+name: Release
+
+# Roda automaticamente ao empurrar uma tag "vX.Y.Z" (crie a tag depois de
+# atualizar APP_VERSION em app.py e versionName/versionCode em
+# android/app/build.gradle.kts -- este workflow nao mexe nesses arquivos,
+# so empacota o que ja estiver commitado neles).
+#
+# workflow_dispatch existe para testar os dois builds manualmente (aba
+# Actions -> Release -> Run workflow) sem publicar uma Release de verdade:
+# a publicacao final so acontece quando o gatilho foi mesmo uma tag.
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Empacotar (build.ps1)
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File build.ps1
+
+      - name: Zipar a pasta portatil
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          if ($version -eq "${{ github.ref_name }}") { $version = "dev" }
+          Compress-Archive -Path "dist/HardwareScrapper" -DestinationPath "HardwareScrapper-$version-windows.zip" -CompressionLevel Optimal
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-zip
+          path: HardwareScrapper-*-windows.zip
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: actions/setup-python@v5
+        with:
+          # Tem que bater com chaquopy.defaultConfig.version em
+          # android/app/build.gradle.kts -- Chaquopy usa este Python do
+          # runner so para resolver os pacotes do pip, nao e o que vai pro
+          # celular (isso e o interpretador embarcado que o proprio
+          # Chaquopy baixa).
+          python-version: "3.14"
+
+      # Assinatura de release: os 4 segredos abaixo precisam existir em
+      # Settings -> Secrets and variables -> Actions deste repositorio.
+      # ANDROID_KEYSTORE_BASE64 e o conteudo do arquivo .jks codificado em
+      # base64 (`base64 -w0 caminho/para/a.jks`, ou no PowerShell
+      # `[Convert]::ToBase64String([IO.File]::ReadAllBytes("a.jks"))`).
+      # Sem esses secrets configurados, este job falha na proxima etapa --
+      # rode primeiro so o job "windows" (workflow_dispatch) ate configura-los.
+      - name: Decodificar a keystore de release
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/release.jks
+
+      - name: Gravar keystore.properties
+        run: |
+          cat > android/keystore.properties <<EOF
+          storeFile=release.jks
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          EOF
+
+      - name: Build do APK de release assinado
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Renomear o APK
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if [ "$version" = "$GITHUB_REF_NAME" ]; then version="dev"; fi
+          cp android/app/build/outputs/apk/release/app-release.apk "HardwareScrapper-$version-android.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: HardwareScrapper-*-android.apk
+
+  release:
+    # So publica de verdade quando o gatilho foi uma tag -- um
+    # workflow_dispatch manual so builda e sobe os artefatos do job (para
+    # baixar e conferir), sem criar uma Release publica.
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [windows, android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-zip
+          path: .
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: android-apk
+          path: .
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: HardwareScrapper ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            HardwareScrapper-*-windows.zip
+            HardwareScrapper-*-android.apk
