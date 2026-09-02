@@ -1,4 +1,4 @@
-# Builds de Custo-Benefício — Comprasparaguai Informática
+# HardwareScrapper — Comprasparaguai Informática
 
 Aplicativo para Windows e Android que raspa os preços da categoria Informática (componentes de PC) da
 [comprasparaguai.com.br](https://www.comprasparaguai.com.br/informatica/), cruza com uma base de
