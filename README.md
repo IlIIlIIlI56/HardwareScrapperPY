@@ -1,10 +1,15 @@
 # Builds de Custo-Benefício — Comprasparaguai Informática
 
-Aplicativo portátil para Windows que raspa os preços da categoria Informática (componentes de PC) da
+Aplicativo para Windows e Android que raspa os preços da categoria Informática (componentes de PC) da
 [comprasparaguai.com.br](https://www.comprasparaguai.com.br/informatica/), cruza com uma base de
 performance de hardware e monta automaticamente até 7 builds completas de PC, cada uma ancorada
 no item "TOP Custo-Benefício" de uma categoria (CPU, Placa-Mãe, RAM, GPU, Fonte, Armazenamento).
 A build de melhor custo-benefício geral é destacada no topo.
+
+No Windows é um executável portátil; no Android, um app standalone com o mesmo backend Python
+embarcado (via [Chaquopy](https://chaquo.com/chaquopy/)) — os dois rodam exatamente o mesmo código de
+coleta, pontuação e montagem, só a "casca" nativa muda. Baixe a versão da sua plataforma na
+[página de Releases](../../releases/latest).
 
 Toda a análise (extração de specs, cálculo de performance/preço, escolha das peças, montagem das
 builds) é feita por código -- Python na coleta, JavaScript puro na interface. Nenhuma etapa é manual.
@@ -12,6 +17,8 @@ A revisão humana existe só para **corrigir dados de entrada** que o regex não
 nome do anúncio; quem decide se um item pontua continua sendo o mesmo código, sempre.
 
 ## Como usar
+
+### Windows
 
 Copie a pasta `HardwareScrapper` para onde quiser e execute **`HardwareScrapper.exe`**. É só isso:
 não há instalador, não há Python para instalar, nada é gravado no registro nem em `%APPDATA%`.
@@ -40,15 +47,53 @@ HardwareScrapper/
 coletados e toda a curadoria -- para outra máquina, para um pendrive, para onde for. Nada fica para
 trás, porque nada é gravado fora dela.
 
-### Requisitos
+#### Requisitos
 
 Windows 10 ou 11 com o **WebView2 Runtime**, que já vem instalado por padrão desde 2021 (é o mesmo
 motor do Edge). Se por acaso faltar, o app abre a interface numa janela do Edge em modo aplicativo e
 continua funcionando igual. Nenhuma outra dependência.
 
-## Gerar o executável
+### Android
 
-Só é necessário para quem vai modificar o projeto -- quem só quer usar recebe a pasta pronta.
+Baixe o `.apk` da [página de Releases](../../releases/latest), abra-o no celular e instale — como ele
+não vem de uma loja, o Android vai pedir para liberar "instalar de fontes desconhecidas" para o
+aplicativo que você usou para baixar (o navegador ou o gerenciador de arquivos), só na primeira vez.
+
+O app é standalone: o mesmo backend Python que roda no Windows vai embarcado no APK (via Chaquopy),
+rodando dentro do próprio processo do app — não depende do computador estar ligado nem de rede local
+nenhuma, só da conexão do próprio celular para a coleta. `minSdk` 24 (Android 7.0 ou mais novo).
+
+#### Requisitos
+
+Android 7.0 (API 24) ou mais novo, arquitetura `arm64-v8a` ou `x86_64` (praticamente todo aparelho
+vendido nos últimos anos). Sem Google Play Services, sem conta Google — é um APK avulso.
+
+## Gerar as builds de release
+
+Só é necessário para quem vai modificar o projeto -- quem só quer usar baixa da página de Releases.
+
+### Automatizado (GitHub Actions)
+
+`.github/workflows/release.yml` builda Windows e Android em paralelo e publica os dois artefatos
+numa Release, disparado ao empurrar uma tag `vX.Y.Z`:
+
+```bash
+# depois de atualizar APP_VERSION em app.py e versionName/versionCode em
+# android/app/build.gradle.kts para o mesmo numero:
+git tag v1.1.0
+git push origin v1.1.0
+```
+
+Dá para rodar o workflow manualmente pela aba **Actions** (`workflow_dispatch`) sem empurrar tag
+nenhuma -- ele builda os dois artefatos e disponibiliza para download ali mesmo, mas só publica uma
+Release de verdade quando o gatilho foi uma tag.
+
+A assinatura do APK Android usa 4 secrets do repositório (`ANDROID_KEYSTORE_BASE64`,
+`ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`), configurados em
+**Settings → Secrets and variables → Actions**. A keystore de assinatura em si nunca entra no
+repositório -- só o conteúdo dela, codificado em base64, guardado como secret.
+
+### Windows, manual
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File build.ps1
@@ -60,6 +105,42 @@ empacota tudo em `dist/HardwareScrapper/`. Use `-Clean` para refazer do zero.
 O ambiente separado existe para o build não depender do que por acaso esteja instalado no Python do
 sistema: o PyInstaller empacota exatamente as bibliotecas que enxerga, então um ambiente sujo vira um
 executável inflado -- ou, pior, um que funciona na máquina de quem compilou e falha na de destino.
+
+### Android, manual
+
+Requer [Android Studio](https://developer.android.com/studio) (com o SDK do Android configurado) e
+um Python 3.14 instalado na máquina de build (usado só para resolver os pacotes do `pip` do
+Chaquopy -- não é o que vai para o celular). Abra a pasta `android/` como projeto no Android Studio
+(não a raiz do repositório) e deixe a primeira sincronização do Gradle rodar, ou pela linha de
+comando:
+
+```bash
+cd android
+./gradlew assembleDebug     # gera um APK de teste, sem assinatura de release
+./gradlew assembleRelease   # exige android/keystore.properties (ver abaixo) -- gera o APK assinado
+```
+
+Para gerar um APK de release localmente (fora do GitHub Actions), crie `android/keystore.properties`
+(ignorado pelo git) apontando para uma keystore sua:
+
+```properties
+storeFile=C:/caminho/para/sua-keystore.jks
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+Sem uma keystore ainda? Gere uma com o `keytool` que acompanha qualquer JDK (inclusive o do próprio
+Android Studio, em `<pasta de instalação>/jbr/bin/keytool.exe`):
+
+```bash
+keytool -genkeypair -v -keystore sua-keystore.jks -alias seu-alias \
+  -keyalg RSA -keysize 2048 -validity 10000
+```
+
+**Guarde essa keystore com cuidado e nunca a perca**: o Android trata um APK assinado com uma chave
+diferente como um app diferente, então perder a keystore significa que ninguém consegue atualizar por
+cima de uma instalação já existente -- só desinstalar e instalar de novo, perdendo os dados do app.
 
 ## Rodar pelo código-fonte
 
@@ -82,16 +163,23 @@ comportamento, sem um "modo de desenvolvimento" separado.
 
 ```
 HardwareScrapperPY/
-├── app.py                   <- ponto de entrada: prepara dados/, sobe o servidor, abre a janela
+├── app.py                   <- ponto de entrada Windows: prepara dados/, sobe o servidor, abre a janela
 ├── build.ps1                   gera dist/HardwareScrapper/ (a pasta portátil)
 ├── HardwareScrapper.spec       receita do PyInstaller
 ├── requirements.txt
+├── .github/workflows/
+│   └── release.yml            builda Windows + Android e publica os dois numa Release, por tag
 ├── appcore/
 │   ├── paths.py               recursos (só leitura) x dados do usuário (escrita)
 │   ├── server.py              servidor local: interface + API, na mesma origem
-│   └── scrape_job.py          a coleta em segundo plano, com cancelamento
+│   ├── scrape_job.py          a coleta em segundo plano, com cancelamento
+│   ├── bootstrap.py           sequência de boot do backend, compartilhada Windows/Android
+│   └── android_entry.py       ponto de entrada Android: chamado pelo Kotlin via Chaquopy
+├── android/                    projeto Gradle/Kotlin do app Android (Chaquopy embarca este
+│                                mesmo backend Python); ver "Gerar as builds de release" acima
 ├── assets/
-│   ├── make_icon.py           gera o ícone por código, sem dependências
+│   ├── make_icon.py           gera o ícone do Windows por código, sem dependências
+│   ├── make_android_icons.py  gera os ícones do launcher Android com o mesmo desenho
 │   └── icon.ico
 ├── index.html               <- página "Análise": builds automáticas
 ├── catalogo.html            <- página "Base de dados": revisão / benchmarks / backup
