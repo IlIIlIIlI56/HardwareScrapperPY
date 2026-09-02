@@ -79,9 +79,9 @@ numa Release, disparado ao empurrar uma tag `vX.Y.Z`:
 
 ```bash
 # depois de atualizar APP_VERSION em app.py e versionName/versionCode em
-# android/app/build.gradle.kts para o mesmo numero:
-git tag v1.1.0
-git push origin v1.1.0
+# android/app/build.gradle.kts para o mesmo numero (troque v1.2.0 pela versao de verdade):
+git tag v1.2.0
+git push origin v1.2.0
 ```
 
 Dá para rodar o workflow manualmente pela aba **Actions** (`workflow_dispatch`) sem empurrar tag
@@ -92,6 +92,17 @@ A assinatura do APK Android usa 4 secrets do repositório (`ANDROID_KEYSTORE_BAS
 `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`), configurados em
 **Settings → Secrets and variables → Actions**. A keystore de assinatura em si nunca entra no
 repositório -- só o conteúdo dela, codificado em base64, guardado como secret.
+
+**Cuidado ao mexer nas tags depois de publicadas.** Apagar e recriar uma tag `vX.Y.Z` que já tem uma
+Release por trás também apaga a Release (e os arquivos anexados a ela) -- não é só o ponteiro do
+commit que muda. Se precisar corrigir o commit de uma tag antiga, prefira recriar a Release na mão
+pela interface do GitHub depois, em vez de assumir que ela sobrevive à troca.
+
+O job `android` roda num runner Linux e precisa do bit de execução em `android/gradlew`. Um clone ou
+commit feito no Windows pode perdê-lo (`core.filemode` costuma vir `false` por lá), e nesse caso o
+job falha logo no primeiro passo com "Process completed with exit code 126". Confira com
+`git ls-files -s android/gradlew` -- o modo tem que começar com `100755`, não `100644`; se estiver
+errado, `git update-index --chmod=+x android/gradlew` conserta.
 
 ### Windows, manual
 
@@ -186,11 +197,13 @@ HardwareScrapperPY/
 ├── build.html               <- página "Build": montagem manual, uma peça de cada vez
 ├── css/style.css              design system: preto e branco + verde-eco, tema claro/escuro
 ├── js/
-│   ├── app-bridge.js          ponte com o Python: API, HWStore, exportações
+│   ├── app-bridge.js          ponte com o Python (e, no Android, com o Kotlin): API, HWStore,
+│   │                          exportações, compartilhamento de arquivo
 │   ├── app-chrome.js          rodapé do app: versão e acesso à pasta de dados
 │   ├── theme.js               tema claro/escuro (carregado no head, evita flash)
 │   ├── format.js              formatação de preço, score, data, bytes
-│   ├── ui.js                  helpers de DOM, ícones SVG, miniaturas, toasts, modal
+│   ├── ui.js                  helpers de DOM, ícones SVG, miniaturas, toasts, modal, menu suspenso,
+│   │                          clipboard
 │   ├── matcher.js             normalização e casamento model_key <-> base de benchmarks
 │   ├── scoring.js             performance/preço por categoria + diagnóstico de exclusão
 │   ├── builder.js             algoritmo de montagem automática das builds
@@ -490,8 +503,14 @@ exatamente qual é o problema (soquete, memória ou fonte), em vez de um alerta 
 A build em andamento é salva automaticamente (em `dados/decisoes.json`, sob a chave
 `hw-pcbuild-draft-v1`) -- fechar o app no meio de uma montagem não perde o progresso. Com as 6 peças
 escolhidas, **"Salvar build"** guarda uma cópia nomeada (chave `hw-pcbuild-saved-v1`) na lista de
-builds salvas, de onde dá para **baixar a lista** (um `.txt` com nome, preço e link de cada peça,
-gravado em `dados/exportacoes/`), **carregar de volta** para continuar editando, ou **excluir**.
+builds salvas, de onde dá para **carregar de volta** para continuar editando, **excluir**, ou
+**Compartilhar** -- um menu com duas saídas para o mesmo `.txt` (nome, preço e link de cada peça):
+
+- **Baixar Lista (.txt)** -- no Windows grava em `dados/exportacoes/` (ou baixa pelo navegador, fora
+  do app); no Android o rótulo vira "Enviar lista (.txt)" e abre o menu nativo de compartilhamento do
+  sistema, porque ali a pasta do app é privada e nenhum gerenciador de arquivos a alcança.
+- **Copiar para Clipboard** -- o mesmo conteúdo direto na área de transferência, em qualquer
+  plataforma.
 
 ## Atualizando a base de performance
 
