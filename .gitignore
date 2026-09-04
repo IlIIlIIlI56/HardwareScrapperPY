@@ -34,3 +34,9 @@ android/keystore.properties
 # especificos de cada maquina (caminhos de SDK, cache de dispositivos, etc.)
 .idea/
 *.iml
+
+# contexto para o Claude Code -- fica local de proposito, nao versionado: sao
+# notas de arquitetura para quem usa a ferramenta, nao documentacao do
+# projeto (isso e o README.md); e evita que cada maquina que abrir o repo com
+# o Claude Code brigue por dono deste arquivo.
+CLAUDE.md
