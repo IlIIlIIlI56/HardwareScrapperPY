@@ -32,7 +32,7 @@ from urllib.parse import urlsplit
 
 from appcore import bootstrap, paths
 
-APP_VERSION = "1.2.0"
+APP_VERSION = "1.2.1"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
 
 # Nome da janela no Windows: "HardwareScrapper - <aba atual>". O mapeamento e

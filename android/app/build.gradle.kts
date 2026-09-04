@@ -27,8 +27,8 @@ android {
         applicationId = "com.eemovel.hardwarescrapper"
         minSdk = 24
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 4
+        versionName = "1.2.1"
 
         ndk {
             // Python 3.14 do Chaquopy so existe para estes dois -- armeabi-v7a
