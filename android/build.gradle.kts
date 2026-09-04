@@ -6,9 +6,12 @@
 // baixada e usada pelo proprio Android Studio nesta maquina), que troca o
 // plugin Kotlin separado pelo "built-in Kotlin support" (ver
 // android/app/build.gradle.kts) -- por isso nao ha mais um
-// `id("org.jetbrains.kotlin.android")` aqui. Chaquopy 17.0.0 suporta AGP de
-// 7.3.x a 9.2.x, entao 9.0.0 fica dentro do intervalo.
+// `id("org.jetbrains.kotlin.android")` aqui. Chaquopy 17.0.0 documenta suporte
+// oficial a AGP de 7.3.x a 9.2.x -- 9.4.0 fica acima desse teto declarado, mas
+// foi testado manualmente (build + instalacao + coleta + reset, emulador e
+// aparelho fisico) em 04/09/2026 sem nenhum problema. Se uma atualizacao
+// futura do Chaquopy ou do AGP quebrar algo aqui, esta e a primeira suspeita.
 plugins {
-    id("com.android.application") version "9.0.0" apply false
+    id("com.android.application") version "9.4.0" apply false
     id("com.chaquo.python") version "17.0.0" apply false
 }
