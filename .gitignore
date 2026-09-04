@@ -7,6 +7,13 @@ __pycache__/
 # app, nao do repositorio.
 dados/
 
+# products.json NUNCA deve ser versionado dentro de data/: e a semente
+# read-only que ensure_user_data() copia para dados/ quando o arquivo do
+# usuario nao existe (primeira instalacao, ou depois de um reset). Um
+# products.json commitado aqui por engano faz o app "restaurar" dados
+# raspados antigos sempre que deveria comecar vazio -- ja aconteceu.
+data/products.json
+
 # backup automatico do reextract_specs.py
 data/products.json.bak
 dados/products.json.bak
