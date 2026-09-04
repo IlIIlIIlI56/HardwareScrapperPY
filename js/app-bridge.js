@@ -105,7 +105,7 @@
    * navegador fora dele.
    *
    * E um wrapper por composicao, de proposito: saveFile continua servindo os
-   * backups e CSVs da Base de dados sem nenhuma mudanca de comportamento.
+   * backups e CSVs da Database sem nenhuma mudanca de comportamento.
    *
    * Devolve { mode: "share" } | { mode: "app", path, name } |
    *         { mode: "download" } | { mode: "error", error }.
@@ -161,7 +161,7 @@
    *
    * A leitura inicial e a gravacao usam XMLHttpRequest SINCRONO de proposito.
    * A API que isto substitui -- localStorage -- e sincrona, e todo o codigo que
-   * a consome (js/overrides.js e as telas da Base de Dados) foi escrito em
+   * a consome (js/overrides.js e as telas da Database) foi escrito em
    * cima disso: torna-la assincrona espalharia async/await por praticamente
    * todos os modulos. O custo real e desprezivel, porque do outro lado nao ha
    * rede nenhuma, so um arquivo local nesta mesma maquina -- e, no caso da

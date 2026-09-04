@@ -707,7 +707,7 @@
           null,
           state.compatFilterEnabled
             ? 'Desligue "Filtrar por compatibilidade", no topo da seção, para ver todas as peças desta categoria.'
-            : "Não há produtos pontuados nesta categoria com os dados atuais — tente ajustar a busca ou revisar itens pendentes na Base de dados."
+            : "Não há produtos pontuados nesta categoria com os dados atuais — tente ajustar a busca ou revisar itens pendentes na Database."
         )
       );
       results.appendChild(empty);

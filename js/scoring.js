@@ -96,7 +96,7 @@ function scoreGpu(product, benchmarks) {
  * Memoria SO-DIMM (formato de notebook) nao serve numa build desktop --
  * fisicamente incompativel com o encaixe DIMM de uma placa-mae de mesa,
  * independente de capacidade/velocidade estarem corretas. Exportada (nao so
- * usada dentro de scoreRam) para que a pagina Base de Dados possa mostrar o
+ * usada dentro de scoreRam) para que a pagina Database possa mostrar o
  * motivo real da exclusao em vez do generico "specs insuficientes" quando na
  * verdade as specs estao completas e validas.
  */
@@ -208,7 +208,7 @@ function scoreMotherboard(product, benchmarks) {
   // valor da categoria. Como a base nao conhece nenhum processador para elas,
   // o teto assumido e o menor teto conhecido -- pessimista de proposito. Essas
   // placas ja saem das builds por restrictToBuildableSockets; o fator so
-  // conserta a ordenacao mostrada na Base de Dados.
+  // conserta a ordenacao mostrada na Database.
   const platformFactor = (ceiling || min) / max;
 
   return {

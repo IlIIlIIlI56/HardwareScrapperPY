@@ -128,7 +128,7 @@
     if (builds.length === 0) {
       const empty = el("div", "empty-state");
       empty.appendChild(el("strong", null, "Nenhuma build completa com os dados atuais"));
-      empty.appendChild(el("div", null, "Rode a coleta para trazer mais produtos, ou revise itens pendentes na Base de dados."));
+      empty.appendChild(el("div", null, "Rode a coleta para trazer mais produtos, ou revise itens pendentes na Database."));
       container.appendChild(empty);
       return;
     }

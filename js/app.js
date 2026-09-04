@@ -1,6 +1,6 @@
 /**
  * Orquestracao da pagina de builds: carrega os JSONs locais (produtos raspados
- * + base de benchmarks), aplica as decisoes salvas na Base de Dados, roda o
+ * + base de benchmarks), aplica as decisoes salvas na Database, roda o
  * pipeline de pontuacao e montagem, e manda tudo para render.js exibir.
  * Nenhuma etapa aqui e manual -- e o codigo que escolhe as pecas TOP de cada
  * categoria e monta as builds.

@@ -1,5 +1,5 @@
 /**
- * Estado compartilhado da pagina "Base de Dados" e as pecas que os tres
+ * Estado compartilhado da pagina "Database" e as pecas que os tres
  * modulos de UI dela (catalog.js, review.js, benchdb.js, backup.js) precisam
  * dividir: os produtos carregados, a pontuacao em lote, os esquemas de
  * formulario e um mini "pubsub" para redesenhar quem depende do que mudou.

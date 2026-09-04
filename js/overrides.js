@@ -2,7 +2,7 @@
  * Camada de persistencia das decisoes do usuario. Nunca altera
  * dados/products.json nem dados/benchmarks.json: as decisoes ficam numa gaveta
  * a parte e sao aplicadas por cima, a cada carregamento. Usada por app.js
- * (aplica as decisoes antes de pontuar) e pelas telas da pagina Base de Dados
+ * (aplica as decisoes antes de pontuar) e pelas telas da pagina Database
  * (leem e gravam).
  *
  * ONDE elas ficam e responsabilidade de HWStore (js/app-bridge.js): dentro do
@@ -59,7 +59,7 @@ function storageInfo() {
    ========================================================================== */
 
 /**
- * O mapa fica em cache entre gravacoes. A lista da Base de Dados consulta a
+ * O mapa fica em cache entre gravacoes. A lista da Database consulta a
  * decisao de cada um dos ~1500 produtos a cada redesenho; sem cache, isso era
  * um JSON.parse do mapa inteiro por produto, e a pagina engasgava a cada tecla
  * digitada na busca. Toda escrita passa por saveOverrides, que renova o cache,
@@ -464,7 +464,7 @@ function exportAllData() {
   return {
     schema_version: EXPORT_SCHEMA_VERSION,
     app: "HardwareScrapperPY",
-    source: `Base de Dados (${HWStore.describe()})`,
+    source: `Database (${HWStore.describe()})`,
     exported_at: new Date().toISOString(),
     counts: { products: Object.keys(products).length, ...benchmarkCounts() },
     product_overrides: products,

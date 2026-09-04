@@ -193,7 +193,7 @@ HardwareScrapperPY/
 │   ├── make_android_icons.py  gera os ícones do launcher Android com o mesmo desenho
 │   └── icon.ico
 ├── index.html               <- página "Análise": builds automáticas
-├── catalogo.html            <- página "Base de dados": revisão / benchmarks / backup
+├── catalogo.html            <- página "Database": revisão / benchmarks / backup
 ├── build.html               <- página "Build": montagem manual, uma peça de cada vez
 ├── css/style.css              design system: preto e branco + verde-eco, tema claro/escuro
 ├── js/
@@ -215,7 +215,7 @@ HardwareScrapperPY/
 │   ├── review.js              painel de revisão de um produto
 │   ├── benchdb.js             aba "Base de performance": navegar/editar benchmarks e ajustes
 │   ├── backup.js              aba "Backup e exportação"
-│   ├── catalog.js             orquestração da página Base de dados
+│   ├── catalog.js             orquestração da página Database
 │   └── pc-builder.js          orquestração da página Build (montagem manual)
 ├── data/                       SEMENTE que acompanha o app -- não é onde você lê/escreve
 │   └── benchmarks.json           base de performance, copiada para dados/ no primeiro uso
@@ -350,7 +350,7 @@ placa destrava, não exige nenhum campo novo em `benchmarks.json` e se atualiza 
 base de CPUs cresce. Soquetes sem nenhuma CPU na base (FM2+, LGA775) recebem o menor teto conhecido,
 de propósito -- o fator neutro faria justamente a plataforma desconhecida liderar o índice de valor.
 
-## Página "Base de Dados" (`catalogo.html`)
+## Página "Database" (`catalogo.html`)
 
 Três abas.
 
@@ -484,7 +484,7 @@ pasta é copiada, entram no backup por um Ctrl+C na pasta, e não esbarram na co
 
 ## Página "Build" (`build.html`)
 
-Enquanto "Análise" monta builds sozinha e "Base de dados" é sobre curadoria, "Build" é para quem
+Enquanto "Análise" monta builds sozinha e "Database" é sobre curadoria, "Build" é para quem
 quer escolher cada peça na mão: um assistente de 6 etapas, na ordem **CPU > Placa-Mãe > RAM > GPU >
 Armazenamento > Fonte**.
 

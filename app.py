@@ -41,7 +41,7 @@ WINDOW_TITLE = "Builds de Custo-Beneficio"
 APP_NAME = "HardwareScrapper"
 TAB_TITLES = {
     "index.html": "Análise",
-    "catalogo.html": "Base de dados",
+    "catalogo.html": "Database",
     "build.html": "Build",
 }
 

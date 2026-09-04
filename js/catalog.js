@@ -1,5 +1,5 @@
 /**
- * Pagina "Base de Dados": orquestracao das tres abas (produtos, base de
+ * Pagina "Database": orquestracao das tres abas (produtos, base de
  * performance, backup) e a lista de produtos em si -- filtros, ordenacao,
  * paginacao, acoes em lote e o painel de revisao de cada item.
  *
