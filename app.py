@@ -32,7 +32,7 @@ from urllib.parse import urlsplit
 
 from appcore import bootstrap, paths
 
-APP_VERSION = "1.2.2"
+APP_VERSION = "1.2.3"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
 
 # Nome da janela no Windows: "HardwareScrapper - <aba atual>". O mapeamento e
@@ -54,8 +54,23 @@ def _tab_title_for_url(url):
 
 
 def _sync_window_title(window):
-    tab = _tab_title_for_url(window.get_current_url())
-    window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
+    """
+    Chamado no evento `loaded` do pywebview. Alem de aplicar o titulo na hora,
+    reaplica de novo meio segundo depois -- em algumas maquinas o proprio host
+    WinForms/WebView2 do pywebview (compilado em webview/lib/WebBrowserInterop*.dll,
+    fora do alcance de qualquer patch em Python) sincroniza sozinho a legenda
+    nativa da janela com o <title> cru da pagina pouco depois do carregamento,
+    apagando silenciosamente o titulo customizado sem gerar erro nenhum. A
+    segunda aplicacao garante que a NOSSA versao seja a ultima a escrever,
+    em vez de depender de qual das duas ganha a corrida.
+    """
+
+    def apply():
+        tab = _tab_title_for_url(window.get_current_url())
+        window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
+
+    apply()
+    threading.Timer(0.5, apply).start()
 
 
 def open_window(url, debug=False):
