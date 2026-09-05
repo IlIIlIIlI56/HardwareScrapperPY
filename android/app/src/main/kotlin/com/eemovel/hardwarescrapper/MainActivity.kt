@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
@@ -58,7 +59,15 @@ class MainActivity : AppCompatActivity() {
         }
         val entry = Python.getInstance().getModule("appcore.android_entry")
         val dataDir = filesDir.resolve("dados").absolutePath
-        return entry.callAttr("start", dataDir).toString()
+        val downloadDir = File(cacheDir, UPDATE_DIR).absolutePath
+        // A versao vem do PackageManager, e nao do BuildConfig: desde o AGP 8 a
+        // geracao do BuildConfig e desligada por padrao, e o PackageManager tem
+        // a vantagem de ser impossivel de dessincronizar do APK instalado. Sem
+        // isto o default "1.0.0" de android_entry.start() vencia, e o rodape
+        // mostrava uma versao errada -- o que agora tambem faria a checagem de
+        // atualizacao oferecer para sempre uma versao ja instalada.
+        val versionName = packageManager.getPackageInfo(packageName, 0).versionName ?: "0.0.0"
+        return entry.callAttr("start", dataDir, versionName, downloadDir).toString()
     }
 
     override fun onDestroy() {
@@ -127,6 +136,72 @@ class MainActivity : AppCompatActivity() {
                 err.message ?: err.javaClass.simpleName
             }
         }
+
+        /**
+         * O Android exige que o usuario libere este app como fonte confiavel
+         * antes de deixar ele instalar um APK. Nao e permissao de runtime: nao
+         * passa por requestPermissions, e sim por uma tela de Configuracoes.
+         */
+        @JavascriptInterface
+        fun canInstall(): Boolean = packageManager.canRequestPackageInstalls()
+
+        @JavascriptInterface
+        fun requestInstallPermission() {
+            runOnUiThread {
+                startActivity(
+                    Intent(
+                        Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                        Uri.parse("package:$packageName")
+                    ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            }
+        }
+
+        /**
+         * Entrega um APK ja baixado ao instalador do sistema. Mesmo contrato do
+         * shareTextFile: "" quando o Intent foi despachado, a mensagem do erro
+         * quando nao. O "" nao promete que a instalacao aconteceu -- o
+         * resultado do instalador nao volta para o JS, e a recusa mais comum
+         * (assinatura diferente da instalacao atual) so aparece na tela dele.
+         */
+        @JavascriptInterface
+        fun installApk(absolutePath: String): String {
+            return try {
+                val dir = File(cacheDir, UPDATE_DIR)
+                val file = File(absolutePath)
+                // O caminho vem do Python, mas a ponte fica exposta a qualquer
+                // coisa que rode naquele WebView: so aceita um arquivo que
+                // resolve DENTRO da pasta de atualizacao.
+                if (file.canonicalFile.parentFile != dir.canonicalFile || !file.isFile) {
+                    return "arquivo de atualização não encontrado"
+                }
+                val uri = FileProvider.getUriForFile(
+                    this@MainActivity,
+                    "$packageName.fileprovider",
+                    file
+                )
+                runOnUiThread { startInstaller(uri) }
+                ""
+            } catch (err: Exception) {
+                Log.e("ShareBridge", "falha ao instalar", err)
+                err.message ?: err.javaClass.simpleName
+            }
+        }
+    }
+
+    private fun startInstaller(uri: Uri) {
+        val host = Uri.parse(webView.url ?: "").host
+        if (host != "127.0.0.1" && host != "localhost") return
+
+        // Sem guard de resolveActivity, pelo mesmo motivo do startChooser: com
+        // targetSdk 30+ ele devolve null sem um <queries> no manifesto e o
+        // "protetor" viraria a causa do bug. O instalador e do sistema.
+        startActivity(
+            Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/vnd.android.package-archive")
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        )
     }
 
     private fun startChooser(uri: Uri, mimeType: String, subject: String) {
@@ -188,6 +263,10 @@ class MainActivity : AppCompatActivity() {
 
     private companion object {
         const val SHARE_DIR = "compartilhar"
+        // Precisa casar com o <cache-path> de res/xml/file_paths.xml e com o
+        // downloadDir passado ao backend Python -- os tres apontam para a mesma
+        // pasta, e um FileProvider so entrega arquivos de um caminho declarado.
+        const val UPDATE_DIR = "atualizacao"
         const val SHARE_TTL_MS = 60L * 60L * 1000L // 1h: tempo de sobra para o destino ler
         val MIME_RE = Regex("^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$")
     }

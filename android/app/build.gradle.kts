@@ -1,3 +1,4 @@
+import java.io.File
 import java.util.Properties
 
 plugins {
@@ -19,6 +20,26 @@ if (hasReleaseSigning) {
     keystoreProperties.load(keystorePropertiesFile.inputStream())
 }
 
+// android/local.properties: o arquivo por maquina que o proprio Android Studio
+// ja mantem (e que o git ignora). Alem do sdk.dir, e onde pode ficar o
+// chaquopy.buildPython -- ver o comentario em chaquopy { } mais abaixo.
+val localProperties = Properties()
+rootProject.file("local.properties").takeIf { it.exists() }?.let {
+    localProperties.load(it.inputStream())
+}
+
+// Caminho padrao do instalador oficial do Python no Windows, tentado quando
+// nem local.properties nem o PATH resolvem. Devolve null (e deixa o Chaquopy
+// procurar sozinho) em qualquer outro sistema ou se o arquivo nao existir.
+fun defaultWindowsBuildPython(): String? {
+    if (!System.getProperty("os.name").lowercase().contains("windows")) return null
+    val candidate = File(
+        System.getProperty("user.home"),
+        "AppData/Local/Programs/Python/Python314/python.exe"
+    )
+    return candidate.takeIf { it.isFile }?.path
+}
+
 android {
     namespace = "com.eemovel.hardwarescrapper"
     compileSdk = 34
@@ -27,8 +48,8 @@ android {
         applicationId = "com.eemovel.hardwarescrapper"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.2.1"
+        versionCode = 5
+        versionName = "1.2.2"
 
         ndk {
             // Python 3.14 do Chaquopy so existe para estes dois -- armeabi-v7a
@@ -82,18 +103,26 @@ android {
 // com o proprio build do Android.
 chaquopy {
     defaultConfig {
-        // Python embarcado no APK: mesma serie que o app Windows ja roda
-        // (`python app.py` usa 3.14). Chaquopy tambem precisa de um Python
-        // desta versao DISPONIVEL NA MAQUINA DE BUILD (nao no celular) para
-        // resolver os pacotes do pip abaixo -- por padrao ele tenta
-        // "py -3.14", depois "python" no PATH, o que basta no runner Linux
-        // do CI (actions/setup-python coloca o Python certo la). Nesta
-        // maquina Windows especifica isso falhava (nem "py" nem "python" no
-        // PATH que o processo do Gradle enxerga), entao so aqui forcamos o
-        // caminho absoluto do interpretador.
+        // Python embarcado no APK. O Chaquopy tambem precisa de um Python
+        // desta versao DISPONIVEL NA MAQUINA DE BUILD (nao no celular) so para
+        // resolver os pacotes do pip abaixo. Por padrao ele tenta "py -3.14" e
+        // depois "python" no PATH, o que basta no runner Linux do CI
+        // (actions/setup-python coloca o Python certo la).
+        //
+        // Numa maquina Windows onde nenhum dos dois esta no PATH que o Gradle
+        // enxerga, aponte o interpretador em android/local.properties:
+        //
+        //     chaquopy.buildPython=C:/caminho/para/python.exe
+        //
+        // Esse arquivo e ignorado pelo git, que e onde um caminho de maquina
+        // deve morar. Um caminho absoluto cravado AQUI so funciona para quem o
+        // escreveu -- ja aconteceu neste arquivo, e o build falhava em toda
+        // outra maquina com "is not a valid Python 3.14 command".
         version = "3.14"
-        if (System.getProperty("os.name").lowercase().contains("windows")) {
-            buildPython("C:/Users/ratan/AppData/Local/Python/pythoncore-3.14-64/python.exe")
+        val buildPythonPath = localProperties.getProperty("chaquopy.buildPython")
+            ?: defaultWindowsBuildPython()
+        if (buildPythonPath != null) {
+            buildPython(buildPythonPath)
         }
 
         pip {

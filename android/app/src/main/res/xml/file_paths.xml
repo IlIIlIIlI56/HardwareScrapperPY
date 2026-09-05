@@ -9,10 +9,16 @@
     outro aplicativo.
 
     cache-path e o Context.getCacheDir(); "compartilhar/" casa com o SHARE_DIR
-    de MainActivity.kt. Se um dos dois mudar sem o outro, getUriForFile lanca
-    IllegalArgumentException, e esse e o primeiro par a conferir quando o
-    compartilhamento parar de funcionar.
+    de MainActivity.kt e "atualizacao/" com o UPDATE_DIR. Se um dos pares mudar
+    sem o outro, getUriForFile lanca IllegalArgumentException, e esse e o
+    primeiro par a conferir quando o compartilhamento ou a instalacao de uma
+    atualizacao parar de funcionar.
+
+    A pasta de atualizacao esta no cache pelo mesmo motivo: o APK baixado
+    precisa chegar ao instalador do sistema por um content://, e mante-lo aqui
+    evita ter que expor filesDir/dados so por causa disso.
 -->
 <paths>
     <cache-path name="compartilhar" path="compartilhar/" />
+    <cache-path name="atualizacao" path="atualizacao/" />
 </paths>

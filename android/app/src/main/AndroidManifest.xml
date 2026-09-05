@@ -3,6 +3,15 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--
+        Necessaria para o botao "Buscar atualizacoes" entregar o APK baixado ao
+        instalador do sistema. Nao e permissao de runtime: nao passa por
+        requestPermissions, e sim por uma tela de Configuracoes
+        (Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES), e o app checa
+        canRequestPackageInstalls() antes de tentar.
+    -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

@@ -313,5 +313,6 @@
     dataDir: config ? config.dataDir : null,
     exportsDir: config ? config.exportsDir : null,
     canOpenFolder: Boolean(config && config.canOpenFolder),
+    updateMode: (config && config.updateMode) || "link",
   };
 })();

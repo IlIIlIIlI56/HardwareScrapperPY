@@ -27,6 +27,11 @@ O que e servido:
     POST /api/save              -> grava uma exportacao em dados/exportacoes/
     POST /api/open              -> abre uma pasta no Explorer
     POST /api/quit              -> encerra o app
+    GET  /api/update/status     -> resultado da ultima checagem de versao
+    POST /api/update/check      -> checa por uma versao nova (?force=1 ignora
+                                   o cache de 24h)
+    POST /api/update/download   -> baixa o APK da versao nova (so Android)
+    POST /api/update/cancel     -> aborta esse download
 
 A porta e escolhida pelo sistema (bind em 0) em vez de fixada: duas copias do
 app abertas ao mesmo tempo, ou qualquer outro programa ja usando a porta, nao
@@ -77,8 +82,9 @@ EMPTY_PRODUCTS = {
 
 
 class AppServer:
-    def __init__(self, job, version="1.0.0"):
+    def __init__(self, job, updates, version="1.0.0"):
         self.job = job
+        self.updates = updates
         self.version = version
         self.token = secrets.token_urlsafe(24)
         self.resource_root = paths.resource_dir().resolve()
@@ -161,6 +167,10 @@ class AppServer:
             "dataDir": str(self.data_root),
             "exportsDir": str(self.exports_root),
             "canOpenFolder": paths.can_reveal(),
+            # "install" (o app baixa o APK e chama o instalador do sistema) ou
+            # "link" (so avisa e manda para a pagina de download). Decidido
+            # aqui para a interface nao ter que inferir plataforma.
+            "updateMode": self.updates.snapshot()["mode"],
         }
         return (
             "/* gerado por appcore/server.py a cada execucao -- nao editar */\n"
@@ -343,6 +353,11 @@ def _make_handler(app):
                 self._json(HTTPStatus.OK, app.job.snapshot())
             elif path == "/api/ping":
                 self._json(HTTPStatus.OK, {"app": True, "version": app.version})
+            elif path == "/api/update/status":
+                # So le memoria. A rede vive nas threads do UpdateJob, disparadas
+                # pelos POSTs: este metodo nao tem try/except, entao uma excecao
+                # aqui derrubaria a conexao sem resposta nenhuma.
+                self._json(HTTPStatus.OK, app.updates.snapshot())
             else:
                 self._json(HTTPStatus.NOT_FOUND, {"error": "endpoint desconhecido"})
 
@@ -390,6 +405,24 @@ def _make_handler(app):
                     payload = json.loads(self._body() or b"{}")
                     target = targets.get(payload.get("target", "exports"))
                     self._json(HTTPStatus.OK, {"opened": bool(target and paths.reveal(target))})
+
+                elif parsed.path == "/api/update/check":
+                    force = parse_qs(parsed.query).get("force", ["0"])[0] == "1"
+                    started, already = app.updates.check(force=force)
+                    self._json(
+                        HTTPStatus.OK,
+                        {"started": started, "already_running": already},
+                    )
+
+                elif parsed.path == "/api/update/download":
+                    started, already = app.updates.download()
+                    self._json(
+                        HTTPStatus.ACCEPTED,
+                        {"started": started, "already_running": already},
+                    )
+
+                elif parsed.path == "/api/update/cancel":
+                    self._json(HTTPStatus.OK, {"cancelling": app.updates.cancel()})
 
                 elif parsed.path == "/api/quit":
                     self._json(HTTPStatus.OK, {"quitting": True})

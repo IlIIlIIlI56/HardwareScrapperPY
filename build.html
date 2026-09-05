@@ -105,11 +105,13 @@
     <p>
       Aplicativo portátil: tudo o que você coleta e cura fica em <code>dados/</code>, ao lado do
       executável — copiar a pasta leva os dados junto. A análise roda inteira nesta máquina, sobre
-      os arquivos já baixados; a única hora em que o app acessa a internet é durante a coleta.
+      os arquivos já baixados; o app só acessa a internet durante a coleta e ao procurar uma nova
+      versão.
     </p>
     <p class="footer-actions">
       <button id="open-data-folder" class="btn btn-ghost btn-sm" type="button" hidden>Abrir pasta de Dados</button>
       <span id="app-version" class="footer-version"></span>
+      <button id="check-update" class="btn btn-ghost btn-sm" type="button" hidden>Buscar atualizações</button>
     </p>
   </footer>
 
@@ -121,6 +123,7 @@
   <script src="js/render.js"></script>
   <script src="js/overrides.js"></script>
   <script src="js/pc-builder.js"></script>
+  <script src="js/updater.js"></script>
   <script src="js/app-chrome.js"></script>
 </body>
 </html>

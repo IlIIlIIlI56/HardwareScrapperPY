@@ -25,6 +25,9 @@
     folderBtn.addEventListener("click", () => HWApp.openFolder("data"));
   }
 
+  const updateBtn = document.getElementById("check-update");
+  if (updateBtn && window.HWUpdate) HWUpdate.mount(updateBtn);
+
   /**
    * Reset de fabrica, ao lado do botao de tema. So aparece dentro do app
    * porque apagar dados/*.json exige o backend Python (appcore/server.py) --

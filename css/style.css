@@ -210,6 +210,18 @@
   box-sizing: border-box;
 }
 
+/*
+ * O `[hidden] { display: none }` do navegador vem da folha do agente, entao
+ * QUALQUER regra de autor que defina `display` o vence -- inclusive
+ * `.btn { display: inline-flex }`. Sem este !important, o atributo `hidden` e
+ * inerte em todo botao do projeto: os do rodape apareciam fora do aplicativo, e
+ * "Abrir pasta de Dados" aparecia no Android, onde nao ha gerenciador de
+ * arquivos nenhum para abrir.
+ */
+[hidden] {
+  display: none !important;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
 }
@@ -1635,6 +1647,48 @@ a.top-chip:hover {
   font-variant-numeric: tabular-nums;
   color: var(--text-faint);
   opacity: 0.75;
+}
+
+/*
+ * Conteudo do modal de atualizacao. As notas vem do corpo da release em
+ * markdown cru, entao `pre` com quebra automatica: o texto pode ter linhas bem
+ * longas, e um scroll horizontal dentro de um modal e ruim de usar.
+ */
+.update-notes {
+  margin: 6px 0 14px;
+  padding: 10px 12px;
+  max-height: 190px;
+  overflow-y: auto;
+  background: var(--bg-inset);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.update-steps {
+  margin: 0 0 12px;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.update-steps li + li {
+  margin-top: 5px;
+}
+
+/* O botao aqui e um <a> de verdade (target="_blank" e o unico caminho que o
+ * pywebview e a WebView do Android mandam para o navegador do sistema), entao
+ * precisa perder o sublinhado que os links da pagina tem. */
+.update-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.update-cta .btn {
+  text-decoration: none;
 }
 
 /* ========================================================== catalogo ==== */

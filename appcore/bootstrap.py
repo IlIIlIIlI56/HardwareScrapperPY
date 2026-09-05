@@ -9,6 +9,7 @@ import sys
 
 from . import paths
 from .scrape_job import ScrapeJob
+from .updater import UpdateJob
 from . import server as server_module
 
 
@@ -37,6 +38,7 @@ def start_backend(version):
     seeded = paths.ensure_user_data()
     scraper = load_scraper()
     job = ScrapeJob(scraper, paths.products_path())
-    app_server = server_module.AppServer(job, version=version)
+    updates = UpdateJob(version)
+    app_server = server_module.AppServer(job, updates, version=version)
     url = app_server.start()
     return app_server, url, seeded

@@ -40,17 +40,20 @@ WEBVIEW_PROFILE_DIR_NAME = "perfil-janela"
 # comportamento abaixo fica inalterado la.
 _data_dir_override = None
 _resource_dir_override = None
+_download_dir_override = None
 
 
-def configure(data_dir=None, resource_dir=None):
+def configure(data_dir=None, resource_dir=None, download_dir=None):
     """Deixa o host do app (ex.: o lado Android/Kotlin) fixar explicitamente
     onde ficam os recursos somente-leitura e os dados do usuario, em vez de
     depender da deteccao por `sys.frozen`/`__file__` abaixo."""
-    global _data_dir_override, _resource_dir_override
+    global _data_dir_override, _resource_dir_override, _download_dir_override
     if data_dir is not None:
         _data_dir_override = Path(data_dir)
     if resource_dir is not None:
         _resource_dir_override = Path(resource_dir)
+    if download_dir is not None:
+        _download_dir_override = Path(download_dir)
 
 
 def is_frozen():
@@ -98,6 +101,34 @@ def webview_profile_dir():
     para outra maquina -- e a curadoria inteira vive nesse localStorage.
     """
     return data_dir() / WEBVIEW_PROFILE_DIR_NAME
+
+
+def download_dir():
+    """
+    Onde o arquivo de uma atualizacao baixada e guardado.
+
+    No Android NAO pode ser `dados/`: o APK precisa ser entregue ao instalador
+    do sistema por um FileProvider, e o file_paths.xml do projeto expoe de
+    proposito apenas uma pasta estreita dentro do cache -- um `files-path`
+    amplo o bastante para alcancar `dados/` exporia a curadoria inteira. Por
+    isso o lado Kotlin informa esse caminho por paths.configure().
+
+    No Windows nao ha essa restricao e `dados/atualizacao/` e o melhor lugar:
+    e o unico diretorio garantidamente gravavel se o app funciona, fica no
+    mesmo volume (um `move` entre volumes viraria copia de dezenas de MB) e
+    acompanha a pasta portatil.
+    """
+    if _download_dir_override is not None:
+        return _download_dir_override
+    return data_dir() / "atualizacao"
+
+
+def update_cache_path():
+    """Resultado da ultima checagem de atualizacao. Fora de decisoes.json de
+    proposito: aquilo e curadoria do usuario, gravada por XHR sincrono e
+    apagada pelo reset de fabrica -- nada disso faz sentido para o timestamp
+    de uma checagem."""
+    return data_dir() / "atualizacao.json"
 
 
 def products_path():

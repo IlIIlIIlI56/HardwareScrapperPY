@@ -39,6 +39,18 @@ git tag v1.2.0
 git push origin v1.2.0
 ```
 
+**Sempre confira o número da versão antes de criar a tag.** Ele é mantido à mão em **dois** arquivos
+independentes — `APP_VERSION` em `app.py` e `versionName`/`versionCode` em
+`android/app/build.gradle.kts` — e o workflow não mexe em nenhum dos dois: ele só deriva o nome dos
+artefatos da tag. Taguear com os arquivos desatualizados publica pacotes chamados `1.3.0` contendo um
+app que se reporta como `1.2.1`, e a divergência só aparece no rodapé depois de publicada.
+
+Com o botão "Buscar atualizações" isso deixou de ser cosmético: um app que se acha mais antigo do que
+é fica oferecendo eternamente uma versão que já está instalada — e no Android, onde a instalação é
+automática, o usuário não sai desse laço sozinho. Por isso o job `versoes` do `release.yml` falha o
+build quando qualquer um dos dois arquivos não bate com a tag. Ele é a rede de segurança, não a
+substituição da conferência.
+
 Dá para rodar o workflow manualmente pela aba **Actions** (`workflow_dispatch`) sem empurrar tag
 nenhuma -- ele builda os dois artefatos e disponibiliza para download ali mesmo, mas só publica uma
 Release de verdade quando o gatilho foi uma tag.
@@ -122,6 +134,8 @@ HardwareScrapperPY/
 │   ├── paths.py               recursos (só leitura) x dados do usuário (escrita)
 │   ├── server.py              servidor local: interface + API, na mesma origem
 │   ├── scrape_job.py          a coleta em segundo plano, com cancelamento
+│   ├── updater.py             checagem de nova versao no GitHub (e, no Android, o
+│   │                          download do APK) -- ver "Atualizacoes" abaixo
 │   ├── bootstrap.py           sequência de boot do backend, compartilhada Windows/Android
 │   └── android_entry.py       ponto de entrada Android: chamado pelo Kotlin via Chaquopy
 ├── android/                    projeto Gradle/Kotlin do app Android (Chaquopy embarca este
@@ -148,6 +162,7 @@ HardwareScrapperPY/
 │   ├── render.js              renderização da UI de builds (página Análise)
 │   ├── overrides.js           persistência: decisões, benchmarks, apelidos, ajustes, backup
 │   ├── scrape-control.js      painel "Coletar dados agora"
+│   ├── updater.js             botao "Buscar atualizacoes" do rodape
 │   ├── app.js                 orquestração da página Análise
 │   ├── catalog-state.js       estado + pontuação em lote + esquemas de formulário
 │   ├── review.js              painel de revisão de um produto
@@ -449,6 +464,48 @@ builds salvas, de onde dá para **carregar de volta** para continuar editando, *
   sistema, porque ali a pasta do app é privada e nenhum gerenciador de arquivos a alcança.
 - **Copiar para Clipboard** -- o mesmo conteúdo direto na área de transferência, em qualquer
   plataforma.
+
+## Atualizações ("Buscar atualizações", no rodapé)
+
+O botão consulta a API de releases do GitHub e compara com a versão do app. Ele checa sozinho uma vez
+a cada 24h ao abrir — em silêncio, sem modal e sem mostrar erro de rede — e nesse caso apenas fica
+destacado se houver versão nova. O resultado é guardado em `dados/atualizacao.json`: sem esse cache,
+trocar de aba gastaria três das 60 consultas por hora que o GitHub permite sem autenticação, porque o
+rodapé existe nas três páginas.
+
+**O comportamento é diferente nas duas plataformas de propósito.**
+
+No **Windows** o app só avisa: o modal mostra o que mudou e leva à página de download. Não há troca
+automática de arquivos, e a razão é que ela não pagaria o próprio custo. O zip do CI é gerado com
+`Compress-Archive -Path "dist/HardwareScrapper"`, então ele contém uma pasta raiz com apenas o `.exe`
+e `_internal/` — extrair por cima da pasta do app substitui exatamente esses dois itens e **não pode**
+tocar em `dados/`, que nem existe no pacote. O caminho manual já é seguro; automatizá-lo compraria
+heurística de antivírus (um executável não assinado que baixa e substitui outro executável), locks de
+DLL do processo vivo, um ajudante externo para esperar o processo morrer e lógica de rollback — tudo
+rodando na máquina de outra pessoa, sem telemetria.
+
+No **Android** o app baixa o APK e chama o instalador do sistema. Ali não existe alternativa: um APK
+sideloaded não tem loja atrás dele. O instalador faz a troca e `filesDir/dados` sobrevive por garantia
+da plataforma. Três detalhes que precisam andar juntos:
+
+- o APK vai para `cacheDir/atualizacao/`, **não** para `dados/`. O `FileProvider` é estreito de
+  propósito, e um `files-path` largo o bastante para alcançar `dados/` exporia a curadoria inteira;
+- `res/xml/file_paths.xml`, o `UPDATE_DIR` de `MainActivity.kt` e o `download_dir` passado ao Python
+  apontam para a mesma pasta. Se um deles mudar sem os outros, `getUriForFile` lança
+  `IllegalArgumentException`;
+- o app precisa de `REQUEST_INSTALL_PACKAGES` e da liberação do usuário em Configurações
+  (`canRequestPackageInstalls()`). A volta dessa tela não tem callback confiável, então o botão
+  simplesmente recheca a permissão no clique seguinte.
+
+**Armadilha da assinatura.** Um APK instalado a partir de `assembleDebug` usa a chave de debug e o
+Android **recusa** instalar por cima dele o APK de release do CI (`INSTALL_FAILED_UPDATE_INCOMPATIBLE`).
+A única saída é desinstalar, o que apaga `filesDir/dados` — a curadoria inteira. O modal avisa isso
+antes, mas vale lembrar ao testar: para validar o fluxo de instalação de verdade são necessárias duas
+releases assinadas com a **mesma** keystore.
+
+**Testando sem publicar uma release.** A variável de ambiente `HW_UPDATE_REPO` troca o repositório
+consultado (`dono/repo`), o que permite exercitar "tem atualização", "não tem" e o parsing sem tocar
+no repositório de verdade.
 
 ## Atualizando a base de performance
 

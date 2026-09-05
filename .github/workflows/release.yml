@@ -18,7 +18,39 @@ permissions:
   contents: write
 
 jobs:
+  # A versao e mantida a mao em DOIS arquivos e este workflow nao os edita.
+  # Taguear vX.Y.Z com eles desatualizados publica artefatos com o nome novo e
+  # um app que se reporta com o numero velho -- e, como o app agora checa por
+  # atualizacoes, ele passaria a oferecer para sempre uma versao que ja esta
+  # instalada (no Android, onde a instalacao e automatica, isso e um laco do
+  # qual o usuario nao sai). Falhar aqui custa um build; publicar errado custa
+  # uma Release recriada na mao.
+  versoes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Conferir se app.py e build.gradle.kts batem com a tag
+        run: |
+          if [ "$GITHUB_REF_TYPE" != "tag" ]; then
+            echo "Disparo sem tag (workflow_dispatch) -- nada a conferir."
+            exit 0
+          fi
+          tag="${GITHUB_REF_NAME#v}"
+          py=$(sed -n 's/^APP_VERSION *= *"\(.*\)"/\1/p' app.py)
+          gradle=$(sed -n 's/^ *versionName *= *"\(.*\)"/\1/p' android/app/build.gradle.kts)
+          echo "tag=$tag | app.py=$py | build.gradle.kts=$gradle"
+          if [ "$py" != "$tag" ]; then
+            echo "::error file=app.py::APP_VERSION e \"$py\", mas a tag e \"$tag\""
+            exit 1
+          fi
+          if [ "$gradle" != "$tag" ]; then
+            echo "::error file=android/app/build.gradle.kts::versionName e \"$gradle\", mas a tag e \"$tag\""
+            exit 1
+          fi
+
   windows:
+    needs: versoes
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7
@@ -44,6 +76,7 @@ jobs:
           path: HardwareScrapper-*-windows.zip
 
   android:
+    needs: versoes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
