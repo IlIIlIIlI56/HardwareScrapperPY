@@ -142,6 +142,36 @@ keytool -genkeypair -v -keystore sua-keystore.jks -alias seu-alias \
 diferente como um app diferente, então perder a keystore significa que ninguém consegue atualizar por
 cima de uma instalação já existente -- só desinstalar e instalar de novo, perdendo os dados do app.
 
+#### Por que as falhas do Windows não têm equivalente aqui
+
+Uma pergunta que vale responder de uma vez, porque a resposta explica o desenho dos dois lados: os
+quatro problemas que o app Windows teve (janela nativa que não abria, ícone genérico, título errado e
+processos órfãos) **não se propagam para o Android** -- e não por sorte.
+
+- **A marca da web não existe neste caminho.** Ela depende de três coisas que são todas do Windows:
+  fluxo alternativo NTFS, o carregador de assemblies do .NET Framework e o backend WinForms do
+  pywebview. Aqui o APK é instalado pelo instalador do sistema, que valida assinatura em vez de
+  procedência de download, e a WebView é nativa do Android -- não há assembly nenhum para ser
+  recusado.
+- **A falha silenciosa, que era o verdadeiro habilitador, é justamente onde o Android está melhor.**
+  No Windows o aviso de erro ia para um `print` que numa build `console=False` não tem para onde ir.
+  O Chaquopy redireciona o `stdout`/`stderr` do Python para o logcat, então aqui `print` aparece. Os
+  `catch` do `MainActivity.kt` registram com `Log.e` **e** devolvem a mensagem de erro para o JS, em
+  vez de um booleano que esconderia o motivo. E `startBackend()` não tem `try/catch` nenhum de
+  propósito: se o backend falhar, o app quebra alto, com stack trace, em vez de degradar em silêncio
+  para um estado que parece funcionar.
+- **Instância única já vem de duas fontes.** `android:launchMode="singleTask"` no manifesto impede
+  uma segunda Activity, e o guard em `android_entry.start()` devolve a URL do servidor já em pé caso
+  `onCreate` rode de novo no mesmo processo (rotação de tela, por exemplo) -- em vez de subir um
+  segundo servidor numa porta nova. No Windows isso precisou de um Mutex nomeado, escrito à mão.
+- **Não há título de janela para errar.** O rótulo vem do `android:label` do manifesto, não do
+  `<title>` da página.
+
+A lição que sobra, essa sim compartilhada: quando a interface é a mesma HTML nas duas plataformas, um
+erro de plataforma pode se disfarçar de erro de interface. Antes de mexer no HTML/CSS/JS por causa de
+um sintoma visual que só acontece numa das duas, confirme primeiro **de quem é a janela** que está na
+tela.
+
 ## Estrutura do projeto
 
 ```
