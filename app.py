@@ -24,15 +24,18 @@ Modos:
 """
 
 import argparse
+import ctypes
+import os
 import sys
 import threading
 import webbrowser
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 
 from appcore import bootstrap, paths
 
-APP_VERSION = "1.2.3"
+APP_VERSION = "1.2.4"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
 
 # Nome da janela no Windows: "HardwareScrapper - <aba atual>". O mapeamento e
@@ -53,24 +56,79 @@ def _tab_title_for_url(url):
     return TAB_TITLES.get(page)
 
 
+def _debug_log(message):
+    """
+    Diagnostico temporario para o bug do titulo da janela errado em alguns
+    Windows (mostra o <title> cru da pagina em vez de "HardwareScrapper - X").
+    Duas tentativas de correcao as cegas (reforcar a atribuicao, reaplicar
+    depois de meio segundo) nao resolveram, entao em vez de arriscar uma
+    terceira este build grava evidencia de verdade em dados/debug-titulo.log
+    -- sem precisar rodar nenhum script, basta abrir o arquivo. Remover depois
+    que o caso for entendido.
+    """
+    try:
+        line = f"{datetime.now(timezone.utc).isoformat()} {message}\n"
+        with (paths.data_dir() / "debug-titulo.log").open("a", encoding="utf-8") as fh:
+            fh.write(line)
+    except OSError:
+        pass
+
+
+def _native_titles_for_this_process():
+    """
+    Le de volta, direto do Win32 (GetWindowText), os titulos de todas as
+    janelas visiveis deste PROPRIO processo -- ao contrario de `window.title`
+    do pywebview, que so devolve o ultimo valor que NOS escrevemos em Python e
+    nao percebe se algo por baixo trocou a legenda de novo depois.
+    """
+    user32 = ctypes.windll.user32
+    pid = ctypes.c_ulong()
+    found = []
+
+    @ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+    def enum_proc(hwnd, _lparam):
+        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        if pid.value == _CURRENT_PID and user32.IsWindowVisible(hwnd):
+            length = user32.GetWindowTextLengthW(hwnd)
+            if length > 0:
+                buf = ctypes.create_unicode_buffer(length + 1)
+                user32.GetWindowTextW(hwnd, buf, length + 1)
+                found.append(buf.value)
+        return True
+
+    user32.EnumWindows(enum_proc, 0)
+    return found
+
+
+_CURRENT_PID = os.getpid()
+
+
 def _sync_window_title(window):
     """
-    Chamado no evento `loaded` do pywebview. Alem de aplicar o titulo na hora,
-    reaplica de novo meio segundo depois -- em algumas maquinas o proprio host
-    WinForms/WebView2 do pywebview (compilado em webview/lib/WebBrowserInterop*.dll,
-    fora do alcance de qualquer patch em Python) sincroniza sozinho a legenda
-    nativa da janela com o <title> cru da pagina pouco depois do carregamento,
-    apagando silenciosamente o titulo customizado sem gerar erro nenhum. A
-    segunda aplicacao garante que a NOSSA versao seja a ultima a escrever,
-    em vez de depender de qual das duas ganha a corrida.
+    Chamado no evento `loaded` do pywebview. Duas correcoes anteriores
+    (reforcar a atribuicao logo em seguida, reaplicar meio segundo depois)
+    nao resolveram o titulo errado observado em builds publicadas -- entao
+    esta versao, alem de continuar reaplicando, GRAVA evidencia de verdade em
+    dados/debug-titulo.log a cada tentativa: a URL que o pywebview acha que
+    esta carregada, o titulo que mandamos escrever, e o titulo REAL da janela
+    lido de volta via Win32 logo em seguida. Ver _debug_log.
     """
 
-    def apply():
+    def apply(tag):
         tab = _tab_title_for_url(window.get_current_url())
-        window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
+        new_title = f"{APP_NAME} - {tab}" if tab else APP_NAME
+        window.title = new_title
+        _debug_log(
+            f"[{tag}] get_current_url={window.get_current_url()!r} "
+            f"tab={tab!r} title_escrito={new_title!r} "
+            f"titulo_real_apos_escrever={_native_titles_for_this_process()!r}"
+        )
 
-    apply()
-    threading.Timer(0.5, apply).start()
+    apply("imediato")
+    for delay in (0.5, 2.0, 5.0):
+        timer = threading.Timer(delay, apply, args=(f"reforco+{delay}s",))
+        timer.daemon = True
+        timer.start()
 
 
 def open_window(url, debug=False):
@@ -122,6 +180,30 @@ def open_fallback_window(url):
     return False
 
 
+def _acquire_single_instance_lock():
+    """
+    Impede uma segunda copia da janela de abrir por cima da primeira.
+
+    O WebView2 pode levar alguns segundos para subir na primeira vez
+    (cold start), e sem essa trava um duplo-clique impaciente durante essa
+    espera nao reabre a janela existente -- abre uma copia INTEIRA nova, com
+    seu proprio servidor local e sua propria janela. Clicar mais de uma vez
+    empilha 3, 4 processos "HardwareScrapper.exe" independentes, a maioria
+    escondida atras da primeira janela, e o usuario so descobre isso quando
+    o Gerenciador de Tarefas mostra varios e a pasta se recusa a ser movida
+    ou apagada porque um deles ainda esta com ela aberta.
+
+    Um Mutex nomeado do Windows (e nao um arquivo de lock em dados/) e a
+    escolha certa: o proprio SO libera automaticamente quando o processo
+    termina, inclusive num crash -- um arquivo ficaria "preso" apontando para
+    um PID que nao existe mais, e teria que lidar com esse caso a mao.
+    """
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateMutexW(None, False, "Global\\HardwareScrapper-SingleInstance")
+    already_running = ctypes.get_last_error() == 183  # ERROR_ALREADY_EXISTS
+    return already_running
+
+
 def main():
     parser = argparse.ArgumentParser(description=WINDOW_TITLE)
     parser.add_argument("--headless", action="store_true",
@@ -129,6 +211,12 @@ def main():
     parser.add_argument("--debug", action="store_true",
                         help="habilita o DevTools na janela")
     args = parser.parse_args()
+
+    if not args.headless and _acquire_single_instance_lock():
+        message = "O HardwareScrapper ja esta aberto -- feche a janela existente antes de abrir outra."
+        print(message)
+        ctypes.windll.user32.MessageBoxW(None, message, WINDOW_TITLE, 0x40)  # MB_ICONINFORMATION
+        return 1
 
     app_server, url, seeded = bootstrap.start_backend(APP_VERSION)
     if seeded:
