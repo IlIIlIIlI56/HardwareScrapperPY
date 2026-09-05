@@ -84,6 +84,28 @@ O ambiente separado existe para o build não depender do que por acaso esteja in
 sistema: o PyInstaller empacota exatamente as bibliotecas que enxerga, então um ambiente sujo vira um
 executável inflado -- ou, pior, um que funciona na máquina de quem compilou e falha na de destino.
 
+#### Uma build baixada não é o mesmo arquivo que você acabou de compilar
+
+Tudo que sai de um `.zip` baixado pelo navegador herda a "marca da web": um fluxo alternativo NTFS
+chamado `Zone.Identifier`, com `ZoneId=3` ("Internet"), que o extrator do Explorer propaga para cada
+arquivo extraído. O .NET Framework **se recusa a carregar um assembly** de um arquivo marcado assim
+(`Assembly.LoadFrom` levanta `FileLoadException`, HRESULT 0x80131515), e o pywebview depende do .NET:
+ele faz `clr.AddReference` nos assemblies do WebView2 em `_internal/webview/lib/`.
+
+O resultado não se parece nada com a causa. O app abre e funciona -- mas a janela é do Edge em modo
+`--app` (o fallback do `app.py`), com o `<title>` cru da página como legenda, o favicon no lugar do
+ícone, e um `HardwareScrapper.exe` órfão que fica vivo sem janela nenhuma e precisa ser fechado pelo
+Gerenciador de Tarefas. Isso custou três releases e duas correções erradas, porque **não dá para
+reproduzir recompilando localmente**: uma árvore recém-compilada nasce sem a marca, não importa a
+versão do Python, do PyInstaller ou o commit.
+
+O `app.py` agora limpa esse fluxo da própria pasta `_internal/` antes de importar o `webview`, e o
+caminho de fallback grava o traceback em `dados/erros.log`. A lição geral vale para qualquer
+depuração daqui em diante: **numa build `console=False` do PyInstaller não existe stdout nem stderr**,
+então todo `print` num caminho de erro é invisível por construção -- nunca diagnostique uma falha de
+build empacotada por `print`. E se um bug só aparece no artefato publicado, confira
+`Get-Item <arquivo> -Stream Zone.Identifier` antes de desconfiar do build.
+
 ### Android, manual
 
 Requer [Android Studio](https://developer.android.com/studio) (com o SDK do Android configurado) e

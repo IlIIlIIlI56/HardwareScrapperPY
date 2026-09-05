@@ -28,6 +28,7 @@ import ctypes
 import os
 import sys
 import threading
+import traceback
 import webbrowser
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,7 +36,7 @@ from urllib.parse import urlsplit
 
 from appcore import bootstrap, paths
 
-APP_VERSION = "1.2.4"
+APP_VERSION = "1.2.5"
 WINDOW_TITLE = "Builds de Custo-Beneficio"
 
 # Nome da janela no Windows: "HardwareScrapper - <aba atual>". O mapeamento e
@@ -56,79 +57,68 @@ def _tab_title_for_url(url):
     return TAB_TITLES.get(page)
 
 
-def _debug_log(message):
+def _log_problem(message):
     """
-    Diagnostico temporario para o bug do titulo da janela errado em alguns
-    Windows (mostra o <title> cru da pagina em vez de "HardwareScrapper - X").
-    Duas tentativas de correcao as cegas (reforcar a atribuicao, reaplicar
-    depois de meio segundo) nao resolveram, entao em vez de arriscar uma
-    terceira este build grava evidencia de verdade em dados/debug-titulo.log
-    -- sem precisar rodar nenhum script, basta abrir o arquivo. Remover depois
-    que o caso for entendido.
+    Registra em `dados/erros.log` as falhas que o usuario nunca veria de outro
+    jeito. Numa build `console=False` do PyInstaller nao existe stdout nem
+    stderr de verdade: todo `print` cai no vazio. Foi exatamente isso que
+    escondeu por tres releases o motivo real do titulo errado da janela -- o
+    aviso "janela nativa indisponivel" era impresso e ninguem nunca o via.
     """
     try:
         line = f"{datetime.now(timezone.utc).isoformat()} {message}\n"
-        with (paths.data_dir() / "debug-titulo.log").open("a", encoding="utf-8") as fh:
+        with (paths.data_dir() / "erros.log").open("a", encoding="utf-8") as fh:
             fh.write(line)
     except OSError:
         pass
 
 
-def _native_titles_for_this_process():
+def _clear_mark_of_the_web():
     """
-    Le de volta, direto do Win32 (GetWindowText), os titulos de todas as
-    janelas visiveis deste PROPRIO processo -- ao contrario de `window.title`
-    do pywebview, que so devolve o ultimo valor que NOS escrevemos em Python e
-    nao percebe se algo por baixo trocou a legenda de novo depois.
+    Remove a "marca da web" dos arquivos do proprio app antes de o pywebview
+    carregar os assemblies .NET do WebView2.
+
+    Tudo que sai de um .zip baixado da internet herda o fluxo alternativo NTFS
+    `Zone.Identifier` (zona 3, "Internet"). O .NET Framework se recusa a
+    carregar um assembly marcado assim -- `Assembly.LoadFrom` levanta
+    FileLoadException (HRESULT 0x80131515) -- entao o `clr.AddReference` que o
+    pywebview faz nos DLLs em `_internal/webview/lib/` falha, `webview.start()`
+    explode, e o app cai no fallback do Edge em modo `--app`. O sintoma nao
+    parece nada com a causa: a janela abre e funciona, so que com o <title> cru
+    da pagina como legenda, o favicon no lugar do icone do app, e um
+    HardwareScrapper.exe orfao que fica vivo sem janela nenhuma.
+
+    Por isso o bug so aparecia em builds BAIXADAS, e nunca numa recompilacao
+    local (que nasce sem a marca) -- independente de versao de Python, de
+    PyInstaller ou do commit, que foi o que despistou as tentativas anteriores.
+
+    Apagar um fluxo alternativo e so um os.remove no caminho "arquivo:fluxo".
+    Falha silenciosa e aceitavel: numa pasta somente-leitura nao ha o que
+    fazer, e o fallback (agora registrado em erros.log) continua valendo.
     """
-    user32 = ctypes.windll.user32
-    pid = ctypes.c_ulong()
-    found = []
+    if not paths.is_frozen():
+        return 0
 
-    @ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
-    def enum_proc(hwnd, _lparam):
-        user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-        if pid.value == _CURRENT_PID and user32.IsWindowVisible(hwnd):
-            length = user32.GetWindowTextLengthW(hwnd)
-            if length > 0:
-                buf = ctypes.create_unicode_buffer(length + 1)
-                user32.GetWindowTextW(hwnd, buf, length + 1)
-                found.append(buf.value)
-        return True
-
-    user32.EnumWindows(enum_proc, 0)
-    return found
-
-
-_CURRENT_PID = os.getpid()
+    cleared = 0
+    for path in paths.resource_dir().rglob("*"):
+        try:
+            if not path.is_file():
+                continue
+            os.remove(f"{path}:Zone.Identifier")
+            cleared += 1
+        except OSError:
+            pass
+    return cleared
 
 
 def _sync_window_title(window):
     """
-    Chamado no evento `loaded` do pywebview. Duas correcoes anteriores
-    (reforcar a atribuicao logo em seguida, reaplicar meio segundo depois)
-    nao resolveram o titulo errado observado em builds publicadas -- entao
-    esta versao, alem de continuar reaplicando, GRAVA evidencia de verdade em
-    dados/debug-titulo.log a cada tentativa: a URL que o pywebview acha que
-    esta carregada, o titulo que mandamos escrever, e o titulo REAL da janela
-    lido de volta via Win32 logo em seguida. Ver _debug_log.
+    Chamado no evento `loaded` do pywebview: a legenda da janela acompanha a
+    aba aberta. Cada aba e uma pagina servida de verdade, entao trocar de aba
+    dispara um novo `loaded`.
     """
-
-    def apply(tag):
-        tab = _tab_title_for_url(window.get_current_url())
-        new_title = f"{APP_NAME} - {tab}" if tab else APP_NAME
-        window.title = new_title
-        _debug_log(
-            f"[{tag}] get_current_url={window.get_current_url()!r} "
-            f"tab={tab!r} title_escrito={new_title!r} "
-            f"titulo_real_apos_escrever={_native_titles_for_this_process()!r}"
-        )
-
-    apply("imediato")
-    for delay in (0.5, 2.0, 5.0):
-        timer = threading.Timer(delay, apply, args=(f"reforco+{delay}s",))
-        timer.daemon = True
-        timer.start()
+    tab = _tab_title_for_url(window.get_current_url())
+    window.title = f"{APP_NAME} - {tab}" if tab else APP_NAME
 
 
 def open_window(url, debug=False):
@@ -249,9 +239,14 @@ def main():
                 pass
 
         threading.Thread(target=watch_quit, daemon=True).start()
+        _clear_mark_of_the_web()
         open_window(url, debug=args.debug)
     except Exception as exc:
         print(f"[aviso] janela nativa indisponivel ({type(exc).__name__}: {exc}); abrindo no Edge.")
+        _log_problem(
+            "janela nativa indisponivel, abrindo no Edge como alternativa:\n"
+            + traceback.format_exc()
+        )
         open_fallback_window(url)
         try:
             app_server.quit_event.wait()
