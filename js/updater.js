@@ -146,9 +146,10 @@
         const steps = document.createElement("ol");
         steps.className = "update-steps";
         [
-          "Baixe o arquivo .zip da nova versão.",
-          "Extraia o conteúdo por cima da pasta onde o aplicativo está hoje, substituindo os arquivos quando o Windows perguntar.",
-          "Feche este aplicativo e abra o HardwareScrapper.exe de novo.",
+          "Baixe o arquivo .zip da nova versão e extraia numa pasta separada — não precisa ser por cima da atual.",
+          "Na pasta ATUAL do app (botão \"Abrir pasta do app\", logo abaixo), copie a pasta dados inteira.",
+          "Cole essa pasta dados dentro da pasta nova, ao lado do HardwareScrapper.exe que você acabou de extrair.",
+          "Abra o HardwareScrapper.exe de dentro da pasta nova.",
         ].forEach((text) => {
           const item = document.createElement("li");
           item.textContent = text;
@@ -159,7 +160,7 @@
           HWUi.el(
             "p",
             "decision-note",
-            "Sua pasta dados/ não é afetada: produtos coletados, base de performance, curadoria e exportações continuam exatamente como estão — o pacote da atualização nem contém essa pasta."
+            "A pasta dados carrega tudo que você coletou e revisou até agora — produtos, base de performance, curadoria e exportações. Copiá-la para a pasta nova é o que leva todo esse trabalho junto; sem esse passo, a versão nova abre do zero."
           )
         );
 

@@ -30,6 +30,11 @@ datas = [
     ("css", "css"),
     ("js", "js"),
     ("data/benchmarks.json", "data"),
+    # Favicon das 3 paginas (<link rel="icon">). So aparece na barra de tarefas
+    # do Windows 11 e no Alt+Tab: o icone.ico do proprio .exe (abaixo, via
+    # icon=) cobre a janela nativa, mas o WebView2 busca o icone da PAGINA para
+    # essas outras superficies -- sem este arquivo, ele cai no globo generico.
+    ("assets/icon.ico", "assets"),
 ]
 
 # O pywebview carrega as DLLs do WebView2 e os assemblies .NET por caminho, em
